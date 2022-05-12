@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Spawner", menuName = "ScriptableObjects/Spawner")]
+public class SOSpawner : ScriptableObject
+{
+    public List<EnemyProbability> enemyProbability;
+
+    public List<SOEnemy> getFlatList()
+    {
+        List<SOEnemy> arrayEnemys = new List<SOEnemy>();
+
+        foreach (EnemyProbability item in enemyProbability)
+        {
+            arrayEnemys.Add(item.SOEnemy);
+        }
+
+        return arrayEnemys;
+    }
+}
+
+[System.Serializable]
+public class EnemyProbability
+{
+    public SOEnemy SOEnemy;
+    public int probability;
+}
