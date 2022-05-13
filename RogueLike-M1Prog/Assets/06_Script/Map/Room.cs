@@ -46,12 +46,12 @@ public class Room : MonoBehaviour
                 return hit.transform.GetComponentInParent<Room>();
             }*/
             RaycastHit[] hits = Physics.BoxCastAll(col.bounds.center, col.bounds.size / 2, -Vector3.up, transform.rotation, 200);
-            Debug.DrawRay(col.bounds.center, Vector3.up * 1000, Color.yellow, 100);
+            //Debug.DrawRay(col.bounds.center, Vector3.up * 1000, Color.yellow, 100);
             foreach (RaycastHit hit in hits)
             {
                 if (hit.transform.GetComponentInParent<Room>() != this)
                 {
-                    Debug.DrawRay(hit.point, hit.normal * 10, Color.red, 10000);
+                    //Debug.DrawRay(hit.point, hit.normal * 10, Color.red, 10000);
                     RoomHit.Add(hit.transform.GetComponentInParent<Room>());
                 }
             }
@@ -77,7 +77,21 @@ public class Room : MonoBehaviour
         {
             if (!_door.HaveNextToRoom)
             {
-                Instantiate(PrefabWallToReplace, _door.transform.position, _door.transform.rotation);
+                if (_door.DoorDirection == DoorDir.West)
+                {
+                    GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.right * 5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
+                    goWall.transform.SetParent(transform);
+                }
+                else if (_door.DoorDirection == DoorDir.North)
+                {
+                    GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.forward * -5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
+                    goWall.transform.SetParent(transform);
+                }
+                else
+                {
+                    GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position, _door.transform.rotation);
+                    goWall.transform.SetParent(transform);
+                }
                 Destroy(_door.gameObject);
             }
         }

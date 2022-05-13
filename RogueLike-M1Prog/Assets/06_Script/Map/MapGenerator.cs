@@ -8,7 +8,6 @@ public class MapGenerator : MonoBehaviour
 
     public List<Room> Map;
     private List<Room> RoomOneDoor;
-    private int XSizeMap = 10;
     public int MaxXSize = 50;
     public int MaxYSize = 50;
 

@@ -1,3 +1,4 @@
+using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Spawner", menuName = "ScriptableObjects/Spawner")]
 public class SOSpawner : ScriptableObject
 {
+    [MinMaxSlider(0, 100)]
+    public Vector2Int EnnemisToSpawnRange;
     public List<EnemyProbability> enemyProbability;
 
     public List<SOEnemy> getFlatList()
