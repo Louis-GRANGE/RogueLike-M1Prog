@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -7,9 +8,11 @@ public class MapGenerator : MonoBehaviour
     public List<Room> PrefabsRoom;
 
     public List<Room> Map;
-    private List<Room> RoomOneDoor;
+    private List<Room> RoomByNbDoors;
+    public int StartingRoomWithNbDoor = 1;
     public int MaxXSize = 50;
     public int MaxYSize = 50;
+    public int MaxErrorTry = 100;
 
     public Vector2 PartRoomSize;
 
@@ -18,17 +21,25 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         Map = new List<Room>();
-        RoomOneDoor = getRoomOneDoor();
+        RoomByNbDoors = getRoomByNbDoor(StartingRoomWithNbDoor);
 
-        SpawnRoom(0, 0, RoomOneDoor[Random.Range(0, RoomOneDoor.Count)], null);
+        SpawnRoom(0, 0, RoomByNbDoors[Random.Range(0, RoomByNbDoors.Count)], null);
         InitMap();
+
+        StartCoroutine(BuildNavMesh());
+    }
+
+    IEnumerator BuildNavMesh()
+    {
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     void InitMap()
     {
         int errorStop = 0;
         int previousMapCount = 0;
-        while (Map.Count < NumberRooms && errorStop < 100)
+        while (Map.Count < NumberRooms && errorStop < MaxErrorTry)
         {
             if (Map.Count == previousMapCount)
             {
@@ -69,13 +80,13 @@ public class MapGenerator : MonoBehaviour
         return Rooms[Random.Range(0, Rooms.Count)];
     }
 
-    List<Room> getRoomOneDoor()
+    List<Room> getRoomByNbDoor(int NbDoor)
     {
         List<Room> RoomOneDoor = new List<Room>();
 
         foreach (Room RoomInList in PrefabsRoom)
         {
-            if (RoomInList.DoorPlacement.Count == 1)
+            if (RoomInList.DoorPlacement.Count == NbDoor)
             {
                 RoomOneDoor.Add(RoomInList);
             }

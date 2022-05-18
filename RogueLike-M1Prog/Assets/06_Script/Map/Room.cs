@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
 public class Room : MonoBehaviour
 {
     public List<Door> DoorPlacement;
