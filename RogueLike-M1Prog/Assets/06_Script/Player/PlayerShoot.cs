@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour
     [Header("Components")]
     public Transform canon;
     ParticleSystem _cannonFire;
+    Animator _animator;
 
     [Header("Effects")]
     public GameObject laserFX;
@@ -24,6 +25,7 @@ public class PlayerShoot : MonoBehaviour
     private void Awake()
     {
         _cannonFire = canon.GetChild(0).GetComponent<ParticleSystem>();
+        _animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()
@@ -72,13 +74,16 @@ public class PlayerShoot : MonoBehaviour
             if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
                 pointDirection = hit.point;
 
+            pointDirection += new Vector3(Random.Range(-0.3f, 0.3f), 0, Random.Range(-0.3f, 0.3f));
             Vector3 shootDirection = (pointDirection - canon.transform.position).normalized;
             if (Physics.Raycast(canon.transform.position, shootDirection, out hit, 1000))
             {
+                
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
             }
 
+            _animator.SetTrigger("Fire");
             _cannonFire.Play();
         }
     }

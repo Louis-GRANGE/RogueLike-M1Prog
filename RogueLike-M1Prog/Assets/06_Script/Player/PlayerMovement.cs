@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     Rigidbody _rigidbody;
+    Animator _animator;
 
     [Header("Metrics")]
     public float speed;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()
@@ -51,7 +53,14 @@ public class PlayerMovement : MonoBehaviour
     void Movement()
     {
         _rigidbody.velocity = Quaternion.Euler(0, -45, 0) * new Vector3(_movement.x, 0, _movement.y) * speed;
+
+        Vector3 direction = Quaternion.Euler(0, -45, 0) * new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0, Input.GetAxisRaw("Vertical") * 2);
+
+        direction = transform.InverseTransformDirection(direction);
+
+        _animator.SetFloat("MoveX", direction.x);
+        _animator.SetFloat("MoveY", direction.z);
     }
 
-    void UpdateMovementVector() => _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    void UpdateMovementVector() => _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 }
