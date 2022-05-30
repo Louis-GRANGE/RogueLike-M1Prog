@@ -6,9 +6,11 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public List<Door> DoorPlacement;
-    public bool IsBigRoom;
+    public List<Room> NeighboorsRooms;
+    public int SizeRoom;
     private List<BoxCollider> RoomArea;
     public GameObject PrefabWallToReplace;
+    public bool IsCompleted;
 
     private void Awake()
     {
@@ -94,5 +96,29 @@ public class Room : MonoBehaviour
                 Destroy(_door.gameObject);
             }
         }
+    }
+
+    private Vector3 getRandomPointInRoom()
+    {
+        BoxCollider RandomPartOfRoom = RoomArea[Random.Range(0, RoomArea.Count - 1)];
+        return Tools.GetRandomPointInsideCollider(RandomPartOfRoom);
+    }
+
+    private void SpawnAllOfRoomEnnemies()
+    {
+        int NbToSpawn = GameManager.instance.SpawnerRef.SOSpawner.GetRandomNbOfEnnemies() * SizeRoom;
+        for (int i = 0; i < NbToSpawn; i++)
+        {
+            Enemy AISpawned = GameManager.instance.SpawnerRef.SpawnRandomAIOnPos(getRandomPointInRoom());
+            AISpawned.transform.parent = gameObject.transform;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && SizeRoom != 0 && !IsCompleted)
+        {
+            SpawnAllOfRoomEnnemies();
+        }   
     }
 }

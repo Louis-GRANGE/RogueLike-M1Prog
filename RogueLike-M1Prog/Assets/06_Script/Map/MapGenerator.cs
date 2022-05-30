@@ -23,7 +23,7 @@ public class MapGenerator : MonoBehaviour
         Map = new List<Room>();
         RoomByNbDoors = getRoomByNbDoor(StartingRoomWithNbDoor);
 
-        SpawnRoom(0, 0, RoomByNbDoors[Random.Range(0, RoomByNbDoors.Count)], null);
+        SpawnRoom(0, 0, RoomByNbDoors[Random.Range(0, RoomByNbDoors.Count)], null, null);
         InitMap();
 
         StartCoroutine(BuildNavMesh());
@@ -94,7 +94,7 @@ public class MapGenerator : MonoBehaviour
         return RoomOneDoor;
     }
 
-    void SpawnRoom(float PosX, float PosY, Room room, Door DoorConnect)
+    void SpawnRoom(float PosX, float PosY, Room room, Door DoorConnect, Room Neighboor)
     {
         DoorDir oppositeDoor;
         Room roomInst;
@@ -107,6 +107,7 @@ public class MapGenerator : MonoBehaviour
                     oppositeDoor = DoorConnect.GetOppositeDir();
                     roomInst = Instantiate(room, new Vector3(PosX - room.getDoorPosByDirection(oppositeDoor).transform.localPosition.x, 0, PosY - room.getDoorPosByDirection(oppositeDoor).transform.localPosition.z), Quaternion.identity);
                     roomInst.name = PosX + " " + PosY;
+                    roomInst.transform.parent = gameObject.transform;
                     List<Room> OnHitRoom = roomInst.HaveRoomOnIt();
                     if (OnHitRoom.Count > 0)
                     {
@@ -117,12 +118,15 @@ public class MapGenerator : MonoBehaviour
                         Map.Add(roomInst);
                         DoorConnect.HaveNextToRoom = true;
                         roomInst.getDoorPosByDirection(oppositeDoor).HaveNextToRoom = true;
+                        roomInst.NeighboorsRooms.Add(Neighboor);
+                        Neighboor.NeighboorsRooms.Add(roomInst);
                     }
                 }
             }
             else
             {
                 roomInst = Instantiate(room, new Vector3(PosX + room.DoorPlacement[0].transform.localPosition.x, 0, PosY + room.DoorPlacement[0].transform.localPosition.z), Quaternion.identity);
+                roomInst.transform.parent = gameObject.transform;
                 roomInst.name = PosX + " " + PosY;
                 Map.Add(roomInst);
             }
@@ -136,7 +140,7 @@ public class MapGenerator : MonoBehaviour
             if (!Place.HaveNextToRoom)
             {
                 Room newRoom = getRoomWithDoorDir(Place.GetOppositeDir());
-                SpawnRoom(Place.transform.position.x, Place.transform.position.z, newRoom, Place);
+                SpawnRoom(Place.transform.position.x, Place.transform.position.z, newRoom, Place, MyRoom);
             }
         }
     }
@@ -153,5 +157,7 @@ public class MapGenerator : MonoBehaviour
         }
         return Rooms[Random.Range(0, Rooms.Count)];
     }
+
+
 }
 

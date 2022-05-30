@@ -21,6 +21,11 @@ public class SOSpawner : ScriptableObject
 
         return arrayEnemys;
     }
+
+    public int GetRandomNbOfEnnemies()
+    {
+        return Random.Range(EnnemisToSpawnRange.x, EnnemisToSpawnRange.y);
+    }
 }
 
 [System.Serializable]
