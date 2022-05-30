@@ -73,9 +73,11 @@ MonoBehaviour:
   - {fileID: 3856942661279709058}
   - {fileID: 628112882932464171}
   NeighboorsRooms: []
+  Enemies: []
   SizeRoom: 2
   PrefabWallToReplace: {fileID: 1483115249047146, guid: 558510d06d2efb441bb5308b93053816,
     type: 3}
+  IsCompleted: 0
 --- !u!65 &3868693263132071878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -988,6 +990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
       propertyPath: DoorDirection
       value: 1
       objectReference: {fileID: 0}
@@ -1082,6 +1089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
@@ -1434,6 +1446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
       propertyPath: DoorDirection
       value: 3
       objectReference: {fileID: 0}
@@ -1528,6 +1545,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}

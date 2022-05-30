@@ -20,6 +20,7 @@ public class Door : MonoBehaviour
     private Vector3 _closePos;
     private Vector3 _openPos;
     private bool _isOpen = false;
+    public bool CanOpenDoor = true;
     private float speed = 15;
 
     private void Awake()
@@ -81,7 +82,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && CanOpenDoor)
         {
             OpenDoor(true);
         }

@@ -66,9 +66,11 @@ MonoBehaviour:
   - {fileID: 6573583304327880110}
   - {fileID: 4546616568737353814}
   NeighboorsRooms: []
+  Enemies: []
   SizeRoom: 1
   PrefabWallToReplace: {fileID: 1483115249047146, guid: 558510d06d2efb441bb5308b93053816,
     type: 3}
+  IsCompleted: 0
 --- !u!65 &3345685672622851895
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -395,6 +397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7321698426030899729, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
@@ -1198,6 +1205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}

@@ -7,14 +7,32 @@ public class Room : MonoBehaviour
 {
     public List<Door> DoorPlacement;
     public List<Room> NeighboorsRooms;
+    public List<Enemy> Enemies;
+
+
     public int SizeRoom;
     private List<BoxCollider> RoomArea;
     public GameObject PrefabWallToReplace;
+
     public bool IsCompleted;
+    private bool _haveSpawnEnnemies;
 
     private void Awake()
     {
         RoomArea = GetComponents<BoxCollider>().ToList();
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            for(int i = 0; i < Enemies.Count; i++)
+            {
+                Enemy item = Enemies[i];
+                Destroy(item.gameObject);
+            }
+            Enemies.Clear();
+        }
     }
 
     public Door getDoorPosByDirection(DoorDir direction)
@@ -110,15 +128,33 @@ public class Room : MonoBehaviour
         for (int i = 0; i < NbToSpawn; i++)
         {
             Enemy AISpawned = GameManager.instance.SpawnerRef.SpawnRandomAIOnPos(getRandomPointInRoom());
+            AISpawned.onAIDeath.AddListener(SendEndRoom);
+            Enemies.Add(AISpawned);
             AISpawned.transform.parent = gameObject.transform;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && SizeRoom != 0 && !IsCompleted)
+        if (other.CompareTag("Player") && SizeRoom != 0 && !_haveSpawnEnnemies)
         {
             SpawnAllOfRoomEnnemies();
+            _haveSpawnEnnemies = true;
+            foreach (Door door in DoorPlacement)
+            {
+                door.CanOpenDoor = false;
+            }
         }   
+    }
+
+    public void SendEndRoom()
+    {
+        if (Enemies.Count <= 0)
+        {
+            foreach (Door item in DoorPlacement)
+            {
+                item.CanOpenDoor = true;
+            }
+        }
     }
 }

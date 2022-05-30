@@ -60,9 +60,12 @@ MonoBehaviour:
   DoorPlacement:
   - {fileID: 9212266941509740484}
   - {fileID: 8329980006258018326}
-  IsBigRoom: 0
+  NeighboorsRooms: []
+  Enemies: []
+  SizeRoom: 0
   PrefabWallToReplace: {fileID: 1483115249047146, guid: 558510d06d2efb441bb5308b93053816,
     type: 3}
+  IsCompleted: 0
 --- !u!65 &8677861178028633304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -266,6 +269,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
       propertyPath: DoorDirection
       value: 3
       objectReference: {fileID: 0}
@@ -355,6 +363,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: CanOpenDoor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4728550778398220575, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
