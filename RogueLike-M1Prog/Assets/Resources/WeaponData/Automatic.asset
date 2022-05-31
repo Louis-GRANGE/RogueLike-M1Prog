@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 253542056378102157, guid: 63767cacde993fa479f5c680f94060b6,
     type: 3}
+  weaponItem: {fileID: 204286489324876618, guid: 91fff7f0e32dae24196cf431df93675b,
+    type: 3}
   damages: 3
   fireLatency: 0.08
+  munitionEffect: {fileID: 2170792420238155298, guid: 01f704ea5bb2a8444be28ff305e841a0,
+    type: 3}

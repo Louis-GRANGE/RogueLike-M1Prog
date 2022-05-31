@@ -10,14 +10,17 @@ public class PlayerShoot : MonoBehaviour
     [Header("External Components")]
     public Transform weaponHandler;
     Transform _canon;
-    Weapon _weapon;
 
     [Header("Internal Components")]
     ParticleSystem _cannonFire;
     Animator _animator;
 
+    [Header("Equipped weapon")]
+    Weapon _weapon;
+    WeaponData _weaponData;
+
     [Header("Effects")]
-    public GameObject laserFX;
+    GameObject _laserFX;
     Transform _laserPool;
     public GameObject hitFX;
     Transform _hitPool;
@@ -76,6 +79,10 @@ public class PlayerShoot : MonoBehaviour
 
     public void EquipWeapon(WeaponData _newWeapon)
     {
+        if (_weaponData)
+            DropWeapon(_weaponData);
+        _weaponData = _newWeapon;
+
         _weapon = Instantiate(_newWeapon.weaponPrefab, weaponHandler).GetComponent<Weapon>();
         _canon = _weapon.canon;
         _cannonFire = _canon.GetChild(0).GetComponent<ParticleSystem>();
@@ -90,7 +97,7 @@ public class PlayerShoot : MonoBehaviour
         _laserPool.gameObject.SetActive(false);
         for (int i = 0; i < 50; i++)
         {
-            GameObject newLaser = Instantiate(laserFX, transform.position, transform.rotation, _laserPool);
+            GameObject newLaser = Instantiate(_newWeapon.munitionEffect, transform.position, transform.rotation, _laserPool);
             newLaser.GetComponent<LaserEffect>().Initiate(_laserPool);
         }
 
@@ -109,6 +116,14 @@ public class PlayerShoot : MonoBehaviour
         _fireRateTime = fireRateLatency;
 
         _animator.SetTrigger("Equip");
+    }
+
+    public void DropWeapon(WeaponData _droppedWeapon)
+    {
+        Vector3 dropPosition = transform.position + transform.forward;
+        GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
+
+        droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
     }
 
     public void Interact()
