@@ -9,12 +9,13 @@ public class Enemy : MonoBehaviour
     public SOEnemy SOEnemy;
     private NavMeshAgent _navMeshAgent;
 
-    public UnityEvent onAIDeath;
+    public Room RefInRoom;
+    public int AIIndex;
 
     private void OnDestroy()
     {
         GameManager.instance.EnemyManagerRef.Enemies.Remove(this);
-        onAIDeath.Invoke();
+        RefInRoom.SendAIDied(this);
     }
 
     void Start()

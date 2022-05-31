@@ -1,3 +1,4 @@
+using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -7,41 +8,80 @@ public class MapGenerator : MonoBehaviour
 {
     public List<Room> PrefabsRoom;
 
-    public List<Room> Map;
+    public Portal PrefabPortal;
+
+    public List<Room> Rooms;
+
     private List<Room> RoomByNbDoors;
+
+    [MinMaxSlider(0, 100)]
+    public Vector2Int RoomToSpawnRange = new Vector2Int(10, 20);
+    public int NumberMaxRoom;
+
     public int StartingRoomWithNbDoor = 1;
-    public int MaxXSize = 50;
-    public int MaxYSize = 50;
+    private int MaxXSize = 50;
+    private int MaxYSize = 50;
     public int MaxErrorTry = 100;
 
     public Vector2 PartRoomSize;
 
-    public int NumberRooms;
-
     private void Start()
     {
-        Map = new List<Room>();
+        LevelManager.instance.RefMapGenerator = this;
+        MaxXSize = RoomToSpawnRange.y;
+        MaxYSize = RoomToSpawnRange.y;
+
+        InitMap();
+    }
+
+    IEnumerator EndOfMapGeneration()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // Check if there is amount of map enter slider
+        if (Rooms.Count < RoomToSpawnRange.x)
+        {
+            foreach (Room MyRoom in Rooms)
+            {
+                Destroy(MyRoom.gameObject);
+            }
+            Rooms.Clear();
+            InitMap();
+        }
+        else
+        {
+            Rooms[0].IsCompleted = true;
+            Rooms[0].ActiveMinimap(true);
+            Debug.Log("[Mapgenerator] " + Rooms.Count);
+            LevelManager.instance.Rooms = new List<Room>(Rooms);
+            LevelManager.instance.Callback_OnRoomFinish.Invoke(Rooms[0]); // Send to LevelManager the end of first map
+            Rooms.Clear();
+
+            GetComponent<NavMeshSurface>().BuildNavMesh();
+            //Destroy(this, 0.1f);
+            LevelManager.instance.Callback_OnMapEndGeneration.Invoke(); // Send to LevelManager the end of generation
+        }
+    }
+
+    public void SpawnPortal(Room roomFinish)
+    {
+        Instantiate(PrefabPortal, roomFinish.transform.position + Vector3.up, Quaternion.identity);
+    }
+
+    public void InitMap()
+    {
+        NumberMaxRoom = Random.Range(RoomToSpawnRange.x, RoomToSpawnRange.y);
+        Rooms = new List<Room>();
+
         RoomByNbDoors = getRoomByNbDoor(StartingRoomWithNbDoor);
 
         SpawnRoom(0, 0, RoomByNbDoors[Random.Range(0, RoomByNbDoors.Count)], null, null);
-        InitMap();
 
-        StartCoroutine(BuildNavMesh());
-    }
-
-    IEnumerator BuildNavMesh()
-    {
-        yield return new WaitForSeconds(0.1f);
-        GetComponent<NavMeshSurface>().BuildNavMesh();
-    }
-
-    void InitMap()
-    {
         int errorStop = 0;
         int previousMapCount = 0;
-        while (Map.Count < NumberRooms && errorStop < MaxErrorTry)
+        while (Rooms.Count < NumberMaxRoom && errorStop < MaxErrorTry)
         {
-            if (Map.Count == previousMapCount)
+            if (Rooms.Count == previousMapCount)
             {
                 errorStop++;
             }
@@ -49,28 +89,22 @@ public class MapGenerator : MonoBehaviour
             {
                 errorStop = 0;
             }
-            previousMapCount = Map.Count;
+            previousMapCount = Rooms.Count;
             SpawnRoomsOnDoorOfRoom(getRandomRoomWithNoAllDoorConnected());
         }
 
-        foreach (Room MyRoom in Map)
+        foreach (Room MyRoom in Rooms)
         {
             MyRoom.ReplaceAllWallWithoutRoom();
         }
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            SpawnRoomsOnDoorOfRoom(getRandomRoomWithNoAllDoorConnected());
-        }
+        StartCoroutine(EndOfMapGeneration());
     }
 
     Room getRandomRoomWithNoAllDoorConnected()
     {
         List<Room> Rooms = new List<Room>();
-        foreach (Room MyRoom in Map)
+        foreach (Room MyRoom in this.Rooms)
         {
             if (MyRoom.HaveDoorNotConnect())
             {
@@ -97,8 +131,8 @@ public class MapGenerator : MonoBehaviour
     void SpawnRoom(float PosX, float PosY, Room room, Door DoorConnect, Room Neighboor)
     {
         DoorDir oppositeDoor;
-        Room roomInst;
-        if (Map.Count < NumberRooms && Mathf.Abs(PosX) < MaxXSize && Mathf.Abs(PosY) < MaxYSize)
+        Room roomInst = null;
+        if (Rooms.Count < NumberMaxRoom && Mathf.Abs(PosX) < MaxXSize && Mathf.Abs(PosY) < MaxYSize)
         {
             if (DoorConnect)
             {
@@ -115,7 +149,7 @@ public class MapGenerator : MonoBehaviour
                     }
                     else
                     {
-                        Map.Add(roomInst);
+                        Rooms.Add(roomInst);
                         DoorConnect.HaveNextToRoom = true;
                         roomInst.getDoorPosByDirection(oppositeDoor).HaveNextToRoom = true;
                         roomInst.NeighboorsRooms.Add(Neighboor);
@@ -128,7 +162,7 @@ public class MapGenerator : MonoBehaviour
                 roomInst = Instantiate(room, new Vector3(PosX + room.DoorPlacement[0].transform.localPosition.x, 0, PosY + room.DoorPlacement[0].transform.localPosition.z), Quaternion.identity);
                 roomInst.transform.parent = gameObject.transform;
                 roomInst.name = PosX + " " + PosY;
-                Map.Add(roomInst);
+                Rooms.Add(roomInst);
             }
         }
     }
@@ -157,7 +191,5 @@ public class MapGenerator : MonoBehaviour
         }
         return Rooms[Random.Range(0, Rooms.Count)];
     }
-
-
 }
 

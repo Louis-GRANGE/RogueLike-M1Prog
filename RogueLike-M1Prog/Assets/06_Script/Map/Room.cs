@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+public class Room : AMinimap
 {
     public List<Door> DoorPlacement;
     public List<Room> NeighboorsRooms;
@@ -20,18 +20,24 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         RoomArea = GetComponents<BoxCollider>().ToList();
+        if (SizeRoom == 0)
+        {
+            IsCompleted = true;
+        }
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            for(int i = 0; i < Enemies.Count; i++)
+            if(Enemies.Count > 0)
             {
-                Enemy item = Enemies[i];
-                Destroy(item.gameObject);
+                Destroy(Enemies[Random.Range(0, Enemies.Count)].gameObject);
             }
-            Enemies.Clear();
+            else
+            {
+                Enemies.Clear();
+            }
         }
     }
 
@@ -128,7 +134,8 @@ public class Room : MonoBehaviour
         for (int i = 0; i < NbToSpawn; i++)
         {
             Enemy AISpawned = GameManager.instance.SpawnerRef.SpawnRandomAIOnPos(getRandomPointInRoom());
-            AISpawned.onAIDeath.AddListener(SendEndRoom);
+            AISpawned.RefInRoom = this;
+            AISpawned.AIIndex = i;
             Enemies.Add(AISpawned);
             AISpawned.transform.parent = gameObject.transform;
         }
@@ -136,25 +143,43 @@ public class Room : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && SizeRoom != 0 && !_haveSpawnEnnemies)
+        if (other.CompareTag("Player"))
         {
-            SpawnAllOfRoomEnnemies();
-            _haveSpawnEnnemies = true;
-            foreach (Door door in DoorPlacement)
+            if (!IsActiveMinimap)
             {
-                door.CanOpenDoor = false;
+                ActiveMinimap(true);
             }
-        }   
+            if (!_haveSpawnEnnemies && LevelManager.instance.MapGenerationEnd && !IsCompleted)
+            {
+                if (SizeRoom != 0)
+                {
+                    SpawnAllOfRoomEnnemies();
+                    _haveSpawnEnnemies = true;
+                    foreach (Door door in DoorPlacement)
+                    {
+                        door.CanOpenDoor = false;
+                    }
+                }
+                else
+                {
+                    IsCompleted = true;
+                }
+            }
+
+        }
     }
 
-    public void SendEndRoom()
+    public void SendAIDied(Enemy enemyIndex)
     {
-        if (Enemies.Count <= 0)
+        Enemies.Remove(enemyIndex);
+        if (Enemies.Count == 0 && !IsCompleted)
         {
+            IsCompleted = true;
             foreach (Door item in DoorPlacement)
             {
                 item.CanOpenDoor = true;
             }
+            LevelManager.instance.Callback_OnRoomFinish?.Invoke(this);
         }
     }
 }

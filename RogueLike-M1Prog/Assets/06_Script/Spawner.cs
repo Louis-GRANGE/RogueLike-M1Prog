@@ -13,20 +13,8 @@ public class Spawner : MonoBehaviour
         SOEnemies = SOSpawner.getFlatList();
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            int index = Random.Range(0, SOEnemies.Count);
-            Debug.Log(SOEnemies.Count);
-            Enemy enemy = Instantiate(SOEnemies[index].Prefab, transform.position/* + Random.insideUnitSphere * 5*/, Quaternion.identity);
-            enemy.SOEnemy = SOEnemies[index];
-        }
-    }
-
     public Enemy SpawnRandomAIOnPos(Vector3 pos)
     {
-        int randomRangeSpawnEntities = Random.Range(SOSpawner.EnnemisToSpawnRange.x, SOSpawner.EnnemisToSpawnRange.y);
         int index = Random.Range(0, SOEnemies.Count);
         Enemy enemy = Instantiate(SOEnemies[index].Prefab, pos, Quaternion.identity);
         GameManager.instance.EnemyManagerRef.Enemies.Add(enemy);
