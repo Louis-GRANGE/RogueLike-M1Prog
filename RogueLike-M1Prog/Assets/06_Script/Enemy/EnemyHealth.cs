@@ -67,6 +67,9 @@ public class EnemyHealth : MonoBehaviour
     {
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
+        //TO REMOVE
+        Destroy(gameObject, 0.1f);
+
         GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Ragdoll/EnemyRagdoll"), transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);

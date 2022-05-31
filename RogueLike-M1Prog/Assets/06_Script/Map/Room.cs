@@ -9,6 +9,7 @@ public class Room : AMinimap
     public List<Room> NeighboorsRooms;
     public List<Enemy> Enemies;
 
+    public System.Action OnPlayerEnter;
 
     public int SizeRoom;
     private List<BoxCollider> RoomArea;
@@ -145,6 +146,7 @@ public class Room : AMinimap
     {
         if (other.CompareTag("Player"))
         {
+            OnPlayerEnter?.Invoke();
             if (!IsActiveMinimap)
             {
                 ActiveMinimap(true);
