@@ -29,6 +29,12 @@ public class PlayerShoot : MonoBehaviour
     public float fireRateLatency;
     float _fireRateTime;
 
+    [Header("Damages")]
+    public int damages;
+
+    [Header("Interaction")]
+    Collider _lastInteracted;
+
     private void Awake()
     {
         _animator = transform.GetChild(0).GetComponent<Animator>();
@@ -88,6 +94,7 @@ public class PlayerShoot : MonoBehaviour
         _cannonFire = _canon.GetChild(0).GetComponent<ParticleSystem>();
 
         fireRateLatency = _newWeapon.fireLatency;
+        damages = _newWeapon.damages;
 
         if(_laserPool)
             Destroy(_laserPool.gameObject);
@@ -133,11 +140,31 @@ public class PlayerShoot : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
         {
+            if(hit.collider != _lastInteracted)
+            {
+                if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
+                    _lastInteracted.GetComponent<WeaponItem>().HideShown();
+                _lastInteracted = hit.collider;
+                if (hit.collider.GetComponent<WeaponItem>())
+                    _lastInteracted.GetComponent<WeaponItem>().ActualizeShown();
+            }
+                
+
             if (hit.collider.GetComponent<WeaponItem>() && Vector3.Distance(transform.position, hit.point) < 3f && Input.GetKeyDown(KeyCode.E))
             {
+                WeaponItem weaponItem = hit.collider.GetComponent<WeaponItem>();
+
                 Destroy(_weapon);
-                EquipWeapon(hit.collider.GetComponent<WeaponItem>().weaponData);
-                Destroy(hit.collider.gameObject);
+                EquipWeapon(weaponItem.weaponData);
+                weaponItem.Desactivate();
+            }
+        }
+        else
+        {
+            if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
+            {
+                _lastInteracted.GetComponent<WeaponItem>().HideShown();
+                _lastInteracted = null;
             }
         }
     }
