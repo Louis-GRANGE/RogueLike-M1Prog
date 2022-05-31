@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7242982719774133934}
   - component: {fileID: 6398572885954959661}
   - component: {fileID: 2084948403363706168}
+  - component: {fileID: 2781457673250999692}
   - component: {fileID: 6819768273181917085}
   m_Layer: 0
   m_Name: Cube
@@ -200,6 +201,18 @@ MonoBehaviour:
   onAIDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2781457673250999692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9121115735939484807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7517748daab904e97e1c0077ed22f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &6819768273181917085
 NavMeshAgent:
   m_ObjectHideFlags: 0

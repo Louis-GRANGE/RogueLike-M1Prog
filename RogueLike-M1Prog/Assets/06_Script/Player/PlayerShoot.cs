@@ -74,7 +74,9 @@ public class PlayerShoot : MonoBehaviour
             Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
             if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
             {
-                
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth)
+                    enemyHealth.TakeDamage(damages);
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
             }
