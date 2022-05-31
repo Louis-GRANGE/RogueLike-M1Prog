@@ -73,6 +73,16 @@ public class EnemyHealth : MonoBehaviour
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Player.Instance.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
+        DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"));
+
         gameObject.SetActive(false);
+    }
+
+    void DropWeapon(WeaponData _droppedWeapon)
+    {
+        Vector3 dropPosition = transform.position + transform.forward;
+        GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
+
+        droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
     }
 }
