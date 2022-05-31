@@ -34,12 +34,18 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _health = Mathf.Clamp(_health - damage, 0, maxHealth);
+        if(_health > 0)
+        {
+            _health = Mathf.Clamp(_health - damage, 0, maxHealth);
 
-        _healthBar.fillAmount = (float)_health/(float)maxHealth;
-        _healthBarMemoryAnim.SetTrigger("Hit");
+            _healthBar.fillAmount = (float)_health / (float)maxHealth;
+            _healthBarMemoryAnim.SetTrigger("Hit");
 
-        _memorizeLatency = 0;
+            _memorizeLatency = 0;
+
+            if (_health <= 0)
+                Death();
+        }
     }
 
     private void Update()
@@ -47,7 +53,7 @@ public class EnemyHealth : MonoBehaviour
         if(_memorizedHealth > _health)
         {
             
-            if(_memorizeLatency < 1f)
+            if(_memorizeLatency < 0.5f)
                 _memorizeLatency += Time.deltaTime;
             else
             {
@@ -55,5 +61,18 @@ public class EnemyHealth : MonoBehaviour
                 _healthBarMemory.fillAmount = _memorizedHealth / (float)maxHealth;
             }
         }
+    }
+
+    void Death()
+    {
+        Destroy(_healthBar.transform.parent.parent.gameObject);
+
+        GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Ragdoll/EnemyRagdoll"), transform.position, transform.rotation);
+
+        ragdoll.transform.position -= new Vector3(0, 1, 0);
+
+        ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Player.Instance.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
+
+        gameObject.SetActive(false);
     }
 }

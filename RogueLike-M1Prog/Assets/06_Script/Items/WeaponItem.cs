@@ -5,11 +5,15 @@ using TMPro;
 
 public class WeaponItem : IItem
 {
+    [Header("External References")]
     Player _Player;
 
+    [Header("Data")]
     public WeaponData weaponData;
 
+    [Header("FollowingUI")]
     FollowingUI _followingUI;
+    GameObject _equipText;
 
     private void Start()
     {
@@ -17,7 +21,10 @@ public class WeaponItem : IItem
 
         _followingUI = Instantiate(Resources.Load<GameObject>("UI/WeaponPanel"), FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
         _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
-        
+
+        _equipText = _followingUI.transform.GetChild(0).GetChild(3).gameObject;
+
+
         HideShown();
     }
 
@@ -44,6 +51,15 @@ public class WeaponItem : IItem
         _followingUI.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = fireRate;
 
         _followingUI.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void Update()
+    {
+        float distance = Vector3.Distance(_Player.transform.position, transform.position);
+        if (distance <= 3 && !_equipText.activeSelf)
+            _equipText.SetActive(true);
+        else if (distance > 3 && _equipText.activeSelf)
+            _equipText.SetActive(false);
     }
 
     public void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);

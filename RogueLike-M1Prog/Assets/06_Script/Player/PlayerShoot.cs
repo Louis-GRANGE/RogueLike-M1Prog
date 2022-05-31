@@ -68,9 +68,14 @@ public class PlayerShoot : MonoBehaviour
 
             RaycastHit hit;
             if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+            {
                 pointDirection = hit.point;
+                if (hit.collider.GetComponent<EnemyHealth>())
+                    pointDirection = hit.collider.transform.position;
+            }
+            
+            pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), pointDirection.y, pointDirection.z + Random.Range(-0.3f, 0.3f));
 
-            pointDirection += new Vector3(Random.Range(-0.3f, 0.3f), 0, Random.Range(-0.3f, 0.3f));
             Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
             if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
             {
@@ -79,6 +84,10 @@ public class PlayerShoot : MonoBehaviour
                     enemyHealth.TakeDamage(damages);
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
+            }
+            else
+            {
+                _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
             }
             
             _cannonFire.Play();
