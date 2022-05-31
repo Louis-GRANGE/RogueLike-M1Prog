@@ -7,13 +7,20 @@ public class PlayerShoot : MonoBehaviour
     [Header("External References")]
     Camera _mainCamera;
 
-    [Header("Components")]
-    public Transform canon;
+    [Header("External Components")]
+    public Transform weaponHandler;
+    Transform _canon;
+
+    [Header("Internal Components")]
     ParticleSystem _cannonFire;
     Animator _animator;
 
+    [Header("Equipped weapon")]
+    Weapon _weapon;
+    WeaponData _weaponData;
+
     [Header("Effects")]
-    public GameObject laserFX;
+    GameObject _laserFX;
     Transform _laserPool;
     public GameObject hitFX;
     Transform _hitPool;
@@ -22,40 +29,29 @@ public class PlayerShoot : MonoBehaviour
     public float fireRateLatency;
     float _fireRateTime;
 
+    [Header("Damages")]
+    public int damages;
+
+    [Header("Interaction")]
+    Collider _lastInteracted;
+
     private void Awake()
     {
-        _cannonFire = canon.GetChild(0).GetComponent<ParticleSystem>();
         _animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()
     {
         _mainCamera = Camera.main;
-
-        _laserPool = new GameObject().transform;
-        _laserPool.parent = transform;
-        _laserPool.gameObject.SetActive(false);
-        for (int i = 0; i < 50; i++)
-        {
-            GameObject newLaser = Instantiate(laserFX, transform.position, transform.rotation, _laserPool);
-            newLaser.GetComponent<LaserEffect>().Initiate(_laserPool);
-        }
-
-        _hitPool = new GameObject().transform;
-        _hitPool.parent = transform;
-        _hitPool.gameObject.SetActive(false);
-        for (int i = 0; i < 50; i++)
-        {
-            GameObject newHit = Instantiate(hitFX, transform.position, transform.rotation, _hitPool);
-            newHit.GetComponent<HitEffect>().Initiate(_hitPool);
-        }
-
-        _fireRateTime = fireRateLatency;
+        EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"));
     }
 
     private void Update()
     {
-        Shoot();
+        if(_weapon)
+            Shoot();
+
+        Interact();
     }
 
     public void Shoot()
@@ -72,19 +68,115 @@ public class PlayerShoot : MonoBehaviour
 
             RaycastHit hit;
             if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
-                pointDirection = hit.point;
-
-            pointDirection += new Vector3(Random.Range(-0.3f, 0.3f), 0, Random.Range(-0.3f, 0.3f));
-            Vector3 shootDirection = (pointDirection - canon.transform.position).normalized;
-            if (Physics.Raycast(canon.transform.position, shootDirection, out hit, 1000))
             {
-                
+                pointDirection = hit.point;
+                if (hit.collider.GetComponent<EnemyHealth>())
+                    pointDirection = hit.collider.transform.position;
+            }
+            
+            pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), pointDirection.y, pointDirection.z + Random.Range(-0.3f, 0.3f));
+
+            Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
+            if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
+            {
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth)
+                    enemyHealth.TakeDamage(damages);
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
             }
-
-            _animator.SetTrigger("Fire");
+            else
+            {
+                _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
+            }
+            
             _cannonFire.Play();
+        }
+    }
+
+    public void EquipWeapon(WeaponData _newWeapon)
+    {
+        if (_weaponData)
+            DropWeapon(_weaponData);
+        _weaponData = _newWeapon;
+
+        _weapon = Instantiate(_newWeapon.weaponPrefab, weaponHandler).GetComponent<Weapon>();
+        _canon = _weapon.canon;
+        _cannonFire = _canon.GetChild(0).GetComponent<ParticleSystem>();
+
+        fireRateLatency = _newWeapon.fireLatency;
+        damages = _newWeapon.damages;
+
+        if(_laserPool)
+            Destroy(_laserPool.gameObject);
+
+        _laserPool = new GameObject().transform;
+        _laserPool.parent = transform;
+        _laserPool.gameObject.SetActive(false);
+        for (int i = 0; i < 50; i++)
+        {
+            GameObject newLaser = Instantiate(_newWeapon.munitionEffect, transform.position, transform.rotation, _laserPool);
+            newLaser.GetComponent<LaserEffect>().Initiate(_laserPool);
+        }
+
+        if(_hitPool)
+            Destroy(_hitPool.gameObject);
+
+        _hitPool = new GameObject().transform;
+        _hitPool.parent = transform;
+        _hitPool.gameObject.SetActive(false);
+        for (int i = 0; i < 50; i++)
+        {
+            GameObject newHit = Instantiate(hitFX, transform.position, transform.rotation, _hitPool);
+            newHit.GetComponent<HitEffect>().Initiate(_hitPool);
+        }
+
+        _fireRateTime = fireRateLatency;
+
+        _animator.SetTrigger("Equip");
+    }
+
+    public void DropWeapon(WeaponData _droppedWeapon)
+    {
+        Vector3 dropPosition = transform.position + transform.forward;
+        GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
+
+        droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
+    }
+
+    public void Interact()
+    {
+        Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        RaycastHit hit;
+        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+        {
+            if(hit.collider != _lastInteracted)
+            {
+                if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
+                    _lastInteracted.GetComponent<WeaponItem>().HideShown();
+                _lastInteracted = hit.collider;
+                if (hit.collider.GetComponent<WeaponItem>())
+                    _lastInteracted.GetComponent<WeaponItem>().ActualizeShown();
+            }
+                
+
+            if (hit.collider.GetComponent<WeaponItem>() && Vector3.Distance(transform.position, hit.point) < 3f && Input.GetKeyDown(KeyCode.E))
+            {
+                WeaponItem weaponItem = hit.collider.GetComponent<WeaponItem>();
+
+                Destroy(_weapon);
+                EquipWeapon(weaponItem.weaponData);
+                weaponItem.Desactivate();
+            }
+        }
+        else
+        {
+            if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
+            {
+                _lastInteracted.GetComponent<WeaponItem>().HideShown();
+                _lastInteracted = null;
+            }
         }
     }
 }
