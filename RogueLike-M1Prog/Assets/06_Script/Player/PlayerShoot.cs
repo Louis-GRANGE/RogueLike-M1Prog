@@ -43,7 +43,7 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         _mainCamera = Camera.main;
-        //EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"));
+        EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"));
     }
 
     private void Update()
