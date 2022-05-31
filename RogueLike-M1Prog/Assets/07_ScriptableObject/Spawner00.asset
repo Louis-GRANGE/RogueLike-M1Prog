@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2b884dd819b7d4692ee7b0e0fe340a, type: 3}
   m_Name: Spawner00
   m_EditorClassIdentifier: 
-  EnnemisToSpawnRange: {x: 20, y: 50}
+  EnnemisToSpawnRange: {x: 1, y: 5}
   enemyProbability:
-  - SOEnemy: {fileID: 11400000, guid: a80ce0c95ee851b4594e1b875485a6fa, type: 2}
+  - SOEnemy: {fileID: 11400000, guid: d7157f53d878dc9469cda2836b3ce3e7, type: 2}
     probability: 1
   - SOEnemy: {fileID: 11400000, guid: d7157f53d878dc9469cda2836b3ce3e7, type: 2}
     probability: 2

@@ -30,6 +30,15 @@ public class WeaponItem : IItem
 
     public void ActualizeShown()
     {
+        if (_Player == null)
+        {
+            _Player = Player.Instance;
+
+            _followingUI = Instantiate(Resources.Load<GameObject>("UI/WeaponPanel"), FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
+            _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
+
+            _equipText = _followingUI.transform.GetChild(0).GetChild(3).gameObject;
+        }
         string damages = "";
         if (weaponData.damages > _Player.playerShoot.damages)
             damages += "<color=green>" + weaponData.damages + "</color> <color=yellow>damages</color>";
