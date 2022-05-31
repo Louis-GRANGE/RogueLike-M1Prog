@@ -198,9 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SOEnemy: {fileID: 0}
-  onAIDeath:
-    m_PersistentCalls:
-      m_Calls: []
+  RefInRoom: {fileID: 0}
+  AIIndex: 0
 --- !u!114 &2781457673250999692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7517748daab904e97e1c0077ed22f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!195 &6819768273181917085
 NavMeshAgent:
   m_ObjectHideFlags: 0

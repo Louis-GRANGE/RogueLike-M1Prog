@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7664663951372399165}
   - component: {fileID: 3882032125257795565}
   - component: {fileID: 1074916000692349580}
+  - component: {fileID: 6206568241270920140}
   - component: {fileID: 1778735779296362719}
   m_Layer: 0
   m_Name: Sphere
@@ -197,9 +198,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SOEnemy: {fileID: 0}
-  onAIDeath:
-    m_PersistentCalls:
-      m_Calls: []
+  RefInRoom: {fileID: 0}
+  AIIndex: 0
+--- !u!114 &6206568241270920140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7517748daab904e97e1c0077ed22f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
 --- !u!195 &1778735779296362719
 NavMeshAgent:
   m_ObjectHideFlags: 0
