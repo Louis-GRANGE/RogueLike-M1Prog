@@ -6,10 +6,13 @@ public class VFXRoom : MonoBehaviour
 {
     Room RoomRef;
     ParticleSystem _particleSystem;
+    ParticleSystem.MainModule _particleSystemMain;
+
     void Start()
     {
         RoomRef = GetComponentInParent<Room>();
         _particleSystem = GetComponent<ParticleSystem>();
+        _particleSystemMain = _particleSystem.main;
 
         RoomRef.OnPlayerEnter += RemoveFogRoom;
     }
@@ -22,8 +25,8 @@ public class VFXRoom : MonoBehaviour
 
     public void RemoveFogRoom()
     {
-        _particleSystem.loop = false;
-        _particleSystem.playbackSpeed = 10;
+        _particleSystemMain.loop = false;
+        _particleSystemMain.simulationSpeed = 10;
         Destroy(gameObject, 1.0f);
     }
 }
