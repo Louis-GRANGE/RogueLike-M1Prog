@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        _navMeshAgent.SetDestination(GameManager.instance.PlayerRef.transform.position);
+        if(_navMeshAgent.isOnNavMesh)
+            _navMeshAgent.SetDestination(GameManager.instance.PlayerRef.transform.position);
     }
 }

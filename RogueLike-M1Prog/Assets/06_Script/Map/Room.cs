@@ -11,7 +11,7 @@ public class Room : AMinimap
 
     public System.Action OnPlayerEnter;
 
-    public int SizeRoom;
+    public float SizeRoom;
     private List<BoxCollider> RoomArea;
     public GameObject PrefabWallToReplace;
 
@@ -99,22 +99,26 @@ public class Room : AMinimap
 
     public void ReplaceAllWallWithoutRoom()
     {
-        foreach (Door _door in DoorPlacement)
+        for (int i = DoorPlacement.Count - 1; i > 0; i--)
         {
+            Door _door = DoorPlacement[i];
             if (!_door.HaveNextToRoom)
             {
                 if (_door.DoorDirection == DoorDir.West)
                 {
+                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.right * 5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
                     goWall.transform.SetParent(transform);
                 }
                 else if (_door.DoorDirection == DoorDir.North)
                 {
+                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.forward * -5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
                     goWall.transform.SetParent(transform);
                 }
                 else
                 {
+                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position, _door.transform.rotation);
                     goWall.transform.SetParent(transform);
                 }
@@ -131,7 +135,8 @@ public class Room : AMinimap
 
     private void SpawnAllOfRoomEnnemies()
     {
-        int NbToSpawn = GameManager.instance.SpawnerRef.SOSpawner.GetRandomNbOfEnnemies() * SizeRoom;
+        int NbToSpawn = GameManager.instance.SpawnerRef.SOSpawner.GetRandomNbOfEnnemies();
+        NbToSpawn = Mathf.RoundToInt(NbToSpawn * SizeRoom) + Mathf.RoundToInt(GameManager.instance.Difficulty * 0.1f);
         for (int i = 0; i < NbToSpawn; i++)
         {
             Enemy AISpawned = GameManager.instance.SpawnerRef.SpawnRandomAIOnPos(getRandomPointInRoom());
@@ -149,6 +154,10 @@ public class Room : AMinimap
             OnPlayerEnter?.Invoke();
             if (!IsActiveMinimap)
             {
+                foreach (Door door in DoorPlacement)
+                {
+                    door.OpenDoor(false);
+                }
                 ActiveMinimap(true);
             }
             if (!_haveSpawnEnnemies && LevelManager.instance.MapGenerationEnd && !IsCompleted)

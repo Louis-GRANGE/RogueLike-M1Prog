@@ -8,14 +8,16 @@ public class GameManager : Singleton<GameManager>
     public MapGenerator MapGeneratorRef;
     public Spawner SpawnerRef;
     public EnemyManager EnemyManagerRef;
+    public int RunSeed;
 
     public int Difficulty = 1;
 
     private void Update()
     {
-        /*if(Input.GetKeyDown(KeyCode.Z))
+        /*if(Input.GetKeyDown(KeyCode.R))
         {
-            NextLevel();
+            //NextLevel();
+            SetRunSeed(0);
         }*/
     }
 
@@ -24,5 +26,20 @@ public class GameManager : Singleton<GameManager>
         PlayerRef.transform.position = Vector3.up * 10000;
         Difficulty++;
         LevelManager.instance.LoadNewMap();
+    }
+
+    public void SetRunSeed(int seed)
+    {
+        if (seed != 0)
+        {
+            Random.InitState(seed);
+            RunSeed = seed;
+        }
+        else
+        {
+            RunSeed = (int)System.DateTime.Now.Ticks;
+            Random.InitState(RunSeed);
+        }
+        Debug.Log("[GameManager] Seed: " + RunSeed);
     }
 }

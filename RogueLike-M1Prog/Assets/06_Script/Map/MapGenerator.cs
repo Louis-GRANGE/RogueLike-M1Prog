@@ -52,7 +52,6 @@ public class MapGenerator : MonoBehaviour
         {
             Rooms[0].IsCompleted = true;
             Rooms[0].ActiveMinimap(true);
-            Debug.Log("[Mapgenerator] " + Rooms.Count);
             LevelManager.instance.Rooms = new List<Room>(Rooms);
             LevelManager.instance.Callback_OnRoomFinish.Invoke(Rooms[0]); // Send to LevelManager the end of first map
             Rooms.Clear();
