@@ -99,28 +99,28 @@ public class Room : AMinimap
 
     public void ReplaceAllWallWithoutRoom()
     {
-        for (int i = DoorPlacement.Count - 1; i > 0; i--)
+        for (int i = DoorPlacement.Count - 1; i >= 0; i--)
         {
             Door _door = DoorPlacement[i];
             if (!_door.HaveNextToRoom)
             {
                 if (_door.DoorDirection == DoorDir.West)
                 {
-                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.right * 5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
                     goWall.transform.SetParent(transform);
+                    DoorPlacement.RemoveAt(i);
                 }
                 else if (_door.DoorDirection == DoorDir.North)
                 {
-                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position - Vector3.forward * -5, _door.transform.rotation * Quaternion.Euler(0, 180, 0));
                     goWall.transform.SetParent(transform);
+                    DoorPlacement.RemoveAt(i);
                 }
                 else
                 {
-                    DoorPlacement.RemoveAt(i);
                     GameObject goWall = Instantiate(PrefabWallToReplace, _door.transform.position, _door.transform.rotation);
                     goWall.transform.SetParent(transform);
+                    DoorPlacement.RemoveAt(i);
                 }
                 Destroy(_door.gameObject);
             }
