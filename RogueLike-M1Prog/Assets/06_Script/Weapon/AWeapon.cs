@@ -4,16 +4,20 @@ using UnityEngine;
 
 public abstract class AWeapon : MonoBehaviour
 {
+    protected AMainData ownerMainData;
+
     [Header("External Components")]
     public Transform weaponHandler;
     protected Transform _canon;
 
     [Header("Internal Components")]
     protected ParticleSystem _cannonFire;
-    protected Animator _animator;
+    public Animator _animator;
 
     [Header("Equipped weapon")]
+    public string pathEquipWeapon = "WeaponData/Automatic";
     protected Weapon _weapon;
+    [HideInInspector]
     public WeaponData _weaponData;
     public int _munitions = 50;
 
@@ -31,15 +35,28 @@ public abstract class AWeapon : MonoBehaviour
     [Header("Damages")]
     public int damages;
 
+
     private void Awake()
     {
-        Init(transform.GetChild(0).GetComponent<Animator>());
+        ownerMainData = GetComponent<AMainData>();
+        ownerMainData.WeaponManager = this;
+
+        InitData();
     }
 
-    public virtual void Init(Animator animator) { _animator = animator; }
+    protected virtual void Start()
+    {
+        EquipWeapon(Resources.Load<WeaponData>(pathEquipWeapon), _munitions);
+    }
+
+
+    public virtual void InitData()
+    {
+        
+    }
 
     public virtual void DropWeapon(WeaponData _droppedWeapon, int munitions)
-    {
+    {   
         Vector3 dropPosition = transform.position + transform.forward;
         GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
 
@@ -89,7 +106,7 @@ public abstract class AWeapon : MonoBehaviour
         _animator.SetTrigger("Equip");
     }
 
-    public virtual void Shoot(Vector3 shootDirection)
+    public virtual void Shoot(Vector3 pointDirection)
     {
         canShoot = true;
         if (!_weapon || _munitions <= 0)
@@ -107,21 +124,29 @@ public abstract class AWeapon : MonoBehaviour
         _munitions -= 1;
         _fireRateTime = 0;
 
+        Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
+        Vector3 TargetPoint = shootDirection + transform.position;
+
+        //Change Rotation Of GameObject to the direction of shoot
+        transform.LookAt(new Vector3(TargetPoint.x, transform.position.y, TargetPoint.z));
+
         RaycastHit hit;
         if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
         {
-            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            if (enemyHealth)
-                enemyHealth.TakeDamage(damages);
-            _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
-            _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
+            if (!hit.transform.CompareTag(ownerMainData.transform.tag))
+            {
+                AHealth Health = hit.collider.GetComponent<AHealth>();
+                if (Health)
+                    Health.TakeDamage(damages, ownerMainData.gameObject);
+                _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
+                _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
+
+                _cannonFire.Play();
+            }
         }
         else
         {
             _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
         }
-
-        _cannonFire.Play();
-
     }
 }

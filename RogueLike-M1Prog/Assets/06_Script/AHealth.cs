@@ -35,9 +35,18 @@ public abstract class AHealth : MonoBehaviour
     {
 
     }
-
-    public virtual void TakeDamage(int damage)
+    public virtual void OnDeath(GameObject Sender)
     {
-        ModifyHealth(-damage);
+        Destroy(gameObject);
+    }
+
+    public virtual void TakeDamage(int damage, GameObject Sender)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            OnDeath(Sender);
+            Destroy(gameObject);
+        }
     }
 }

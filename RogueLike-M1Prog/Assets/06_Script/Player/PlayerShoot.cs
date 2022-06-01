@@ -17,12 +17,13 @@ public class PlayerShoot : AWeapon
         //_animator = transform.GetChild(0).GetComponent<Animator>();
     }*/
 
-    private void Start()
+    protected override void Start()
     {
         _playerCanvas = PlayerCanvas.Instance;
 
         _mainCamera = Camera.main;
-        EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);
+        base.Start();
+        //EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);
     }
 
     private void Update()
@@ -41,9 +42,8 @@ public class PlayerShoot : AWeapon
 
             Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_canon.transform.position.y - pointDirection.y);
             pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), _canon.transform.position.y, pointDirection.z + Random.Range(-0.3f, 0.3f)) + toCam;
-            Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
-
-            Shoot(shootDirection);
+            
+            Shoot(pointDirection);
         }
 
         Interact();

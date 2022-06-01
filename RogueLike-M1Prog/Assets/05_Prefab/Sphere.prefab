@@ -827,11 +827,14 @@ GameObject:
   - component: {fileID: 6206568241270920140}
   - component: {fileID: 1778735779296362719}
   - component: {fileID: 5392821334361641071}
-  - component: {fileID: 3054541465678152996}
   - component: {fileID: 3187588230668100328}
+  - component: {fileID: 8621686235691615464}
+  - component: {fileID: 7119146290282262511}
+  - component: {fileID: 7469653546028509032}
+  - component: {fileID: 5095966959068277302}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,10 +868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967e0b867a776c348930800bbef590b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateManager: {fileID: 0}
+  HealthManager: {fileID: 0}
+  WeaponManager: {fileID: 0}
   SOEnemy: {fileID: 0}
-  enemyState: {fileID: 0}
-  enemyMovement: {fileID: 0}
-  enemyAttack: {fileID: 0}
   RefInRoom: {fileID: 0}
   AIIndex: 0
 --- !u!114 &6206568241270920140
@@ -921,18 +924,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3054541465678152996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069383614974555114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734191b7bc32a7b4091f954dd2cbe188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3187588230668100328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,15 +933,74 @@ MonoBehaviour:
   m_GameObject: {fileID: 3069383614974555114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d29edc5a6e27044ab6694bb8be106b, type: 3}
+  m_Script: {fileID: 11500000, guid: fce04d1956e39d54ba4a7b8bdd9a2134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitState: ShootPlayer
   states:
-  - State: 0
-    StateScript: {fileID: 0}
-  - State: 0
-    StateScript: {fileID: 0}
-  _currentState: 1
+  - State: Patrol
+    StateScript: {fileID: 8621686235691615464}
+  - State: Chase
+    StateScript: {fileID: 7119146290282262511}
+  - State: ShootPlayer
+    StateScript: {fileID: 5095966959068277302}
+--- !u!114 &8621686235691615464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fb54a8a93e35b4588aad4a34d0597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7119146290282262511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504b247a67766104ca02b9d6cf907215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7469653546028509032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7d55e31b221fe43954d4f966dd0a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHandler: {fileID: 4965308571563695684}
+  _animator: {fileID: 7568609172372761988}
+  pathEquipWeapon: WeaponData/Semi-automatic
+  _weaponData: {fileID: 0}
+  _munitions: 50
+  hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}
+  fireRateLatency: 100
+  canShoot: 1
+  damages: 0
+--- !u!114 &5095966959068277302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fe3972fdd81144daa38ba87f1f201a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3078419916665500813
 GameObject:
   m_ObjectHideFlags: 0

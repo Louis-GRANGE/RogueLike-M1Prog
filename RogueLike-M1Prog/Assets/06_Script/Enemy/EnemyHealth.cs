@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : AHealth
 {
+    AMainData ownerMainData;
     DamageTextPool _damageTextPool;
 
     [Header("HealthBar")]
@@ -15,6 +16,12 @@ public class EnemyHealth : AHealth
     Image _healthBarMemory;
     Animator _healthBarMemoryAnim;
     float _memorizeLatency;
+
+    private void Awake()
+    {
+        ownerMainData = GetComponent<AMainData>();
+        ownerMainData.HealthManager = this;
+    }
 
     protected override void Start()
     {
@@ -32,9 +39,9 @@ public class EnemyHealth : AHealth
         _damageTextPool = DamageTextPool.Instance;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, GameObject Sender)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, Sender);
         _healthBar.fillAmount = (float)health / (float)maxHealth;
         _healthBarMemoryAnim.SetTrigger("Hit");
 
@@ -58,7 +65,7 @@ public class EnemyHealth : AHealth
         }
     }
 
-    public override void OnDeath()
+    public override void OnDeath(GameObject Sender)
     {
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
@@ -66,10 +73,10 @@ public class EnemyHealth : AHealth
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
 
-        ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Player.Instance.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
+        ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Sender.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
         if(Random.Range(0, 3) == 0)
-            DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"), Random.Range(50, 100));
+            DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
 
         Destroy(gameObject);
     }

@@ -39,7 +39,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void RoomFinish(Room roomFinish)
     {
-        Debug.Log("Finished room");
         bool IsEnd = true;
         foreach (Room room in Rooms)
         {

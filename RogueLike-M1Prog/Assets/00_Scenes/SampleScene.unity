@@ -1067,10 +1067,15 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1393676193613207406, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 1597348596}
     - target: {fileID: 6946871201334129182, guid: 39531b8ea60100b4d84c0ee06241c2b8,
         type: 3}
       propertyPath: maxHealth
-      value: 50
+      value: 100000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39531b8ea60100b4d84c0ee06241c2b8, type: 3}
@@ -1373,6 +1378,12 @@ Transform:
 --- !u!4 &1597348595 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1148661463385951381, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 942150266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1597348596 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1367976720240311878, guid: 39531b8ea60100b4d84c0ee06241c2b8,
     type: 3}
   m_PrefabInstance: {fileID: 942150266}
   m_PrefabAsset: {fileID: 0}

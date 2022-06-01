@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : State
+public class EnemyAttack : AState
 {
-    MainData enemy;
-
-    public override void StartState(MainData mainData)
+    public override void StartState(AMainData mainData)
     {
-        mainData = GetComponent<Enemy>();
+        base.StartState(mainData);
     }
 
     public override void ExecuteState()
