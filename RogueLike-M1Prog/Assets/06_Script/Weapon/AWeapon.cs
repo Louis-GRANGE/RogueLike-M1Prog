@@ -30,6 +30,13 @@ public abstract class AWeapon : MonoBehaviour
     [Header("Damages")]
     public int damages;
 
+    private void Awake()
+    {
+        Init(transform.GetChild(0).GetComponent<Animator>());
+    }
+
+    public virtual void Init(Animator animator) { _animator = animator; }
+
     public virtual void DropWeapon(WeaponData _droppedWeapon, int munitions)
     {
         Vector3 dropPosition = transform.position + transform.forward;
@@ -79,5 +86,36 @@ public abstract class AWeapon : MonoBehaviour
         _fireRateTime = fireRateLatency;
 
         _animator.SetTrigger("Equip");
+    }
+
+    public virtual void Shoot(Vector3 shootDirection)
+    {
+        if (!_weapon || _munitions <= 0)
+            return;
+        if (_fireRateTime < fireRateLatency)
+        {
+            _fireRateTime += Time.deltaTime;
+            return;
+        }
+
+        _munitions -= 1;
+        _fireRateTime = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
+        {
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            if (enemyHealth)
+                enemyHealth.TakeDamage(damages);
+            _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
+            _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
+        }
+        else
+        {
+            _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
+        }
+
+        _cannonFire.Play();
+
     }
 }
