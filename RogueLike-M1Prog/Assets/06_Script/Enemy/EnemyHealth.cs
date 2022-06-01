@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : AHealth
 {
     DamageTextPool _damageTextPool;
-
-    [Header("Health")]
-    public int maxHealth;
-    int _health;
 
     [Header("HealthBar")]
     Image _healthBar;
@@ -20,10 +16,10 @@ public class EnemyHealth : MonoBehaviour
     Animator _healthBarMemoryAnim;
     float _memorizeLatency;
 
-    private void Start()
+    protected override void Start()
     {
-        _health = maxHealth;
-        _memorizedHealth = _health;
+        base.Start();
+        _memorizedHealth = health;
 
         FollowingUI followingUI = Instantiate(Resources.Load<GameObject>("UI/HealthPanel"), FollowingUIPanel.Instance.transform.GetChild(0)).GetComponent<FollowingUI>();
         followingUI.followedRenderer = transform.GetComponentInChildren<Renderer>();
@@ -36,39 +32,33 @@ public class EnemyHealth : MonoBehaviour
         _damageTextPool = DamageTextPool.Instance;
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
-        if(_health > 0)
-        {
-            _health = Mathf.Clamp(_health - damage, 0, maxHealth);
+        base.TakeDamage(damage);
+        _healthBar.fillAmount = (float)health / (float)maxHealth;
+        _healthBarMemoryAnim.SetTrigger("Hit");
 
-            _healthBar.fillAmount = (float)_health / (float)maxHealth;
-            _healthBarMemoryAnim.SetTrigger("Hit");
+        _memorizeLatency = 0;
 
-            _memorizeLatency = 0;
-
-            if (_health <= 0)
-                Death();
-
-            _damageTextPool.RequestDamageText(transform.position, damage);
-        }
+        _damageTextPool.RequestDamageText(transform.position, damage);
+        
     }
 
     private void Update()
     {
-        if(_memorizedHealth > _health)
+        if(_memorizedHealth > health)
         {
             if(_memorizeLatency < 0.5f)
                 _memorizeLatency += Time.deltaTime;
             else
             {
-                _memorizedHealth -= (_memorizedHealth - _health) / 10;
+                _memorizedHealth -= (_memorizedHealth - health) / 10;
                 _healthBarMemory.fillAmount = _memorizedHealth / (float)maxHealth;
             }
         }
     }
 
-    void Death()
+    public override void OnDeath()
     {
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
