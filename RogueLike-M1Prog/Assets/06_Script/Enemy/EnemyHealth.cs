@@ -45,6 +45,8 @@ public class EnemyHealth : MonoBehaviour
 
             if (_health <= 0)
                 Death();
+
+            DamageTextPool.Instance.RequestDamageText(transform.position, damage);
         }
     }
 
@@ -52,7 +54,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if(_memorizedHealth > _health)
         {
-            
             if(_memorizeLatency < 0.5f)
                 _memorizeLatency += Time.deltaTime;
             else
@@ -67,24 +68,23 @@ public class EnemyHealth : MonoBehaviour
     {
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
-        //TO REMOVE
-        Destroy(gameObject, 0.1f);
-
         GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Ragdoll/EnemyRagdoll"), transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Player.Instance.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
-        DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"));
+        DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"), Random.Range(50, 100));
 
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
-    void DropWeapon(WeaponData _droppedWeapon)
+    void DropWeapon(WeaponData _droppedWeapon, int munitions)
     {
         Vector3 dropPosition = transform.position + transform.forward;
         GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
+
+        droppedWeapon.GetComponent<WeaponItem>().munitions = munitions;
 
         droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
     }
