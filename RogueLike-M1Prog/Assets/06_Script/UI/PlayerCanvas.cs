@@ -6,7 +6,7 @@ public class PlayerCanvas : MonoBehaviour
 {
     [HideInInspector] public static PlayerCanvas Instance;
 
-
+    [HideInInspector] public WeaponUI _weaponUI;
 
     private void Awake()
     {
@@ -14,5 +14,7 @@ public class PlayerCanvas : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        _weaponUI = GetComponentInChildren<WeaponUI>();
     }
 }

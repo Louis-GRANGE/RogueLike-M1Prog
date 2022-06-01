@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerShoot : AWeapon
 {
+    PlayerCanvas _playerCanvas;
+
     [Header("External References")]
     Camera _mainCamera;
 
@@ -17,6 +19,8 @@ public class PlayerShoot : AWeapon
 
     private void Start()
     {
+        _playerCanvas = PlayerCanvas.Instance;
+
         _mainCamera = Camera.main;
         EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);
     }
@@ -79,5 +83,24 @@ public class PlayerShoot : AWeapon
                 _lastInteracted = null;
             }
         }
+    }
+
+    public override void EquipWeapon(WeaponData _newWeapon, int munitions)
+    {
+        base.EquipWeapon(_newWeapon, munitions);
+        _playerCanvas._weaponUI.UpdateWeapon(_newWeapon.icon, _munitions);
+    }
+
+    public override void Shoot(Vector3 shootDirection)
+    {
+        base.Shoot(shootDirection);
+        if(canShoot)
+            _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+    }
+
+    public void AddAmmo(int ammo)
+    {
+        _munitions += ammo;
+        _playerCanvas._weaponUI.UpdateAmmo(_munitions);
     }
 }

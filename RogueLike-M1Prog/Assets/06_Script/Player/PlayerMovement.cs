@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Player _player;
+    DamageTextPool _damageTextPool;
+
     [Header("External References")]
     Camera _mainCamera;
 
@@ -23,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _player = Player.Instance;
+        _damageTextPool = DamageTextPool.Instance;
         _mainCamera = Camera.main;
     }
 
@@ -64,4 +69,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void UpdateMovementVector() => _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item/Weapon")
+        {
+            WeaponItem item = other.transform.parent.GetComponent<WeaponItem>();
+
+            if (item.weaponData == _player.playerShoot._weaponData)
+            {
+                _player.playerShoot.AddAmmo(item.munitions);
+                _damageTextPool.RequestMunitionText(item.transform.position, item.munitions);
+                item.Desactivate();
+            }
+        }
+    }
 }

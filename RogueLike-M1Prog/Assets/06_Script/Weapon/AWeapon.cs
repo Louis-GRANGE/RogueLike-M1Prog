@@ -14,8 +14,8 @@ public abstract class AWeapon : MonoBehaviour
 
     [Header("Equipped weapon")]
     protected Weapon _weapon;
-    protected WeaponData _weaponData;
-    protected int _munitions = 50;
+    public WeaponData _weaponData;
+    public int _munitions = 50;
 
     [Header("Effects")]
     protected GameObject _laserFX;
@@ -26,6 +26,7 @@ public abstract class AWeapon : MonoBehaviour
     [Header("FireRate")]
     public float fireRateLatency;
     protected float _fireRateTime;
+    public bool canShoot = true;
 
     [Header("Damages")]
     public int damages;
@@ -90,10 +91,15 @@ public abstract class AWeapon : MonoBehaviour
 
     public virtual void Shoot(Vector3 shootDirection)
     {
+        canShoot = true;
         if (!_weapon || _munitions <= 0)
+        {
+            canShoot = false;
             return;
+        }
         if (_fireRateTime < fireRateLatency)
         {
+            canShoot = false;
             _fireRateTime += Time.deltaTime;
             return;
         }

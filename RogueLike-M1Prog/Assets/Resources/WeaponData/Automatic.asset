@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   weaponItem: {fileID: 204286489324876618, guid: 91fff7f0e32dae24196cf431df93675b,
     type: 3}
+  icon: {fileID: 21300000, guid: d4990afbeef376646ac8b6d909c87550, type: 3}
   damages: 3
   fireLatency: 0.08
   munitionEffect: {fileID: 2170792420238155298, guid: 01f704ea5bb2a8444be28ff305e841a0,

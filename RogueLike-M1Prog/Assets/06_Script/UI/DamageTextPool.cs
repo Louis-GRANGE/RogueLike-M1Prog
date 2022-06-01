@@ -20,7 +20,7 @@ public class DamageTextPool : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            GameObject text = Instantiate(Resources.Load<GameObject>("UI/DamageText"), transform);
+            GameObject text = Instantiate(Resources.Load<GameObject>("UI/PopUpText"), transform);
             text.GetComponent<DamageEffect>().pool = transform;
         }
     }
@@ -30,5 +30,12 @@ public class DamageTextPool : MonoBehaviour
         Transform child = transform.GetChild(0);
         child.SetParent(alterPool);
         child.GetComponent<DamageEffect>().Activation(worldPos, damage);
+    }
+
+    public void RequestMunitionText(Vector3 worldPos, int value)
+    {
+        Transform child = transform.GetChild(0);
+        child.SetParent(alterPool);
+        child.GetComponent<DamageEffect>().Activation(worldPos, value, true);
     }
 }

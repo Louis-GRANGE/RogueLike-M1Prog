@@ -8,6 +8,7 @@ public class WeaponData : ScriptableObject
     [Header("Models")]
     public GameObject weaponPrefab;
     public GameObject weaponItem;
+    public Sprite icon;
 
     [Space, Header("Values")]
     public int damages;
