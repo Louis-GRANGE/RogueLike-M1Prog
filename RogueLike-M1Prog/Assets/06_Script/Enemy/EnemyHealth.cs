@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+    DamageTextPool _damageTextPool;
+
     [Header("Health")]
     public int maxHealth;
     int _health;
@@ -23,13 +25,15 @@ public class EnemyHealth : MonoBehaviour
         _health = maxHealth;
         _memorizedHealth = _health;
 
-        FollowingUI followingUI = Instantiate(Resources.Load<GameObject>("UI/HealthPanel"), FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
+        FollowingUI followingUI = Instantiate(Resources.Load<GameObject>("UI/HealthPanel"), FollowingUIPanel.Instance.transform.GetChild(0)).GetComponent<FollowingUI>();
         followingUI.followedRenderer = transform.GetComponentInChildren<Renderer>();
 
         _healthBarMemory = followingUI.transform.GetChild(0).GetChild(1).GetComponent<Image>();
         _healthBar = followingUI.transform.GetChild(0).GetChild(2).GetComponent<Image>();
 
         _healthBarMemoryAnim = _healthBarMemory.GetComponent<Animator>();
+
+        _damageTextPool = DamageTextPool.Instance;
     }
 
     public void TakeDamage(int damage)
@@ -46,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
             if (_health <= 0)
                 Death();
 
-            DamageTextPool.Instance.RequestDamageText(transform.position, damage);
+            _damageTextPool.RequestDamageText(transform.position, damage);
         }
     }
 
@@ -74,7 +78,8 @@ public class EnemyHealth : MonoBehaviour
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Player.Instance.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
-        DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"), Random.Range(50, 100));
+        if(Random.Range(0, 3) == 0)
+            DropWeapon(Resources.Load<WeaponData>("WeaponData/Semi-automatic"), Random.Range(50, 100));
 
         Destroy(gameObject);
     }

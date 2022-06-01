@@ -49,7 +49,8 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if(_weapon && _munitions > 0)
+        //  && _munitions > 0
+        if (_weapon)
             Shoot();
 
         Interact();
@@ -64,7 +65,7 @@ public class PlayerShoot : MonoBehaviour
 
         else if (Input.GetMouseButton(0))
         {
-            _munitions -= 1;
+            //_munitions -= 1;
             _fireRateTime = 0;
             Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
