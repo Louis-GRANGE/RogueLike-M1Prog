@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
     public SOEnemy SOEnemy;
-    private NavMeshAgent _navMeshAgent;
+    public EnemyState enemyState;
+    public EnemyMovement enemyMovement;
 
     public Room RefInRoom;
     public int AIIndex;
@@ -21,12 +21,11 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         name = SOEnemy.EnemyName;
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        
     }
 
     void Update()
     {
-        if(_navMeshAgent.isOnNavMesh)
-            _navMeshAgent.SetDestination(GameManager.instance.PlayerRef.transform.position);
+
     }
 }

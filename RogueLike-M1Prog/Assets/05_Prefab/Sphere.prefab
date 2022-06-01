@@ -827,6 +827,8 @@ GameObject:
   - component: {fileID: 6206568241270920140}
   - component: {fileID: 1778735779296362719}
   - component: {fileID: 5392821334361641071}
+  - component: {fileID: 3054541465678152996}
+  - component: {fileID: 3187588230668100328}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -864,6 +866,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SOEnemy: {fileID: 0}
+  enemyState: {fileID: 3187588230668100328}
+  enemyMovement: {fileID: 3054541465678152996}
   RefInRoom: {fileID: 0}
   AIIndex: 0
 --- !u!114 &6206568241270920140
@@ -893,7 +897,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -915,6 +919,31 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3054541465678152996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734191b7bc32a7b4091f954dd2cbe188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3187588230668100328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d29edc5a6e27044ab6694bb8be106b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentState: 1
 --- !u!1 &3078419916665500813
 GameObject:
   m_ObjectHideFlags: 0
