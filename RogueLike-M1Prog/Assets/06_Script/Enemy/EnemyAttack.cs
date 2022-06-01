@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : State
 {
-    Enemy enemy;
-    
-    void Awake()
+    MainData enemy;
+
+    public override void StartState(MainData mainData)
     {
-        enemy = GetComponent<Enemy>();
-        enemy.enemyAttack = this;
+        mainData = GetComponent<Enemy>();
     }
 
-    void Start()
+    public override void ExecuteState()
     {
-        
+
     }
 
-    void Update()
+    public override void EndState()
     {
-        
+
     }
 }

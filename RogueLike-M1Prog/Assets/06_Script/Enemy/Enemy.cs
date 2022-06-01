@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MainData
 {
     public SOEnemy SOEnemy;
-    public EnemyState enemyState;
+    //public EnemyState enemyState;
     public EnemyMovement enemyMovement;
     public EnemyAttack enemyAttack;
 

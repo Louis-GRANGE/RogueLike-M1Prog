@@ -3,26 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : State
 {
-    Enemy enemy;
+    MainData enemy;
     private NavMeshAgent _navMeshAgent;
 
-    void Awake()
+    public virtual void StartState(MainData mainData)
     {
         enemy = GetComponent<Enemy>();
-        enemy.enemyMovement = this;
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    void Start()
+    public virtual void ExecuteState()
     {
-        enemy.enemyState.OnStateChange += OnStateChange;
+        Chase(GameManager.instance.PlayerRef.transform);
+    }
+
+    public virtual void EndState()
+    {
+
+    }
+
+    void Awake()
+    {
+
     }
 
     void Update()
     {
-        switch (enemy.enemyState.currentState)
+        /*switch (enemy.enemyState.currentState)
         {
             case EnemyState.EEnemyState.Idle:
                 break;
@@ -36,7 +45,7 @@ public class EnemyMovement : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     void Chase(Transform _transform)
@@ -61,22 +70,6 @@ public class EnemyMovement : MonoBehaviour
                 Vector3 finalPosition = hit.position;
                 _navMeshAgent.SetDestination(finalPosition);
             }
-        }
-    }
-
-    // When State Change
-    void OnStateChange(EnemyState.EEnemyState enemyState)
-    {
-        switch (enemyState)
-        {
-            case EnemyState.EEnemyState.Idle:
-                break;
-            case EnemyState.EEnemyState.Chase:
-                break;
-            case EnemyState.EEnemyState.Attack:
-                break;
-            default:
-                break;
         }
     }
 

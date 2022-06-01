@@ -883,6 +883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7517748daab904e97e1c0077ed22f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   maxHealth: 20
 --- !u!195 &1778735779296362719
 NavMeshAgent:
@@ -944,6 +945,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d29edc5a6e27044ab6694bb8be106b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states:
+  - State: 0
+    StateScript: {fileID: 0}
+  - State: 0
+    StateScript: {fileID: 0}
   _currentState: 1
 --- !u!1 &3078419916665500813
 GameObject:
