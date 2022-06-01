@@ -2,36 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : AWeapon
 {
     [Header("External References")]
     Camera _mainCamera;
-
-    [Header("External Components")]
-    public Transform weaponHandler;
-    Transform _canon;
-
-    [Header("Internal Components")]
-    ParticleSystem _cannonFire;
-    Animator _animator;
-
-    [Header("Equipped weapon")]
-    Weapon _weapon;
-    WeaponData _weaponData;
-    int _munitions = 50;
-
-    [Header("Effects")]
-    GameObject _laserFX;
-    Transform _laserPool;
-    public GameObject hitFX;
-    Transform _hitPool;
-
-    [Header("FireRate")]
-    public float fireRateLatency;
-    float _fireRateTime;
-
-    [Header("Damages")]
-    public int damages;
 
     [Header("Interaction")]
     Collider _lastInteracted;
@@ -49,8 +23,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        //  && _munitions > 0
-        if (_weapon)
+        if (_weapon && _munitions > 0)
             Shoot();
 
         Interact();
@@ -65,7 +38,7 @@ public class PlayerShoot : MonoBehaviour
 
         else if (Input.GetMouseButton(0))
         {
-            //_munitions -= 1;
+            _munitions -= 1;
             _fireRateTime = 0;
             Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -97,7 +70,7 @@ public class PlayerShoot : MonoBehaviour
             _cannonFire.Play();
         }
     }
-
+    /*
     public void EquipWeapon(WeaponData _newWeapon, int munitions)
     {
         if (_weaponData)
@@ -149,7 +122,7 @@ public class PlayerShoot : MonoBehaviour
         droppedWeapon.GetComponent<WeaponItem>().munitions = munitions;
 
         droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
-    }
+    }*/
 
     public void Interact()
     {

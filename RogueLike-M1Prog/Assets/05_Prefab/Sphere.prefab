@@ -866,8 +866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SOEnemy: {fileID: 0}
-  enemyState: {fileID: 3187588230668100328}
-  enemyMovement: {fileID: 3054541465678152996}
+  enemyState: {fileID: 0}
+  enemyMovement: {fileID: 0}
+  enemyAttack: {fileID: 0}
   RefInRoom: {fileID: 0}
   AIIndex: 0
 --- !u!114 &6206568241270920140

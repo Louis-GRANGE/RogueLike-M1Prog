@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class EnemyState : MonoBehaviour
 {
     Enemy enemy;
@@ -11,7 +9,8 @@ public class EnemyState : MonoBehaviour
     {
         Idle,
         Chase,
-        Attack
+        Attack,
+        Patrol
     }
 
     [SerializeField]
@@ -29,10 +28,11 @@ public class EnemyState : MonoBehaviour
     }
     public System.Action<EEnemyState> OnStateChange;
 
-    private void Start()
+    private void Awake()
     {
         enemy = GetComponent<Enemy>();
         enemy.enemyState = this;
+        _currentState = EEnemyState.Patrol;
     }
 
     void Update()

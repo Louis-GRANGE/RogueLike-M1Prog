@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public SOEnemy SOEnemy;
     public EnemyState enemyState;
     public EnemyMovement enemyMovement;
+    public EnemyAttack enemyAttack;
 
     public Room RefInRoom;
     public int AIIndex;
