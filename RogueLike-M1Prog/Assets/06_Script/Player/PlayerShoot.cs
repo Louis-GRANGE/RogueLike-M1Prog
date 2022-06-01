@@ -73,8 +73,9 @@ public class PlayerShoot : MonoBehaviour
                 if (hit.collider.GetComponent<EnemyHealth>())
                     pointDirection = hit.collider.transform.position;
             }
-            
-            pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), pointDirection.y, pointDirection.z + Random.Range(-0.3f, 0.3f));
+
+            Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_canon.transform.position.y - pointDirection.y);
+            pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), _canon.transform.position.y, pointDirection.z + Random.Range(-0.3f, 0.3f)) + toCam;
 
             Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
             if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))

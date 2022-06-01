@@ -45,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
             pointDirection = hit.point;
 
-        Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z);
+        Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (transform.position.y - pointDirection.y);
+        Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam;
 
         transform.LookAt(direction);
     }
