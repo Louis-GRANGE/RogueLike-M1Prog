@@ -18,6 +18,7 @@ public class PlayerShoot : MonoBehaviour
     [Header("Equipped weapon")]
     Weapon _weapon;
     WeaponData _weaponData;
+    int _munitions = 50;
 
     [Header("Effects")]
     GameObject _laserFX;
@@ -43,12 +44,12 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         _mainCamera = Camera.main;
-        EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"));
+        EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);
     }
 
     private void Update()
     {
-        if(_weapon)
+        if(_weapon && _munitions > 0)
             Shoot();
 
         Interact();
@@ -63,6 +64,7 @@ public class PlayerShoot : MonoBehaviour
 
         else if (Input.GetMouseButton(0))
         {
+            _munitions -= 1;
             _fireRateTime = 0;
             Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -95,10 +97,10 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    public void EquipWeapon(WeaponData _newWeapon)
+    public void EquipWeapon(WeaponData _newWeapon, int munitions)
     {
         if (_weaponData)
-            DropWeapon(_weaponData);
+            DropWeapon(_weaponData, _munitions);
         _weaponData = _newWeapon;
 
         _weapon = Instantiate(_newWeapon.weaponPrefab, weaponHandler).GetComponent<Weapon>();
@@ -107,8 +109,9 @@ public class PlayerShoot : MonoBehaviour
 
         fireRateLatency = _newWeapon.fireLatency;
         damages = _newWeapon.damages;
+        _munitions = munitions;
 
-        if(_laserPool)
+        if (_laserPool)
             Destroy(_laserPool.gameObject);
 
         _laserPool = new GameObject().transform;
@@ -137,10 +140,12 @@ public class PlayerShoot : MonoBehaviour
         _animator.SetTrigger("Equip");
     }
 
-    public void DropWeapon(WeaponData _droppedWeapon)
+    public void DropWeapon(WeaponData _droppedWeapon, int munitions)
     {
         Vector3 dropPosition = transform.position + transform.forward;
         GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
+
+        droppedWeapon.GetComponent<WeaponItem>().munitions = munitions;
 
         droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
     }
@@ -167,7 +172,7 @@ public class PlayerShoot : MonoBehaviour
                 WeaponItem weaponItem = hit.collider.GetComponent<WeaponItem>();
 
                 Destroy(_weapon);
-                EquipWeapon(weaponItem.weaponData);
+                EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
                 weaponItem.Desactivate();
             }
         }
