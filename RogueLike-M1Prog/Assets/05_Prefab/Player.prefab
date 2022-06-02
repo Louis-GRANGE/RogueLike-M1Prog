@@ -327,6 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee53327e19b60ba419ab6b20baf28069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateManager: {fileID: 0}
+  HealthManager: {fileID: 0}
+  WeaponManager: {fileID: 0}
   playerMovement: {fileID: 0}
   playerShoot: {fileID: 0}
 --- !u!114 &1393676193613207397
@@ -355,8 +358,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHandler: {fileID: 3317130032803809420}
+  _animator: {fileID: 1367976720240311878}
+  pathEquipWeapon: WeaponData/Automatic
+  _weaponData: {fileID: 0}
+  _munitions: 50
   hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}
   fireRateLatency: 100
+  canShoot: 1
   damages: 0
 --- !u!136 &1393676193613207396
 CapsuleCollider:
