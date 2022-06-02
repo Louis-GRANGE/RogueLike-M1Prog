@@ -848,6 +848,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3187588230668100328, guid: 8a6ca6d67c4352544bb650d953984a4e,
         type: 3}
+      propertyPath: activeStates.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3187588230668100328, guid: 8a6ca6d67c4352544bb650d953984a4e,
+        type: 3}
       propertyPath: _activeStates.Array.size
       value: 0
       objectReference: {fileID: 0}
