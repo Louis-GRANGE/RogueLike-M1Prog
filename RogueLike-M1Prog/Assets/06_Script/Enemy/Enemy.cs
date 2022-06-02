@@ -12,16 +12,19 @@ public class Enemy : AMainData
 
     private void OnDestroy()
     {
-        if (GameManager.instance.EnemyManagerRef)
+        if (GameManager.instance)
             GameManager.instance.EnemyManagerRef.Enemies.Remove(this);
 
-        RefInRoom.SendAIDied(this);
+        if(RefInRoom)
+            RefInRoom.SendAIDied(this);
     }
 
     void Start()
     {
-        name = SOEnemy.EnemyName;
-        
+        if (SOEnemy)
+            name = SOEnemy.EnemyName;
+        else
+            name = "Enemy";
     }
 
     void Update()

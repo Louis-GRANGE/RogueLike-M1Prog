@@ -102,7 +102,7 @@ public abstract class AWeapon : MonoBehaviour
         }
 
         _fireRateTime = fireRateLatency;
-
+        
         _animator.SetTrigger("Equip");
     }
 
