@@ -18,5 +18,6 @@ public class Player : AMainData
 
         playerMovement = GetComponent<PlayerMovement>();
         playerShoot = GetComponent<PlayerShoot>();
+        HealthManager = GetComponent<PlayerHealth>();
     }
 }
