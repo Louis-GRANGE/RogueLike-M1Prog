@@ -12,7 +12,7 @@ public class Enemy : AMainData
 
     private void OnDestroy()
     {
-        if (GameManager.instance)
+        if (GameManager.instance.EnemyManagerRef)
             GameManager.instance.EnemyManagerRef.Enemies.Remove(this);
 
         RefInRoom.SendAIDied(this);

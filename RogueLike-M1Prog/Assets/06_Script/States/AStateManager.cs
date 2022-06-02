@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,14 +17,16 @@ public abstract class AStateManager : MonoBehaviour
 
     protected SState _currentState;
     //============================================ To add later maybe (Multi state)
-    /*public List<SState> _activeStates
-    {
+    public List<SState> _activeStates;
+    /*{
         get
         {
             return _activeStates;
         }
         set
         {
+            _activeStates = value;*/
+            /*
             foreach (SState stState in value)
             {
                 if (!_activeStates.Contains(stState))
@@ -42,9 +43,9 @@ public abstract class AStateManager : MonoBehaviour
                     TriggerEndState(tmp);
                 }
             }
-            _activeStates = value;
-        }
-    }*/
+            _activeStates = value;*/
+       // }
+   // }
 
     //==============================================================================
     public string currentState
@@ -69,22 +70,26 @@ public abstract class AStateManager : MonoBehaviour
         ownerMainData = GetComponent<AMainData>();
         ownerMainData.stateManager = this;
         _currentState = getStateDataByState(InitState);// states[0].State);
+    }
+
+    protected virtual void Start()
+    {
         TriggerStartState(_currentState);
 
-        /*_activeStates = new List<SState>() { states[0] };
+        //_activeStates = new List<SState>() { states[0] };
         foreach (SState item in _activeStates)
         {
             TriggerStartState(item);
-        }*/
+        }
     }
 
     protected virtual void Update()
     {
-        _currentState.StateScript.ExecuteState();
-        /*foreach (SState item in _activeStates)
+        //_currentState.StateScript.ExecuteState();
+        foreach (SState item in _activeStates)
         {
             item.StateScript.ExecuteState();
-        }*/
+        }
     }
 
     protected virtual void TriggerEndState(SState triggerSState)
@@ -105,5 +110,38 @@ public abstract class AStateManager : MonoBehaviour
                 return sState;
         }
         return states[0];
+    }
+
+    private bool RemoveState(string stateToRemove)
+    {
+        for (int i = 0; i < _activeStates.Count; i++)
+        {
+            if (_activeStates[i].State == stateToRemove)
+            {
+                _activeStates[i].StateScript.EndState();
+                _activeStates.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    private void RemoveStates(string[] stateToRemove)
+    {
+        for (int i = 0; i < stateToRemove.Length; i++)
+        {
+            for (int j = 0; j < _activeStates.Count; j++)
+            {
+                if (stateToRemove[i] == _activeStates[j].State)
+                {
+                    _activeStates[j].StateScript.EndState();
+                    _activeStates.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+    }
+    private void AddState(string stateToAdd)
+    {
+
     }
 }
