@@ -123,12 +123,19 @@ public abstract class AWeapon : MonoBehaviour
 
         _munitions -= 1;
         _fireRateTime = 0;
-        
-        shootDirection = new Vector3(shootDirection.x + Random.Range(-_weaponData.spray, _weaponData.spray), 0, shootDirection.z + Random.Range(-_weaponData.spray, _weaponData.spray));
+
+        shootDirection = shootDirection + transform.right * Random.Range(-_weaponData.spray.x / 10, _weaponData.spray.x / 10) + transform.up * Random.Range(-_weaponData.spray.y / 10, _weaponData.spray.y / 10);//new Vector3(shootDirection.x + Random.Range(-_weaponData.spray.x / 10, _weaponData.spray.x / 10), Random.Range(-_weaponData.spray.y / 10, _weaponData.spray.y / 10), shootDirection.z);
         Vector3 TargetPoint = shootDirection + transform.position;
 
         //Change Rotation Of GameObject to the direction of shoot
-        transform.LookAt(new Vector3(TargetPoint.x, transform.position.y, TargetPoint.z));
+        //transform.LookAt(new Vector3(TargetPoint.x, transform.position.y, TargetPoint.z));
+
+        //pointDirection = new Vector3(pointDirection.x, pointDirection.y, pointDirection.z);
+        //
+        //Vector3 toCam = new Vector3(-Camera.main.transform.forward.x, 0, -Camera.main.transform.forward.z) * (_canon.transform.position.y - pointDirection.y);
+        //pointDirection = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam;
+        //
+        //shootDirection = (pointDirection - _canon.transform.position).normalized;
 
         RaycastHit hit;
         if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
