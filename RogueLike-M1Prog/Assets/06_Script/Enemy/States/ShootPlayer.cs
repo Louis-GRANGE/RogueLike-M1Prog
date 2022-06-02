@@ -26,6 +26,5 @@ public class ShootPlayer : AState
     void ShootOnPlayer()
     {
         _mainData.WeaponManager.Shoot(PlayerPos.transform.position);
-
     }
 }

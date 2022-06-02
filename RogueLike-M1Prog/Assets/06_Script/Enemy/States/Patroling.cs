@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class Patroling : AState
 {
     NavMeshAgent _navMeshAgent;
-    
+    public float walkRadius = 1000;
+
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
@@ -30,10 +31,10 @@ public class Patroling : AState
         {
             if (PathComplet())
             {
-                float walkRadius = 10;
                 Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
                 randomDirection += _mainData.transform.position;
                 NavMeshHit hit;
+                Debug.Log(_navMeshAgent.FindClosestEdge(out hit));
                 NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                 Vector3 finalPosition = hit.position;
                 _navMeshAgent.SetDestination(finalPosition);

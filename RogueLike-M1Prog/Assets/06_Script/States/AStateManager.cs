@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class AStateManager : MonoBehaviour
 {
     protected AMainData ownerMainData;
-    public string InitState;
 
     [System.Serializable]
     public struct SState
@@ -14,54 +13,9 @@ public abstract class AStateManager : MonoBehaviour
         public AState StateScript;
     }
     public SState[] states;
-
-    protected SState _currentState;
-    //============================================ To add later maybe (Multi state)
-    public List<SState> _activeStates;
-    /*{
-        get
-        {
-            return _activeStates;
-        }
-        set
-        {
-            _activeStates = value;*/
-            /*
-            foreach (SState stState in value)
-            {
-                if (!_activeStates.Contains(stState))
-                {
-                    SState tmp = stState;
-                    TriggerStartState(tmp);
-                }
-            }
-            foreach (SState stState in _activeStates)
-            {
-                if (!value.Contains(stState))
-                {
-                    SState tmp = stState;
-                    TriggerEndState(tmp);
-                }
-            }
-            _activeStates = value;*/
-       // }
-   // }
-
-    //==============================================================================
-    public string currentState
-    {
-        get { return _currentState.State; }
-        set
-        {
-            if (_currentState.State == value) return;
-            TriggerEndState(_currentState); //End Of State
-
-            _currentState = getStateDataByState(value);
-            TriggerStartState(_currentState); //Start Of State
-
-            OnStateChange?.Invoke(_currentState.State);
-        }
-    }
+    
+    protected List<SState> _activeStates;
+    public List<string> activeStates;
 
     public System.Action<string> OnStateChange;
 
@@ -69,23 +23,16 @@ public abstract class AStateManager : MonoBehaviour
     {
         ownerMainData = GetComponent<AMainData>();
         ownerMainData.stateManager = this;
-        _currentState = getStateDataByState(InitState);// states[0].State);
     }
 
     protected virtual void Start()
     {
-        TriggerStartState(_currentState);
-
-        //_activeStates = new List<SState>() { states[0] };
-        foreach (SState item in _activeStates)
-        {
-            TriggerStartState(item);
-        }
+        _activeStates = new List<SState>();
+        SetActiveState(activeStates);
     }
 
     protected virtual void Update()
     {
-        //_currentState.StateScript.ExecuteState();
         foreach (SState item in _activeStates)
         {
             item.StateScript.ExecuteState();
@@ -102,46 +49,77 @@ public abstract class AStateManager : MonoBehaviour
         triggerSState.StateScript.StartState(ownerMainData);
     }
 
-    protected SState getStateDataByState(string eEnemyState)
+    public bool getStateDataByKey(string eEnemyState, out SState outState)
     {
         foreach (SState sState in states)
         {
             if (sState.State == eEnemyState)
-                return sState;
-        }
-        return states[0];
-    }
-
-    private bool RemoveState(string stateToRemove)
-    {
-        for (int i = 0; i < _activeStates.Count; i++)
-        {
-            if (_activeStates[i].State == stateToRemove)
             {
-                _activeStates[i].StateScript.EndState();
-                _activeStates.RemoveAt(i);
+                outState = sState;
                 return true;
             }
         }
+        outState = states[0];
         return false;
     }
-    private void RemoveStates(string[] stateToRemove)
+
+    public void SetActiveState(List<string> state)
     {
-        for (int i = 0; i < stateToRemove.Length; i++)
+        activeStates = state;
+        foreach (string item in activeStates)
         {
-            for (int j = 0; j < _activeStates.Count; j++)
-            {
-                if (stateToRemove[i] == _activeStates[j].State)
-                {
-                    _activeStates[j].StateScript.EndState();
-                    _activeStates.RemoveAt(j);
-                    break;
-                }
-            }
+            SState sStateToAdd;
+            getStateDataByKey(item, out sStateToAdd);
+            _activeStates.Add(sStateToAdd);
+            sStateToAdd.StateScript.StartState(ownerMainData);
         }
     }
-    private void AddState(string stateToAdd)
+    public bool RemoveState(string stateToRemove)
     {
-
+        SState sStateToRemove;
+        bool foundState = getStateDataByKey(stateToRemove, out sStateToRemove);
+        if (foundState && _activeStates.Contains(sStateToRemove))
+        {
+            _activeStates.Remove(sStateToRemove);
+            sStateToRemove.StateScript.EndState();
+            return true;
+        }
+        return false;
     }
+    public void RemoveStates(string[] allStateToRemove)
+    {
+        foreach (string stateToRemove in allStateToRemove)
+        {
+            RemoveState(stateToRemove);
+        }
+    }
+    public bool AddState(string stateToAdd)
+    {
+        if (!activeStates.Contains(stateToAdd))
+        {
+            SState sStateToAdd;
+            getStateDataByKey(stateToAdd, out sStateToAdd);
+            _activeStates.Add(sStateToAdd);
+            activeStates.Add(stateToAdd);
+            sStateToAdd.StateScript.StartState(ownerMainData);
+            return true;
+        }
+        return false;
+    }
+    public void AddStates(string[] allStateToAdd)
+    {
+        foreach (string stateToAdd in allStateToAdd)
+        {
+            AddState(stateToAdd);
+        }
+    }
+    public void ClearStates()
+    {
+        for (int i = _activeStates.Count; i > 0; i--)
+        {
+            _activeStates[i].StateScript.EndState();
+            _activeStates.RemoveAt(i);
+        }
+    }
+
 }
