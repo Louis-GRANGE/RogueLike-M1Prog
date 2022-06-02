@@ -88,7 +88,7 @@ public class PlayerShoot : AWeapon
     public override void EquipWeapon(WeaponData _newWeapon, int munitions)
     {
         base.EquipWeapon(_newWeapon, munitions);
-        _playerCanvas._weaponUI.UpdateWeapon(_newWeapon.icon, _munitions);
+        _playerCanvas._weaponUI.UpdateWeapon(_newWeapon, _munitions);
     }
 
     public override void Shoot(Vector3 shootDirection)

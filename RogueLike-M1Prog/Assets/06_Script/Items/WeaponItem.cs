@@ -37,21 +37,21 @@ public class WeaponItem : IItem
 
         string damages = "";
         if (weaponData.damages > _player.playerShoot.damages)
-            damages += "<color=green>" + weaponData.damages + "</color> <color=yellow>damages</color>";
+            damages += "<sprite=2> <color=green>" + weaponData.damages + "</color>";
         else if (weaponData.damages == _player.playerShoot.damages)
-            damages += "<color=yellow>" + weaponData.damages + "</color> <color=yellow>damages</color>";
+            damages += "<sprite=2> <color=yellow>" + weaponData.damages + "</color>";
         else
-            damages += "<color=red>" + weaponData.damages + "</color> <color=yellow>damages</color>";
+            damages += "<sprite=2> <color=red>" + weaponData.damages + "</color>";
 
         _followingUI.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = damages;
 
         string fireRate = "";
         if (weaponData.fireLatency < _player.playerShoot.fireRateLatency)
-            fireRate += "<color=green>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec.</color>";
+            fireRate += "<sprite=1> <color=green>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
         else if (weaponData.fireLatency == _player.playerShoot.fireRateLatency)
-            fireRate += "<color=yellow>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec.</color>";
+            fireRate += "<sprite=1> <color=yellow>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
         else
-            fireRate += "<color=red>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec.</color>";
+            fireRate += "<sprite=1> <color=red>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
 
         _followingUI.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = fireRate;
 
