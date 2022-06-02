@@ -35,13 +35,13 @@ public abstract class AStateManager : MonoBehaviour
     {
         foreach (SState item in _activeStates)
         {
-            item.StateScript.ExecuteState();
+            item.StateScript.ExecuteState(ownerMainData);
         }
     }
 
     protected virtual void TriggerEndState(SState triggerSState)
     {
-        triggerSState.StateScript.EndState();
+        triggerSState.StateScript.EndState(ownerMainData);
     }
 
     protected virtual void TriggerStartState(SState triggerSState)
@@ -81,7 +81,7 @@ public abstract class AStateManager : MonoBehaviour
         if (foundState && _activeStates.Contains(sStateToRemove))
         {
             _activeStates.Remove(sStateToRemove);
-            sStateToRemove.StateScript.EndState();
+            sStateToRemove.StateScript.EndState(ownerMainData);
             return true;
         }
         return false;
@@ -117,7 +117,7 @@ public abstract class AStateManager : MonoBehaviour
     {
         for (int i = _activeStates.Count; i > 0; i--)
         {
-            _activeStates[i].StateScript.EndState();
+            _activeStates[i].StateScript.EndState(ownerMainData);
             _activeStates.RemoveAt(i);
         }
     }

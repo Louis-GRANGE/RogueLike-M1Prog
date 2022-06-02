@@ -4,20 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [System.Serializable]
-public abstract class AState : MonoBehaviour
+public abstract class AState : ScriptableObject
 {
-    protected AMainData _mainData;
     public virtual void StartState(AMainData mainData)
     {
-        _mainData = mainData;
+
     }
 
-    public virtual void ExecuteState()
+    public virtual void ExecuteState(AMainData mainData)
     {
 
     }
 
-    public virtual void EndState()
+    public virtual void EndState(AMainData mainData)
     {
 
     }

@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[CreateAssetMenu(menuName = "States/ChasePlayer")]
 public class ChasePlayer : AState
 {
-    NavMeshAgent _navMeshAgent;
     Transform playerTransform;
 
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
         Debug.Log("[INIT] ChasePlayer");
-        _navMeshAgent = mainData.gameObject.GetComponent<NavMeshAgent>();
         playerTransform = GameManager.instance.PlayerRef.transform;
     }
 
-    public override void ExecuteState()
+    public override void ExecuteState(AMainData mainData)
     {
-        Chase(playerTransform);
+        Chase(mainData, playerTransform);
     }
 
-    public override void EndState()
+    public override void EndState(AMainData mainData)
     {
 
     }
-    void Chase(Transform _transform)
+    void Chase(AMainData mainData, Transform _transform)
     {
-        if (_navMeshAgent.isOnNavMesh)
+        if (mainData.MovementManager.NavMeshAgent.isOnNavMesh)
         {
-            _navMeshAgent.SetDestination(_transform.position);
+            mainData.MovementManager.NavMeshAgent.SetDestination(_transform.position);
         }
     }
 }

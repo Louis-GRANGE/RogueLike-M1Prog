@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "States/ShootPlayer")]
-public class ShootPlayer : AState
+[CreateAssetMenu(menuName = "States/TargetPlayer")]
+public class TargetPlayer : AState
 {
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        Debug.Log("[INIT] ShootPlayer");
+        Debug.Log("[INIT] TargetPlayer");
     }
 
     public override void ExecuteState(AMainData mainData)
     {
-        ShootOnPlayer(mainData);
+        LookAtPlayer(mainData);
     }
 
     public override void EndState(AMainData mainData)
@@ -22,8 +21,8 @@ public class ShootPlayer : AState
 
     }
 
-    void ShootOnPlayer(AMainData mainData)
+    void LookAtPlayer(AMainData mainData)
     {
-        mainData.WeaponManager.Shoot(mainData.WeaponManager._canon.forward);
+        mainData.transform.LookAt(Player.Instance.transform.position);
     }
 }

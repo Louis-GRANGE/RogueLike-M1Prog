@@ -825,13 +825,11 @@ GameObject:
   - component: {fileID: 6464728225931578140}
   - component: {fileID: 1074916000692349580}
   - component: {fileID: 6206568241270920140}
+  - component: {fileID: 5238730452015367541}
   - component: {fileID: 1778735779296362719}
   - component: {fileID: 5392821334361641071}
   - component: {fileID: 3187588230668100328}
   - component: {fileID: 7469653546028509032}
-  - component: {fileID: 8621686235691615464}
-  - component: {fileID: 7119146290282262511}
-  - component: {fileID: 5095966959068277302}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Enemy
@@ -871,6 +869,7 @@ MonoBehaviour:
   stateManager: {fileID: 0}
   HealthManager: {fileID: 0}
   WeaponManager: {fileID: 0}
+  MovementManager: {fileID: 0}
   SOEnemy: {fileID: 0}
   RefInRoom: {fileID: 0}
   AIIndex: 0
@@ -888,6 +887,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 20
+--- !u!114 &5238730452015367541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7dc14bfa44a9a4c83866b7edd8483a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavMeshAgent: {fileID: 0}
 --- !u!195 &1778735779296362719
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -938,14 +950,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
   - State: Patrol
-    StateScript: {fileID: 8621686235691615464}
+    StateScript: {fileID: 11400000, guid: 88f2f1e213bc59a439b70eeafba7fc77, type: 2}
   - State: Chase
-    StateScript: {fileID: 7119146290282262511}
+    StateScript: {fileID: 11400000, guid: d1b12f0444a3d134eb31dbd27adbead1, type: 2}
   - State: ShootPlayer
-    StateScript: {fileID: 5095966959068277302}
+    StateScript: {fileID: 11400000, guid: 4f8bd37c8ff27b044b94d50d177e7232, type: 2}
+  - State: TargetPlayer
+    StateScript: {fileID: 11400000, guid: 6bc3328af1d20a642a5ff8b7e4dcde45, type: 2}
   activeStates:
   - Patrol
   - ShootPlayer
+  - TargetPlayer
 --- !u!114 &7469653546028509032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,43 +984,6 @@ MonoBehaviour:
   fireRateLatency: 100
   canShoot: 1
   damages: 0
---- !u!114 &8621686235691615464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069383614974555114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74fb54a8a93e35b4588aad4a34d0597f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkRadius: 1000
---- !u!114 &7119146290282262511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069383614974555114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 504b247a67766104ca02b9d6cf907215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5095966959068277302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069383614974555114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fe3972fdd81144daa38ba87f1f201a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3078419916665500813
 GameObject:
   m_ObjectHideFlags: 0

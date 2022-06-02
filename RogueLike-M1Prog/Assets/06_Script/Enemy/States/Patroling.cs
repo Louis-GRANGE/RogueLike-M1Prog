@@ -3,52 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[CreateAssetMenu(menuName = "States/Patroling")]
 public class Patroling : AState
 {
-    NavMeshAgent _navMeshAgent;
     public float walkRadius = 1000;
 
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
         Debug.Log("[INIT] Patroling");
-        _navMeshAgent = mainData.gameObject.GetComponent<NavMeshAgent>();
     }
 
-    public override void ExecuteState()
+    public override void ExecuteState(AMainData mainData)
     {
-        Patrol();
+        Patrol(mainData);
     }
 
-    public override void EndState()
+    public override void EndState(AMainData mainData)
     {
 
     }
 
-    void Patrol()
+    void Patrol(AMainData mainData)
     {
-        if (_navMeshAgent.isOnNavMesh)
+        if (mainData.MovementManager.NavMeshAgent.isOnNavMesh)
         {
-            if (PathComplet())
+            if (PathComplet(mainData))
             {
                 Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
-                randomDirection += _mainData.transform.position;
+                randomDirection += mainData.transform.position;
                 NavMeshHit hit;
-                Debug.Log(_navMeshAgent.FindClosestEdge(out hit));
                 NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                 Vector3 finalPosition = hit.position;
-                _navMeshAgent.SetDestination(finalPosition);
+                mainData.MovementManager.NavMeshAgent.SetDestination(finalPosition);
             }
         }
     }
 
-    bool PathComplet()
+    bool PathComplet(AMainData mainData)
     {
-        if (Vector3.Distance(_navMeshAgent.destination, _navMeshAgent.transform.position) <= _navMeshAgent.stoppingDistance)
+        if (Vector3.Distance(mainData.MovementManager.NavMeshAgent.destination, mainData.MovementManager.NavMeshAgent.transform.position) <= mainData.MovementManager.NavMeshAgent.stoppingDistance)
         {
             return true;
         }
-        if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.magnitude <= 0.1f)
+        if (!mainData.MovementManager.NavMeshAgent.hasPath || mainData.MovementManager.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
             return true;
         }
