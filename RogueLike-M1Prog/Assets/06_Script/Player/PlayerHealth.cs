@@ -12,6 +12,7 @@ public class PlayerHealth : AHealth
     {
         base.Start();
         _playerHealthUI = PlayerCanvas.Instance._playerHealthUI;
+        _playerHealthUI._memorizedHealth = health;
     }
 
     public override void TakeDamage(int damage, GameObject Sender)

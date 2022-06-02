@@ -8,18 +8,17 @@ public class PlayerHealthUI : MonoBehaviour
 {
     Player _Player;
 
-    Image healthBar;
-    Image healthBarMemory;
+    public Image healthBar;
+    public Image healthBarMemory;
 
     [Header("HealthBar Memory")]
-    float _memorizedHealth;
+    public float _memorizedHealth;
     Animator _healthBarMemoryAnim;
     float _memorizeLatency;
 
     private void Awake()
     {
-        healthBar = transform.GetChild(4).GetComponent<Image>();
-        healthBarMemory = transform.GetChild(3).GetComponent<Image>();
+        _healthBarMemoryAnim = healthBarMemory.GetComponent<Animator>();
     }
 
     private void Start()

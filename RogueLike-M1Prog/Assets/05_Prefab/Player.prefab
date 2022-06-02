@@ -330,6 +330,7 @@ MonoBehaviour:
   stateManager: {fileID: 0}
   HealthManager: {fileID: 0}
   WeaponManager: {fileID: 0}
+  MovementManager: {fileID: 0}
   playerMovement: {fileID: 0}
   playerShoot: {fileID: 0}
 --- !u!114 &1393676193613207397
@@ -411,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  maxHealth: 1000
 --- !u!1 &1428893179816916006
 GameObject:
   m_ObjectHideFlags: 0
