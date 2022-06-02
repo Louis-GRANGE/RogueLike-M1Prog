@@ -30,20 +30,7 @@ public class PlayerShoot : AWeapon
     {
         if (Input.GetMouseButton(0))
         {
-            Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit hit;
-            if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
-            {
-                pointDirection = hit.point;
-                if (hit.collider.GetComponent<EnemyHealth>())
-                    pointDirection = hit.collider.transform.position;
-            }
-
-            Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_canon.transform.position.y - pointDirection.y);
-            pointDirection = new Vector3(pointDirection.x + Random.Range(-0.3f, 0.3f), _canon.transform.position.y, pointDirection.z + Random.Range(-0.3f, 0.3f)) + toCam;
-            
-            Shoot(pointDirection);
+            Shoot(_canon.forward);
         }
 
         Interact();

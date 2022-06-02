@@ -8,7 +8,8 @@ public abstract class AWeapon : MonoBehaviour
 
     [Header("External Components")]
     public Transform weaponHandler;
-    protected Transform _canon;
+    [HideInInspector]
+    public Transform _canon;
 
     [Header("Internal Components")]
     protected ParticleSystem _cannonFire;
@@ -48,7 +49,6 @@ public abstract class AWeapon : MonoBehaviour
     {
         EquipWeapon(Resources.Load<WeaponData>(pathEquipWeapon), _munitions);
     }
-
 
     public virtual void InitData()
     {
@@ -106,7 +106,7 @@ public abstract class AWeapon : MonoBehaviour
         _animator.SetTrigger("Equip");
     }
 
-    public virtual void Shoot(Vector3 pointDirection)
+    public virtual void Shoot(Vector3 shootDirection)
     {
         canShoot = true;
         if (!_weapon || _munitions <= 0)
@@ -124,7 +124,7 @@ public abstract class AWeapon : MonoBehaviour
         _munitions -= 1;
         _fireRateTime = 0;
 
-        Vector3 shootDirection = (pointDirection - _canon.transform.position).normalized;
+        shootDirection = new Vector3(shootDirection.x + Random.Range(-0.3f, 0.3f), 0, shootDirection.z + Random.Range(-0.3f, 0.3f));
         Vector3 TargetPoint = shootDirection + transform.position;
 
         //Change Rotation Of GameObject to the direction of shoot

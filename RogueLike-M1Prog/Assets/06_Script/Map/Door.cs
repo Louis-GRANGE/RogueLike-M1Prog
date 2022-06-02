@@ -82,7 +82,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && CanOpenDoor)
+        if (other.CompareTag(Constants.TagPlayer) && CanOpenDoor)
         {
             OpenDoor(true);
         }
@@ -90,7 +90,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && CanOpenDoor)
+        if (other.CompareTag(Constants.TagPlayer) && CanOpenDoor)
         {
             OpenDoor(true);
         }
@@ -98,7 +98,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Constants.TagPlayer))
         {
             OpenDoor(false);
         }

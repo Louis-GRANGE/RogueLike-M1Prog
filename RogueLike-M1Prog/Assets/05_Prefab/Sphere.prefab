@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 5095966959068277302}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Ennemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -959,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHandler: {fileID: 4965308571563695684}
+  _canon: {fileID: 0}
   _animator: {fileID: 7568609172372761988}
   pathEquipWeapon: WeaponData/Semi-automatic
   _weaponData: {fileID: 0}
@@ -979,6 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fb54a8a93e35b4588aad4a34d0597f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkRadius: 1000
 --- !u!114 &7119146290282262511
 MonoBehaviour:
   m_ObjectHideFlags: 0

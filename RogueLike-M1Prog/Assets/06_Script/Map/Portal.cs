@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Constants.TagPlayer))
         {
             GameManager.instance.NextLevel();
             Destroy(gameObject);
