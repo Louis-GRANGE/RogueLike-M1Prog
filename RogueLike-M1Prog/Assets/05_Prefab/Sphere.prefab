@@ -936,7 +936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce04d1956e39d54ba4a7b8bdd9a2134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitState: Patrol
   states:
   - State: Patrol
     StateScript: {fileID: 8621686235691615464}
@@ -944,11 +943,9 @@ MonoBehaviour:
     StateScript: {fileID: 7119146290282262511}
   - State: ShootPlayer
     StateScript: {fileID: 5095966959068277302}
-  _activeStates:
-  - State: Patrol
-    StateScript: {fileID: 8621686235691615464}
-  - State: ShootPlayer
-    StateScript: {fileID: 5095966959068277302}
+  activeStates:
+  - Patrol
+  - ShootPlayer
 --- !u!114 &7469653546028509032
 MonoBehaviour:
   m_ObjectHideFlags: 0
