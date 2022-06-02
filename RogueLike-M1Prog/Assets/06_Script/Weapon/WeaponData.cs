@@ -13,6 +13,8 @@ public class WeaponData : ScriptableObject
     [Space, Header("Values")]
     public int damages;
     public float fireLatency;
+    [Tooltip("Weapon Spray 0 = NoSpray, 1 = SprayMax")]
+    public float spray;
 
     [Space, Header("Effects")]
     public GameObject munitionEffect;

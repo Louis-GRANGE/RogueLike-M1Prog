@@ -16,7 +16,7 @@ public abstract class AWeapon : MonoBehaviour
     public Animator _animator;
 
     [Header("Equipped weapon")]
-    public string pathEquipWeapon = "WeaponData/Automatic";
+    public WeaponData FirstEquippedWeapon;
     protected Weapon _weapon;
     [HideInInspector]
     public WeaponData _weaponData;
@@ -47,7 +47,7 @@ public abstract class AWeapon : MonoBehaviour
 
     protected virtual void Start()
     {
-        EquipWeapon(Resources.Load<WeaponData>(pathEquipWeapon), _munitions);
+        EquipWeapon(FirstEquippedWeapon, _munitions);
     }
 
     public virtual void InitData()
@@ -123,8 +123,8 @@ public abstract class AWeapon : MonoBehaviour
 
         _munitions -= 1;
         _fireRateTime = 0;
-
-        shootDirection = new Vector3(shootDirection.x + Random.Range(-0.3f, 0.3f), 0, shootDirection.z + Random.Range(-0.3f, 0.3f));
+        
+        shootDirection = new Vector3(shootDirection.x + Random.Range(-_weaponData.spray, _weaponData.spray), 0, shootDirection.z + Random.Range(-_weaponData.spray, _weaponData.spray));
         Vector3 TargetPoint = shootDirection + transform.position;
 
         //Change Rotation Of GameObject to the direction of shoot

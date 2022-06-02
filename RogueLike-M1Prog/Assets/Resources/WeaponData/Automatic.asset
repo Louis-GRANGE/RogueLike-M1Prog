@@ -19,5 +19,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d4990afbeef376646ac8b6d909c87550, type: 3}
   damages: 3
   fireLatency: 0.08
+  spray: 0.1
   munitionEffect: {fileID: 2170792420238155298, guid: 01f704ea5bb2a8444be28ff305e841a0,
     type: 3}
