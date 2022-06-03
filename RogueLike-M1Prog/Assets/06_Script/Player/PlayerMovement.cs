@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     Vector2 _movement;
 
+    public Vector3 offsetShoot;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_player.playerShoot._canon.transform.position.y - pointDirection.y);
-        Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam;
+        Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam + offsetShoot;
 
         transform.LookAt(direction);
     }
