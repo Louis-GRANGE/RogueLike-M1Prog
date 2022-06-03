@@ -8,7 +8,7 @@ public abstract class AMovementManager : MonoBehaviour
     protected AMainData ownerMainData;
     public NavMeshAgent NavMeshAgent;
 
-    private void Awake()
+    public virtual void Awake()
     {
         ownerMainData = GetComponent<AMainData>();
         ownerMainData.MovementManager = this;
