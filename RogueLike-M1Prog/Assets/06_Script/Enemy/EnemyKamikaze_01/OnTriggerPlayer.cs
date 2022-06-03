@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OnTriggerPlayer : MonoBehaviour
 {
+    CameraEffect _cameraEffect;
+
     private AMainData ownerMainData;
     public ParticleSystem VFX_Explosion;
     public int ExplodeDamage;
@@ -13,6 +15,8 @@ public class OnTriggerPlayer : MonoBehaviour
 
     private void Start()
     {
+        _cameraEffect = CameraEffect.Instance;
+
         ownerMainData = transform.parent.GetComponent<AMainData>();
         ToDealDamage = new List<AHealth>();
     }
@@ -28,6 +32,7 @@ public class OnTriggerPlayer : MonoBehaviour
         {
             ownerMainData.stateManager.ClearStates();
             VFX_Explosion.Play();
+            _cameraEffect.Explosion();
             foreach (AHealth health in ToDealDamage)
             {
                 int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / Vector3.Distance(health.transform.position, transform.position));
