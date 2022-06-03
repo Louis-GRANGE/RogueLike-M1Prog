@@ -78,9 +78,9 @@ public class PlayerShoot : AWeapon
         _playerCanvas._weaponUI.UpdateWeapon(_newWeapon, _munitions);
     }
 
-    public override void Shoot(Vector3 shootDirection)
+    public override void Shoot(Vector3 shootDirection, bool consumeAmmo = true)
     {
-        base.Shoot(shootDirection);
+        base.Shoot(shootDirection, consumeAmmo);
         if(canShoot)
             _playerCanvas._weaponUI.UpdateAmmo(_munitions);
     }
