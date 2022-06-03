@@ -108,10 +108,10 @@ public abstract class AWeapon : MonoBehaviour
         _animator.SetTrigger("Equip");
     }
 
-    public virtual void Shoot(Vector3 shootDirection, bool consumeAmmo = false)
+    public virtual void Shoot(Vector3 shootDirection, float additionnalSpray)
     {
         canShoot = true;
-        if (!_weapon || (_munitions <= 0 && consumeAmmo))
+        if (!_weapon)
         {
             canShoot = false;
             return;
@@ -122,12 +122,12 @@ public abstract class AWeapon : MonoBehaviour
             _fireRateTime += Time.deltaTime;
             return;
         }
-
-        if(consumeAmmo)
-            _munitions -= 1;
+        
         _fireRateTime = 0;
 
-        shootDirection = shootDirection + transform.right * Random.Range(-_weaponData.spray.x / 10, _weaponData.spray.x / 10) + transform.up * Random.Range(-_weaponData.spray.y / 10, _weaponData.spray.y / 10);//new Vector3(shootDirection.x + Random.Range(-_weaponData.spray.x / 10, _weaponData.spray.x / 10), Random.Range(-_weaponData.spray.y / 10, _weaponData.spray.y / 10), shootDirection.z);
+        float sprayX = additionnalSpray + _weaponData.spray.x;
+        float sprayY = additionnalSpray + _weaponData.spray.y;
+        shootDirection = shootDirection + transform.right * Random.Range(-sprayX / 10, sprayX / 10) + transform.up * Random.Range(-sprayY / 10, sprayY / 10);
         Vector3 TargetPoint = shootDirection + transform.position;
 
         RaycastHit hit;

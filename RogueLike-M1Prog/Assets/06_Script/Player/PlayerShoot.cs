@@ -30,7 +30,7 @@ public class PlayerShoot : AWeapon
     {
         if (Input.GetMouseButton(0))
         {
-            Shoot(_canon.forward);
+            Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
         }
 
         Interact();
@@ -78,11 +78,15 @@ public class PlayerShoot : AWeapon
         _playerCanvas._weaponUI.UpdateWeapon(_newWeapon, _munitions);
     }
 
-    public override void Shoot(Vector3 shootDirection, bool consumeAmmo = true)
+    public override void Shoot(Vector3 shootDirection, float additionnalSpray = 0)
     {
-        base.Shoot(shootDirection, consumeAmmo);
-        if(canShoot)
+        if(_munitions > 0)
+            base.Shoot(shootDirection, additionnalSpray);
+        if (canShoot)
+        {
+            _munitions -= 1;
             _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+        }
     }
 
     public void AddAmmo(int ammo)
