@@ -70,6 +70,10 @@ public class HealthEnemy : AHealth
 
     public override void OnDeath(GameObject Sender)
     {
+        if (IsDeath)
+            return;
+        IsDeath = true;
+
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
@@ -86,6 +90,10 @@ public class HealthEnemy : AHealth
 
     public override void OnDeath()
     {
+        if (IsDeath)
+            return;
+        IsDeath = true;
+        
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);

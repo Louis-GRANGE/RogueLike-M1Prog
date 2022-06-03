@@ -918,7 +918,7 @@ NavMeshAgent:
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1756,7 +1756,7 @@ GameObject:
   - component: {fileID: 2259787215466638691}
   - component: {fileID: 5680147489906345874}
   - component: {fileID: 8460480267593359899}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TriggerPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

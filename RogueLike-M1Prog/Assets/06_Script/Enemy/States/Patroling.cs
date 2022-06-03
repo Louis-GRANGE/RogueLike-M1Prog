@@ -11,42 +11,41 @@ public class Patroling : AState
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        Debug.Log("[INIT] Patroling");
     }
 
-    public override void ExecuteState(AMainData mainData)
+    public override void ExecuteState()
     {
-        Patrol(mainData);
+        Patrol();
     }
 
-    public override void EndState(AMainData mainData)
+    public override void EndState()
     {
 
     }
 
-    void Patrol(AMainData mainData)
+    void Patrol()
     {
-        if (mainData.MovementManager.NavMeshAgent.isOnNavMesh)
+        if (_mainData.MovementManager.NavMeshAgent.isOnNavMesh)
         {
-            if (PathComplet(mainData))
+            if (PathComplet())
             {
                 Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
-                randomDirection += mainData.transform.position;
+                randomDirection += _mainData.transform.position;
                 NavMeshHit hit;
                 NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                 Vector3 finalPosition = hit.position;
-                mainData.MovementManager.NavMeshAgent.SetDestination(finalPosition);
+                _mainData.MovementManager.NavMeshAgent.SetDestination(finalPosition);
             }
         }
     }
 
-    bool PathComplet(AMainData mainData)
+    bool PathComplet()
     {
-        if (Vector3.Distance(mainData.MovementManager.NavMeshAgent.destination, mainData.MovementManager.NavMeshAgent.transform.position) <= mainData.MovementManager.NavMeshAgent.stoppingDistance)
+        if (Vector3.Distance(_mainData.MovementManager.NavMeshAgent.destination, _mainData.MovementManager.NavMeshAgent.transform.position) <= _mainData.MovementManager.NavMeshAgent.stoppingDistance)
         {
             return true;
         }
-        if (!mainData.MovementManager.NavMeshAgent.hasPath || mainData.MovementManager.NavMeshAgent.velocity.magnitude <= 0.1f)
+        if (!_mainData.MovementManager.NavMeshAgent.hasPath || _mainData.MovementManager.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
             return true;
         }

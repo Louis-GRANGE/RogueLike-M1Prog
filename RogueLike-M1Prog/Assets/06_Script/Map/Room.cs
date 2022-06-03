@@ -29,7 +29,7 @@ public class Room : AMinimap
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             if(Enemies.Count > 0)
             {
@@ -133,13 +133,24 @@ public class Room : AMinimap
         return Tools.GetRandomPointInsideCollider(RandomPartOfRoom);
     }
 
-    private void SpawnAllOfRoomEnnemies()
+    private void ActiveAllEnnemies()
+    {
+        foreach (Enemy enemy in Enemies)
+        {
+            enemy.gameObject.SetActive(true);
+        }
+    }
+
+    public void SpawnAllOfRoomEnnemies()
     {
         int NbToSpawn = GameManager.instance.SpawnerRef.SOSpawner.GetRandomNbOfEnnemies();
         NbToSpawn = Mathf.RoundToInt(NbToSpawn * SizeRoom) + Mathf.RoundToInt(GameManager.instance.Difficulty * 0.1f);
         for (int i = 0; i < NbToSpawn; i++)
         {
             Enemy AISpawned = GameManager.instance.SpawnerRef.SpawnRandomAIOnPos(getRandomPointInRoom());
+            //Instanciate Hidding Enemy
+            AISpawned.gameObject.SetActive(false);
+
             AISpawned.RefInRoom = this;
             AISpawned.AIIndex = i;
             Enemies.Add(AISpawned);
@@ -164,7 +175,7 @@ public class Room : AMinimap
             {
                 if (SizeRoom != 0)
                 {
-                    SpawnAllOfRoomEnnemies();
+                    ActiveAllEnnemies();
                     _haveSpawnEnnemies = true;
                     foreach (Door door in DoorPlacement)
                     {

@@ -9,21 +9,20 @@ public class ShootPlayer : AState
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        Debug.Log("[INIT] ShootPlayer");
     }
 
-    public override void ExecuteState(AMainData mainData)
+    public override void ExecuteState()
     {
-        ShootOnPlayer(mainData);
+        ShootOnPlayer();
     }
 
-    public override void EndState(AMainData mainData)
+    public override void EndState()
     {
 
     }
 
-    void ShootOnPlayer(AMainData mainData)
+    void ShootOnPlayer()
     {
-        mainData.WeaponManager.Shoot(mainData.WeaponManager._canon.forward);
+        _mainData.WeaponManager.Shoot(_mainData.WeaponManager._canon.forward);
     }
 }

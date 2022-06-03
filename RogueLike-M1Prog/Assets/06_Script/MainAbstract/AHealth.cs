@@ -8,6 +8,7 @@ public abstract class AHealth : MonoBehaviour
     [HideInInspector]
     public int health;
     public int maxHealth;
+    protected bool IsDeath;
 
     protected virtual void Start()
     {
@@ -33,15 +34,25 @@ public abstract class AHealth : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnDeath();
+        if (!IsDeath)
+        {
+            IsDeath = true;
+            OnDeath();
+        }
     }
 
     public virtual void OnDeath()
     {
-
+        if (IsDeath)
+            return;
+        IsDeath = true;
+        Destroy(gameObject);
     }
     public virtual void OnDeath(GameObject Sender)
     {
+        if (IsDeath)
+            return;
+        IsDeath = true;
         Destroy(gameObject);
     }
 

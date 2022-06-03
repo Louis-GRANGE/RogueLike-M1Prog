@@ -28,6 +28,10 @@ public abstract class AStateManager : MonoBehaviour
     protected virtual void Start()
     {
         _activeStates = new List<SState>();
+        for (int i = 0; i < states.Length; i++)
+        {
+            states[i].StateScript = Instantiate(states[i].StateScript);
+        }
         SetActiveState(activeStates);
     }
 
@@ -35,13 +39,13 @@ public abstract class AStateManager : MonoBehaviour
     {
         foreach (SState item in _activeStates)
         {
-            item.StateScript.ExecuteState(ownerMainData);
+            item.StateScript.ExecuteState();
         }
     }
 
     protected virtual void TriggerEndState(SState triggerSState)
     {
-        triggerSState.StateScript.EndState(ownerMainData);
+        triggerSState.StateScript.EndState();
     }
 
     protected virtual void TriggerStartState(SState triggerSState)
@@ -81,7 +85,7 @@ public abstract class AStateManager : MonoBehaviour
         if (foundState && _activeStates.Contains(sStateToRemove))
         {
             _activeStates.Remove(sStateToRemove);
-            sStateToRemove.StateScript.EndState(ownerMainData);
+            sStateToRemove.StateScript.EndState();
             return true;
         }
         return false;
@@ -117,7 +121,7 @@ public abstract class AStateManager : MonoBehaviour
     {
         for (int i = _activeStates.Count - 1; i > 0; i--)
         {
-            _activeStates[i].StateScript.EndState(ownerMainData);
+            _activeStates[i].StateScript.EndState();
             _activeStates.RemoveAt(i);
         }
     }
