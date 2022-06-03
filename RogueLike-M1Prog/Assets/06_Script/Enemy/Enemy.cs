@@ -22,7 +22,11 @@ public class Enemy : AMainData
     void Start()
     {
         if (SOEnemy)
+        {
             name = SOEnemy.EnemyName;
+            HealthManager.maxHealth = SOEnemy.Health;
+            HealthManager.health = SOEnemy.Health;
+        }
         else
             name = "Enemy";
     }

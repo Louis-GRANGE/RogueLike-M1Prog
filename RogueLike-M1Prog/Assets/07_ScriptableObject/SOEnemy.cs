@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Enemy")]
 public class SOEnemy : ScriptableObject
 {
-    public float life;
+    public int Health;
     public string EnemyName;
     public Enemy Prefab;
 }
