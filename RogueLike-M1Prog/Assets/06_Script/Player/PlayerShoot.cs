@@ -81,11 +81,13 @@ public class PlayerShoot : AWeapon
     public override void Shoot(Vector3 shootDirection, float additionnalSpray = 0)
     {
         if(_munitions > 0)
-            base.Shoot(shootDirection, additionnalSpray);
-        if (canShoot)
         {
-            _munitions -= 1;
-            _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+            base.Shoot(shootDirection, additionnalSpray);
+            if (canShoot)
+            {
+                _munitions -= 1;
+                _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+            }
         }
     }
 
