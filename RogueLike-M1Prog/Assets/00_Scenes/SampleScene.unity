@@ -1495,21 +1495,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8535024532303856681, guid: deaa1dae4b184bb4bbc10a970efb07e4,
-        type: 3}
-      propertyPath: m_TargetTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8535024532303856681, guid: deaa1dae4b184bb4bbc10a970efb07e4,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8535024532303856681, guid: deaa1dae4b184bb4bbc10a970efb07e4,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
-      value: 0.75
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deaa1dae4b184bb4bbc10a970efb07e4, type: 3}
 --- !u!1 &1947483196
