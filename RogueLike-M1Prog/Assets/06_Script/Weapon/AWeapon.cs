@@ -16,10 +16,11 @@ public abstract class AWeapon : MonoBehaviour
     public Animator _animator;
 
     [Header("Equipped weapon")]
-    public WeaponData FirstEquippedWeapon;
+    public List<WeaponData> FirstEquippedWeapons;
     protected Weapon _weapon;
     [HideInInspector]
     public WeaponData _weaponData;
+    [Space]
     public int _munitions = 50;
 
     [Header("Effects")]
@@ -47,7 +48,8 @@ public abstract class AWeapon : MonoBehaviour
 
     protected virtual void Start()
     {
-        EquipWeapon(FirstEquippedWeapon, _munitions);
+        if(FirstEquippedWeapons.Count > 0)
+            EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], _munitions);
     }
 
     public virtual void InitData()

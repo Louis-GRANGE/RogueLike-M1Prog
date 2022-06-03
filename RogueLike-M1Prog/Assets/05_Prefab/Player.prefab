@@ -362,8 +362,9 @@ MonoBehaviour:
   weaponHandler: {fileID: 3317130032803809420}
   _canon: {fileID: 0}
   _animator: {fileID: 1367976720240311878}
-  FirstEquippedWeapon: {fileID: 11400000, guid: 85ae08148db640841932eece05a8a312,
-    type: 2}
+  FirstEquippedWeapons:
+  - {fileID: 11400000, guid: 85ae08148db640841932eece05a8a312, type: 2}
+  - {fileID: 11400000, guid: e76854febc2f49a4a96b39b0342e9ba1, type: 2}
   _weaponData: {fileID: 0}
   _munitions: 50
   hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}

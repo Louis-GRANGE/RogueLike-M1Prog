@@ -75,7 +75,7 @@ public class HealthEnemy : AHealth
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Sender.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
-        if(Random.Range(0, 3) == 0)
+        if(Random.Range(0, 3) == 0 && ownerMainData.WeaponManager._weaponData)
             DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
 
         Destroy(gameObject);
