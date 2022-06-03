@@ -6,7 +6,7 @@ public class WallsHiderForCamera : MonoBehaviour
 {
     Vector3 _offset;
     Player _player;
-    public Transform Feets;
+    Transform Feets;
 
     private List<Renderer> Hides;
 
@@ -14,6 +14,7 @@ public class WallsHiderForCamera : MonoBehaviour
     {
         _player = Player.Instance;
         Hides = new List<Renderer>();
+        Feets = Player.Instance.transform.GetChild(0);
     }
 
     private void FixedUpdate()
