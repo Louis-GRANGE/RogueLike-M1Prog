@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider), typeof(BoxCollider), typeof(Rigidbody))]
 public abstract class AItem : MonoBehaviour
 {
     [Header("External")]
     public FollowingUI prefFollowingUI;
-    public Sprite _iconWeapon;
+    //public Sprite _icon;
 
     [Header("VFX")]
     public Color colorMark;

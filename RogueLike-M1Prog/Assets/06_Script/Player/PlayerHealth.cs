@@ -17,6 +17,13 @@ public class PlayerHealth : AHealth
         _playerHealthUI._memorizedHealth = health;
     }
 
+    public override int ModifyHealth(int change)
+    {
+        base.ModifyHealth(change);
+        _playerHealthUI.UpdateHealth();
+        return health;
+    }
+
     public override void TakeDamage(int damage, GameObject Sender)
     {
         base.TakeDamage(damage, Sender);

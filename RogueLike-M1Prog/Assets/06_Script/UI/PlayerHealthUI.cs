@@ -45,5 +45,9 @@ public class PlayerHealthUI : MonoBehaviour
                 healthBarMemory.fillAmount = _memorizedHealth / (float)_Player.HealthManager.maxHealth;
             }
         }
+        else //When you heal restore Memorized Heal
+        {
+            _memorizedHealth = _Player.HealthManager.health;
+        }
     }
 }

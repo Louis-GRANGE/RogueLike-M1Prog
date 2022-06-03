@@ -24,7 +24,7 @@ public class DamageEffect : MonoBehaviour
     Vector3 _basePosition;
     Vector3 _direction;
 
-    public void Activation(Vector3 wordlPosition, int value, bool munitions = false)
+    public void Activation(Vector3 wordlPosition, string value, Color textColor)
     {
         if (!_damageText)
         {
@@ -32,10 +32,7 @@ public class DamageEffect : MonoBehaviour
             _damageText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
         
-        if(!munitions)
-            _damageText.text = "<color=red>" + value + "</color>";
-        else
-            _damageText.text = "<sprite=0> <color=green>+" + value + "</color>";
+        _damageText.text = "<color=#" + ColorUtility.ToHtmlStringRGBA(textColor) + ">" + value + "</color>";
 
         _worldPosition = wordlPosition;
         transform.position = Camera.main.WorldToScreenPoint(_worldPosition);

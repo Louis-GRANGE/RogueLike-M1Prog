@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class HealthEnemy : AHealth
 {
     AMainData ownerMainData;
-    DamageTextPool _damageTextPool;
 
     [Header("HealthBar")]
     Image _healthBar;
@@ -38,8 +37,6 @@ public class HealthEnemy : AHealth
         _healthBar = followingUI.transform.GetChild(0).GetChild(2).GetComponent<Image>();
 
         _healthBarMemoryAnim = _healthBarMemory.GetComponent<Animator>();
-
-        _damageTextPool = DamageTextPool.Instance;
     }
 
     public override void TakeDamage(int damage, GameObject Sender)
@@ -50,7 +47,7 @@ public class HealthEnemy : AHealth
 
         _memorizeLatency = 0;
 
-        _damageTextPool.RequestDamageText(transform.position, damage);
+        damageTextPool.RequestDamageText(transform.position, damage);
         
     }
 

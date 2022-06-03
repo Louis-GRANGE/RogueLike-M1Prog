@@ -29,13 +29,20 @@ public class DamageTextPool : MonoBehaviour
     {
         Transform child = transform.GetChild(0);
         child.SetParent(alterPool);
-        child.GetComponent<DamageEffect>().Activation(worldPos, damage);
+        child.GetComponent<DamageEffect>().Activation(worldPos, damage.ToString(), Color.red);
+    }
+
+    public void RequestHealText(Vector3 worldPos, int heal)
+    {
+        Transform child = transform.GetChild(0);
+        child.SetParent(alterPool);
+        child.GetComponent<DamageEffect>().Activation(worldPos, heal.ToString(), Color.green);
     }
 
     public void RequestMunitionText(Vector3 worldPos, int value)
     {
         Transform child = transform.GetChild(0);
         child.SetParent(alterPool);
-        child.GetComponent<DamageEffect>().Activation(worldPos, value, true);
+        child.GetComponent<DamageEffect>().Activation(worldPos, "+" + value, Color.green);
     }
 }

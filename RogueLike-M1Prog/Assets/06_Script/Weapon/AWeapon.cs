@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AWeapon : MonoBehaviour
 {
     protected AMainData ownerMainData;
+    PlayerCanvas _playerCanvas;
 
     [Header("External Components")]
     public Transform weaponHandler;
@@ -48,7 +49,8 @@ public abstract class AWeapon : MonoBehaviour
 
     protected virtual void Start()
     {
-        if(FirstEquippedWeapons.Count > 0)
+        _playerCanvas = PlayerCanvas.Instance;
+        if (FirstEquippedWeapons.Count > 0)
             EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], _munitions);
     }
 
@@ -61,7 +63,7 @@ public abstract class AWeapon : MonoBehaviour
     {   
         Vector3 dropPosition = transform.position + transform.forward;
         GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
-
+        droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
         droppedWeapon.GetComponent<WeaponItem>().munitions = munitions;
     }
 
@@ -148,5 +150,11 @@ public abstract class AWeapon : MonoBehaviour
         {
             _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
         }
+    }
+
+    public void AddAmmo(int ammo)
+    {
+        _munitions += ammo;
+        _playerCanvas._weaponUI.UpdateAmmo(_munitions);
     }
 }

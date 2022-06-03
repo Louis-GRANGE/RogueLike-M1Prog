@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class HealItem : AItem
 {
+    [Header("Data")]
+    public HealthData healthData;
+
     private void Start()
     {
         
     }
-
 
     public override void ActualizeShown()
     {

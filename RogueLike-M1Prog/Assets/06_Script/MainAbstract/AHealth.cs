@@ -10,9 +10,14 @@ public abstract class AHealth : MonoBehaviour
     public int maxHealth;
     protected bool IsDeath;
 
+    // For PopUI
+    [HideInInspector]
+    public DamageTextPool damageTextPool;
+
     protected virtual void Start()
     {
         health = maxHealth;
+        damageTextPool = DamageTextPool.Instance;
     }
 
     public void SetHealth(int value)
@@ -21,13 +26,17 @@ public abstract class AHealth : MonoBehaviour
         maxHealth = value;
     }
 
-    public int ModifyHealth(int change)
+    public virtual int ModifyHealth(int change)
     {
         health += change;
         if (health <= 0)
         {
             OnDeath();
             Destroy(gameObject);
+        }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
         }
         return health;
     }
