@@ -12,18 +12,18 @@ public class ShootPlayer : AState
         Debug.Log("[INIT] ShootPlayer");
     }
 
-    public override void ExecuteState(AMainData mainData)
+    public override void ExecuteState()
     {
-        ShootOnPlayer(mainData);
+        ShootOnPlayer();
     }
 
-    public override void EndState(AMainData mainData)
+    public override void EndState()
     {
 
     }
 
-    void ShootOnPlayer(AMainData mainData)
+    void ShootOnPlayer()
     {
-        mainData.WeaponManager.Shoot(new Vector3(mainData.WeaponManager._canon.forward.x, 0, mainData.WeaponManager._canon.forward.z), 1f);
+        _mainData.WeaponManager.Shoot(new Vector3(_mainData.WeaponManager._canon.forward.x, 0, _mainData.WeaponManager._canon.forward.z), 1f);
     }
 }
