@@ -63,6 +63,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2ea941b2af14a4bb57c1d8c912e23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefFollowingUI: {fileID: 8788638365719360318, guid: f6e36f07e317aca4db18d2ad410c1839,
+    type: 3}
+  _iconWeapon: {fileID: 21300000, guid: d4990afbeef376646ac8b6d909c87550, type: 3}
+  colorMark: {r: 0, g: 1, b: 0, a: 1}
   weaponData: {fileID: 11400000, guid: e76854febc2f49a4a96b39b0342e9ba1, type: 2}
   munitions: 0
 --- !u!54 &8034057804465024439

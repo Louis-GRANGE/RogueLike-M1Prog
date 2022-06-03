@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
         PlayerRef.transform.position = Vector3.up * 10000;
         Difficulty++;
         SceneManager.LoadSceneAsync(Constants.GameLevel);
-        LevelManager.instance.LoadNewMap();
+        //LevelManager.instance.LoadNewMap();
     }
 
     public void SetRunSeed(int seed)

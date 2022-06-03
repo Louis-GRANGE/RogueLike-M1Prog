@@ -57,7 +57,7 @@ public class MapGenerator : MonoBehaviour
                 room.SpawnAllOfRoomEnnemies();
             }
             LevelManager.instance.Rooms = new List<Room>(Rooms);
-            LevelManager.instance.Callback_OnRoomFinish.Invoke(Rooms[0]); // Send to LevelManager the end of first map
+            Rooms[0].IsCompleted = true; // Send to LevelManager the end of first map
             Rooms.Clear();
 
             GetComponent<NavMeshSurface>().BuildNavMesh();
@@ -68,6 +68,7 @@ public class MapGenerator : MonoBehaviour
 
     public void SpawnPortal(Room roomFinish)
     {
+        Debug.Log("SPAWN PORTAL");
         Instantiate(PrefabPortal, roomFinish.transform.position + Vector3.up, Quaternion.identity);
     }
 

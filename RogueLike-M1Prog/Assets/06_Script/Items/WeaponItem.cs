@@ -4,35 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class WeaponItem : IItem
+public class WeaponItem : AItem
 {
     [Header("External References")]
     Player _player;
-
-    [Header("External Components")]
-    Image _iconWeapon;
 
     [Header("Data")]
     public WeaponData weaponData;
     public int munitions;
 
-    [Header("FollowingUI")]
-    FollowingUI _followingUI;
-    GameObject _equipText;
-
-    public void ActualizeShown()
+    public override void ActualizeShown()
     {
         if (_player == null)
         {
             _player = Player.Instance;
 
-            _followingUI = Instantiate(Resources.Load<GameObject>("UI/WeaponPanel"), FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
+            _followingUI = Instantiate(prefFollowingUI, FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
             _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
 
             _equipText = _followingUI.transform.GetChild(0).GetChild(5).gameObject;
-            _iconWeapon = _followingUI.transform.GetChild(0).GetChild(4).GetComponent<Image>();
+            _iconWeapon = _followingUI.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = _iconWeapon;
             
-            _iconWeapon.sprite = weaponData.icon;
+            //_iconWeapon.sprite = weaponData.icon;
         }
 
         string damages = "";
@@ -80,12 +73,5 @@ public class WeaponItem : IItem
         }
     }
 
-    public void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);
-
-    public void Desactivate()
-    {
-        if(_followingUI)
-            Destroy(_followingUI.gameObject);
-        Destroy(gameObject);
-    }
+    public override void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);
 }
