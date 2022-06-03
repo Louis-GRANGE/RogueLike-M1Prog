@@ -1349,6 +1349,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5540293401323565354, guid: cfb03c06a25e5de42b85917807dcc5e9,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6906864968526241537, guid: cfb03c06a25e5de42b85917807dcc5e9,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb03c06a25e5de42b85917807dcc5e9, type: 3}
 --- !u!1 &1592742208
