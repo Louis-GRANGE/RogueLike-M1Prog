@@ -61,7 +61,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6464728225931578140}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1566388718234315235
 SpriteRenderer:
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 6464728225931578140}
   - component: {fileID: 1074916000692349580}
   - component: {fileID: 6206568241270920140}
-  - component: {fileID: 5238730452015367541}
+  - component: {fileID: 6558441399301708667}
   - component: {fileID: 1778735779296362719}
   - component: {fileID: 5392821334361641071}
   - component: {fileID: 3187588230668100328}
@@ -849,8 +849,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3891782948996275595}
   - {fileID: 5663827775600995002}
+  - {fileID: 3891782948996275595}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 20
---- !u!114 &5238730452015367541
+--- !u!114 &6558441399301708667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3069383614974555114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d7dc14bfa44a9a4c83866b7edd8483a, type: 3}
+  m_Script: {fileID: 11500000, guid: c904eab98914c2440b0535e9b52c4041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 0}
@@ -1556,7 +1556,7 @@ Transform:
   - {fileID: 6746906357914660280}
   - {fileID: 4307847154160963275}
   m_Father: {fileID: 6464728225931578140}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7568609172372761988
 Animator:
@@ -1567,19 +1567,14 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5658152286577264700}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6ea2a172a2f336b4f8c5fb768eedebe9, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 44202c79934aa8c45b2495a49b6e99b1, type: 3}
   m_Controller: {fileID: 9100000, guid: 619555e403b87be4888bddd06e909702, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Root'\n\tTransform 'IndexFinger_02'\n\tTransform
-    'Elbow_R'\n\tTransform 'Finger_02'\n\tTransform 'IndexFinger_031'\n\tTransform
-    'Finger_03'\n\tTransform 'Ball_L'\n\tTransform 'Thumb_02'\n\tTransform 'Ball_R'\n\tTransform
-    'Clavicle_L'\n\tand more ...\n\tFrom animation clip 'mixamo.com'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

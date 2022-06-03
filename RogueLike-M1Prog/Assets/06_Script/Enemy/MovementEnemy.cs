@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class MovementEnemy : AMovementManager
 {
-    [Header("Internal Components")]
-    Animator _animator;
-
     public override void Awake()
     {
         base.Awake();
-        _animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Update()
