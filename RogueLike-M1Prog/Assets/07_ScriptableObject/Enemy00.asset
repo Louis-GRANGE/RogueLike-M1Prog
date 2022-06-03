@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 20
   EnemyName: Basic Enemy00
-  Prefab: {fileID: 2084948403363706168, guid: 90b5bb59a9efcf149a3ec1d8ea3e2edc, type: 3}
+  Prefab: {fileID: 1074916000692349580, guid: 8a6ca6d67c4352544bb650d953984a4e, type: 3}
