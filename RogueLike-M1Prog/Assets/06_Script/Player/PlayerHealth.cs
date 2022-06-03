@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class PlayerHealth : AHealth
 {
     [Header("External References")]
+    PlayerCanvas _playerCanvas;
     PlayerHealthUI _playerHealthUI;
 
     protected override void Start()
     {
         base.Start();
-        _playerHealthUI = PlayerCanvas.Instance._playerHealthUI;
+        _playerCanvas = PlayerCanvas.Instance;
+        _playerHealthUI = _playerCanvas._playerHealthUI;
         _playerHealthUI._memorizedHealth = health;
     }
 
@@ -19,5 +21,6 @@ public class PlayerHealth : AHealth
     {
         base.TakeDamage(damage, Sender);
         _playerHealthUI.UpdateHealth();
+        _playerCanvas.HitEffect();
     }
 }
