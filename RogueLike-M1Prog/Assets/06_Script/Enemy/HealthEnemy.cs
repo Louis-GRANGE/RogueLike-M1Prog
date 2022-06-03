@@ -17,6 +17,9 @@ public class HealthEnemy : AHealth
     Animator _healthBarMemoryAnim;
     float _memorizeLatency;
 
+    [Header("OnDeath")]
+    public GameObject PrefabRagdoll;
+
     private void Awake()
     {
         ownerMainData = GetComponent<AMainData>();
@@ -69,13 +72,29 @@ public class HealthEnemy : AHealth
     {
         Destroy(_healthBar.transform.parent.parent.gameObject);
 
-        GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Ragdoll/EnemyRagdoll"), transform.position, transform.rotation);
+        GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Sender.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
         if(Random.Range(0, 3) == 0 && ownerMainData.WeaponManager._weaponData)
+            DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
+
+        Destroy(gameObject);
+    }
+
+    public override void OnDeath()
+    {
+        Destroy(_healthBar.transform.parent.parent.gameObject);
+
+        GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
+
+        ragdoll.transform.position -= new Vector3(0, 1, 0);
+
+        ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(transform.up * 500, ForceMode.Impulse);
+
+        if (Random.Range(0, 3) == 0 && ownerMainData.WeaponManager._weaponData)
             DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
 
         Destroy(gameObject);

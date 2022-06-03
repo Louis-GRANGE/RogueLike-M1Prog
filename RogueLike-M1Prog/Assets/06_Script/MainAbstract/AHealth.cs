@@ -31,6 +31,11 @@ public abstract class AHealth : MonoBehaviour
         return health;
     }
 
+    private void OnDestroy()
+    {
+        OnDeath();
+    }
+
     public virtual void OnDeath()
     {
 

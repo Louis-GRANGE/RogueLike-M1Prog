@@ -887,6 +887,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 20
+  PrefabRagdoll: {fileID: 7874270335045454414, guid: e175a16f44586a74381cc382e03e826f,
+    type: 3}
 --- !u!114 &5238730452015367541
 MonoBehaviour:
   m_ObjectHideFlags: 0

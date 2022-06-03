@@ -115,7 +115,7 @@ public abstract class AStateManager : MonoBehaviour
     }
     public void ClearStates()
     {
-        for (int i = _activeStates.Count; i > 0; i--)
+        for (int i = _activeStates.Count - 1; i > 0; i--)
         {
             _activeStates[i].StateScript.EndState(ownerMainData);
             _activeStates.RemoveAt(i);
