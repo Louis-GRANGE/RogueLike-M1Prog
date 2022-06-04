@@ -28,7 +28,7 @@ public class HealthBomb : AHealth
             return true;
 
         explodeBomb.Explode();
-        Destroy(gameObject);
+        //Destroy(gameObject);
         return true;
     }
 
@@ -39,7 +39,7 @@ public class HealthBomb : AHealth
 
 
         explodeBomb.Explode();
-        Destroy(gameObject);
+        //Destroy(gameObject);
         return true;
     }
 }

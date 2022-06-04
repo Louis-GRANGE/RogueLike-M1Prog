@@ -39,13 +39,10 @@ public class PlayerShoot : AWeapon
                 if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag))
                 {
                     Shoot((hit.transform.position - _canon.position).normalized);
-                }
-                else
-                {
-                    Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
+                    return;
                 }
             }
-
+            Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
         }
 
         Interact();

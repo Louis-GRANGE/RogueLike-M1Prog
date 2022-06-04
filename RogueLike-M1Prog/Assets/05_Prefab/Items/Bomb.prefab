@@ -61,6 +61,7 @@ MonoBehaviour:
   VFX_Explosion: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c,
     type: 3}
   ExplodeDamage: 100
+  TimeBeforeExplode: 0.2
   ExplodeSize: 1.5
 --- !u!1 &6167420917958428905
 GameObject:
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 10
+  maxHealth: 8
   damageTextPool: {fileID: 0}
   explodeBomb: {fileID: 6167420917912096066}
 --- !u!1001 &6167420919311685240

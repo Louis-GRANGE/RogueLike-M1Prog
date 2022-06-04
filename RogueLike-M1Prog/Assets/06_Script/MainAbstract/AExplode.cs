@@ -11,6 +11,7 @@ public abstract class AExplode : MonoBehaviour
     [Header("External")]
     public ParticleSystem VFX_Explosion;
     public int ExplodeDamage;
+    public float TimeBeforeExplode = 0;
     [SerializeField]
     private float ExplodeSize;
 
@@ -23,16 +24,7 @@ public abstract class AExplode : MonoBehaviour
 
     public virtual void Explode()
     {
-        ParticleSystem VFX = Instantiate(VFX_Explosion, transform.position, Quaternion.identity);
-        VFX.transform.localScale = Vector3.one * ExplodeSize;
-        _cameraEffect.Explosion();
-        foreach (AHealth health in ToDealDamage)
-        {
-            int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / Vector3.Distance(health.transform.position, transform.position));
-            health.TakeDamage(DamageToDeal, transform.parent.gameObject);
-        }
-        Debug.Log("AUTO DEAD");
-        Destroy(transform.parent.gameObject);
+        StartCoroutine(ExplodeAfterTime());
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -50,5 +42,23 @@ public abstract class AExplode : MonoBehaviour
         {
             ToDealDamage.Remove(aHealth);
         }
+    }
+
+    protected IEnumerator ExplodeAfterTime()
+    {
+        yield return new WaitForSeconds(TimeBeforeExplode);
+        ParticleSystem VFX = Instantiate(VFX_Explosion, transform.position, Quaternion.identity);
+        VFX.transform.localScale = Vector3.one * ExplodeSize;
+        _cameraEffect.Explosion();
+        foreach (AHealth health in ToDealDamage)
+        {
+            if (health)
+            {
+                int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / Vector3.Distance(health.transform.position, transform.position));
+                Debug.Log("Damage deal" + DamageToDeal); 
+                health.TakeDamage(DamageToDeal, transform.parent.gameObject);
+            }
+        }
+        Destroy(transform.parent.gameObject);
     }
 }
