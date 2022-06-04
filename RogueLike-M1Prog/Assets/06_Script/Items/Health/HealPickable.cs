@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickable : APickable
+public class HealPickable : APickable
 {
     HealItem item;
 

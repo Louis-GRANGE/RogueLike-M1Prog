@@ -137,8 +137,8 @@ public abstract class AWeapon : MonoBehaviour
         {
             if (!hit.transform.CompareTag(ownerMainData.transform.tag))
             {
-                AHealth Health = hit.collider.GetComponent<AHealth>();
-                if (Health)
+                AHealth Health;
+                if (hit.collider.TryGetComponent(out Health))
                     Health.TakeDamage(damages, ownerMainData.gameObject);
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);

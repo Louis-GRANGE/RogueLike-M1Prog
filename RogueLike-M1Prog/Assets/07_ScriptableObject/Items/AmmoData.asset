@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36c11b494df2bf64383b7fbc3631ff54, type: 3}
-  m_Name: HealthData
+  m_Script: {fileID: 11500000, guid: 87bea348cc543e24398e5958a65a6687, type: 3}
+  m_Name: AmmoData
   m_EditorClassIdentifier: 
-  healItem: {fileID: 2130037610413563367, guid: 8fd7defddfe46a044b7b57b27412ddf1,
+  ammoItem: {fileID: 8113862697290971687, guid: 404d12810cca1b94c8fbfca48da5db1f,
     type: 3}
-  icon: {fileID: 21300000, guid: 83c1e26189096674584829e26d8b4c2f, type: 3}
-  health: 1000
+  icon: {fileID: 21300000, guid: 91814f58c45750d468ef8c9731f9702a, type: 3}
+  ammo: 20

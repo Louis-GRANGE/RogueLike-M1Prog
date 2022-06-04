@@ -9,16 +9,13 @@ public abstract class AItem : MonoBehaviour
     public FollowingUI prefFollowingUI;
     //public Sprite _icon;
 
-    [Header("VFX")]
-    public Color colorMark;
-
     [Header("FollowingUI")]
     protected FollowingUI _followingUI;
     protected GameObject _equipText;
 
     private void Start()
     {
-        
+
     }
 
 

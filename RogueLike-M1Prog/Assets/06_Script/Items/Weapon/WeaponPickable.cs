@@ -15,7 +15,6 @@ public class WeaponPickable : APickable
         if (other.CompareTag(Constants.TagPlayer))
         {
             AMainData mainData;
-            Debug.Log("TRIGGER MUNITION");
             if (other.TryGetComponent(out mainData))
             {
                 if (mainData.WeaponManager && mainData.WeaponManager._weaponData)

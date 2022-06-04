@@ -19,7 +19,7 @@ public class WeaponItem : AItem
         {
             _player = Player.Instance;
 
-            _followingUI = Instantiate(prefFollowingUI, FollowingUIPanel.Instance.transform).GetComponent<FollowingUI>();
+            _followingUI = Instantiate(prefFollowingUI, FollowingUIPanel.Instance.transform);//.GetComponent<FollowingUI>();
             _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
 
             _equipText = _followingUI.transform.GetChild(0).GetChild(5).gameObject;

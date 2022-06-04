@@ -65,44 +65,44 @@ public class HealthEnemy : AHealth
         }
     }
 
-    public override void OnDeath(GameObject Sender)
+    public override bool OnDeath(GameObject Sender)
     {
-        if (IsDeath)
-            return;
-        IsDeath = true;
+        if (base.OnDeath(Sender))
+            return true;
 
         Destroy(_healthBar.transform.parent.parent.gameObject);
-
+        Debug.Log("Spawn Ragdoll");
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(-(Sender.transform.position - transform.position).normalized * 500, ForceMode.Impulse);
 
-        if(Random.Range(0, 3) == 0 && ownerMainData.WeaponManager._weaponData)
+        if(Random.Range(0, 3) == 0 && ownerMainData.WeaponManager && ownerMainData.WeaponManager._weaponData)
             DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
 
         Destroy(gameObject);
+        return true;
     }
 
-    public override void OnDeath()
+    public override bool OnDeath()
     {
-        if (IsDeath)
-            return;
-        IsDeath = true;
-        
-        Destroy(_healthBar.transform.parent.parent.gameObject);
+        if (base.OnDeath())
+            return true;
 
+        Destroy(_healthBar.transform.parent.parent.gameObject);
+        Debug.Log("Spawn Ragdoll");
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
 
         ragdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(transform.up * 500, ForceMode.Impulse);
 
-        if (Random.Range(0, 3) == 0 && ownerMainData.WeaponManager._weaponData)
+        if (Random.Range(0, 3) == 0 && ownerMainData.WeaponManager && ownerMainData.WeaponManager._weaponData)
             DropWeapon(ownerMainData.WeaponManager._weaponData, Random.Range(50, 100));
 
         Destroy(gameObject);
+        return true;
     }
 
     void DropWeapon(WeaponData _droppedWeapon, int munitions)

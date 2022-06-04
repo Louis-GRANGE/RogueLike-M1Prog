@@ -43,26 +43,18 @@ public abstract class AHealth : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!IsDeath)
-        {
-            IsDeath = true;
-            OnDeath();
-        }
+        OnDeath();
     }
 
-    public virtual void OnDeath()
+    public virtual bool OnDeath()
     {
-        if (IsDeath)
-            return;
-        IsDeath = true;
-        Destroy(gameObject);
+        bool IsDead = CheckIsDead();
+        return IsDead;
     }
-    public virtual void OnDeath(GameObject Sender)
+    public virtual bool OnDeath(GameObject Sender)
     {
-        if (IsDeath)
-            return;
-        IsDeath = true;
-        Destroy(gameObject);
+        bool IsDead = CheckIsDead();
+        return IsDead;
     }
 
     public virtual void TakeDamage(int damage, GameObject Sender)
@@ -70,8 +62,21 @@ public abstract class AHealth : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            OnDeath(Sender);
-            Destroy(gameObject);
+            if (!OnDeath(Sender))
+                Destroy(gameObject);
+        }
+    }
+
+    private bool CheckIsDead()
+    {
+        if (IsDeath)
+        {
+            return true;
+        }
+        else
+        {
+            IsDeath = true;
+            return false;
         }
     }
 }

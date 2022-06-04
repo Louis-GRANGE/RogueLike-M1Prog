@@ -30,7 +30,22 @@ public class PlayerShoot : AWeapon
     {
         if (Input.GetMouseButton(0))
         {
-            Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
+            Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit hit;
+            if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+            {
+                // IF you can target a targetable object
+                if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag))
+                {
+                    Shoot((hit.transform.position - _canon.position).normalized);
+                }
+                else
+                {
+                    Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
+                }
+            }
+
         }
 
         Interact();
@@ -89,11 +104,5 @@ public class PlayerShoot : AWeapon
                 _playerCanvas._weaponUI.UpdateAmmo(_munitions);
             }
         }
-    }
-
-    public void AddAmmo(int ammo)
-    {
-        _munitions += ammo;
-        _playerCanvas._weaponUI.UpdateAmmo(_munitions);
     }
 }
