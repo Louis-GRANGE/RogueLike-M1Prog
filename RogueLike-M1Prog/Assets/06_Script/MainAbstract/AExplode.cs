@@ -12,6 +12,8 @@ public abstract class AExplode : MonoBehaviour
     public ParticleSystem VFX_Explosion;
     public int ExplodeDamage;
     public float TimeBeforeExplode = 0;
+    public float ExplosionForce = 500000;
+
     [SerializeField]
     private float ExplodeSize;
 
@@ -24,7 +26,8 @@ public abstract class AExplode : MonoBehaviour
 
     public virtual void Explode()
     {
-        StartCoroutine(ExplodeAfterTime());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(ExplodeAfterTime());
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -54,9 +57,15 @@ public abstract class AExplode : MonoBehaviour
         {
             if (health)
             {
-                int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / Vector3.Distance(health.transform.position, transform.position));
-                Debug.Log("Damage deal" + DamageToDeal); 
+                float dist = Vector3.Distance(health.transform.position, transform.position);
+                int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / dist);
                 health.TakeDamage(DamageToDeal, transform.parent.gameObject);
+
+                Rigidbody rigidbody;
+                if (health.gameObject.TryGetComponent<Rigidbody>(out rigidbody))
+                {
+                    rigidbody.AddExplosionForce(ExplosionForce / dist, transform.position, ExplodeSize);
+                }
             }
         }
         Destroy(transform.parent.gameObject);
