@@ -7,14 +7,14 @@ public class HealthBomb : AHealth
 {
     [Header("External")]
     public ExplodeBomb explodeBomb;
-    public override void TakeDamage(int damage, GameObject Sender)
+    public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        base.TakeDamage(damage, Sender);
-
-
-
-        damageTextPool.RequestDamageText(transform.position, damage);
-        
+        if(base.TakeDamage(damage, Sender, damageTypeSend))
+        {
+            damageTextPool.RequestDamageText(transform.position, damage);
+            return true;
+        }
+        return false;
     }
 
     private void Update()

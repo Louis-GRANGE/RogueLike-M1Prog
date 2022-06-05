@@ -62,6 +62,7 @@ MonoBehaviour:
     type: 3}
   ExplodeDamage: 100
   TimeBeforeExplode: 0.2
+  ExplosionForce: 0
   ExplodeSize: 1.5
 --- !u!1 &6167420917958428905
 GameObject:
@@ -110,9 +111,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.16871338
-  m_Height: 1.5906622
+  m_Height: 1.5931842
   m_Direction: 1
-  m_Center: {x: -0.0000015199184, y: 0.7953311, z: 0.000003322959}
+  m_Center: {x: -0.0000015199184, y: 0.13550282, z: 0.000003322959}
 --- !u!54 &6167420917958428906
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 8
+  CanBeDamageBy: 3
   damageTextPool: {fileID: 0}
   explodeBomb: {fileID: 6167420917912096066}
 --- !u!1001 &6167420919311685240
@@ -166,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4976095705064586, guid: 315d0b2430aa8e54ead1a58f89b80834, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.67
       objectReference: {fileID: 0}
     - target: {fileID: 4976095705064586, guid: 315d0b2430aa8e54ead1a58f89b80834, type: 3}
       propertyPath: m_LocalPosition.z

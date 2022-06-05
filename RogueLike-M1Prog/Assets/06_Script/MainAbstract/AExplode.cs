@@ -59,7 +59,7 @@ public abstract class AExplode : MonoBehaviour
             {
                 float dist = Vector3.Distance(health.transform.position, transform.position);
                 int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / dist);
-                health.TakeDamage(DamageToDeal, transform.parent.gameObject);
+                health.TakeDamage(DamageToDeal, transform.parent.gameObject, DamageType.Explosion);
 
                 Rigidbody rigidbody;
                 if (health.gameObject.TryGetComponent<Rigidbody>(out rigidbody))

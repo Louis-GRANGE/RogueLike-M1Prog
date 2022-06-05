@@ -15,6 +15,7 @@ public class WeaponData : ScriptableObject
     public float fireLatency;
     [Tooltip("Weapon Spray 0 = NoSpray")]
     public Vector2 spray;
+    public DamageType DealDamageType;
 
     [Space, Header("Effects")]
     public GameObject munitionEffect;

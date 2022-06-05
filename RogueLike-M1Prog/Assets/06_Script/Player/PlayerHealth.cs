@@ -24,10 +24,14 @@ public class PlayerHealth : AHealth
         return health;
     }
 
-    public override void TakeDamage(int damage, GameObject Sender)
+    public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        base.TakeDamage(damage, Sender);
-        _playerHealthUI.UpdateHealth();
-        _playerCanvas.HitEffect();
+        if (base.TakeDamage(damage, Sender, damageTypeSend))
+        {
+            _playerHealthUI.UpdateHealth();
+            _playerCanvas.HitEffect();
+            return true;
+        }
+        return false;
     }
 }

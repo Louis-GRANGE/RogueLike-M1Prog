@@ -61,6 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 0
+  CanBeDamageBy: 2
   damageTextPool: {fileID: 0}
   prefabBrakedCrate: {fileID: 2090268939, guid: de73db800c635664cad5397f685c8f12,
     type: 3}

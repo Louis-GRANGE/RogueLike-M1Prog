@@ -39,16 +39,19 @@ public class HealthEnemy : AHealth
         _healthBarMemoryAnim = _healthBarMemory.GetComponent<Animator>();
     }
 
-    public override void TakeDamage(int damage, GameObject Sender)
+    public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        base.TakeDamage(damage, Sender);
-        _healthBar.fillAmount = (float)health / (float)maxHealth;
-        _healthBarMemoryAnim.SetTrigger("Hit");
+        if (base.TakeDamage(damage, Sender, damageTypeSend))
+        {
+            _healthBar.fillAmount = (float)health / (float)maxHealth;
+            _healthBarMemoryAnim.SetTrigger("Hit");
 
-        _memorizeLatency = 0;
+            _memorizeLatency = 0;
 
-        damageTextPool.RequestDamageText(transform.position, damage);
-        
+            damageTextPool.RequestDamageText(transform.position, damage);
+            return true;
+        }
+        return false;
     }
 
     private void Update()

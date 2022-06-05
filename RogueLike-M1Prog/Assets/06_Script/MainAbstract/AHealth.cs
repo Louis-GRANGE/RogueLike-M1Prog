@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public abstract class AHealth : MonoBehaviour
 {
     [Header("Health")]
     [HideInInspector]
     public int health;
     public int maxHealth;
-    protected bool IsDeath;
 
+    public DamageType CanBeDamageBy;
+    protected bool IsDeath;
+    
     // For PopUI
     [HideInInspector]
     public DamageTextPool damageTextPool;
@@ -57,14 +61,19 @@ public abstract class AHealth : MonoBehaviour
         return IsDead;
     }
 
-    public virtual void TakeDamage(int damage, GameObject Sender)
+    public virtual bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        health -= damage;
-        if (health <= 0)
+        if (CanBeDamage(damageTypeSend))
         {
-            if (!OnDeath(Sender))
-                Destroy(gameObject);
+            health -= damage;
+            if (health <= 0)
+            {
+                if (!OnDeath(Sender))
+                    Destroy(gameObject);
+            }
+            return true;
         }
+        return false;
     }
 
     private bool CheckIsDead()
@@ -78,5 +87,20 @@ public abstract class AHealth : MonoBehaviour
             IsDeath = true;
             return false;
         }
+    }
+
+    public bool CanBeDamage(DamageType damageTypeSend)
+    {
+        string[] CanbeDamagedBy = CanBeDamageBy.ToString().Split(", ");
+        foreach (string f in CanbeDamagedBy)
+        {
+            if (f == "None")
+                return false;
+            if (f == "All")
+                return true;
+            if (damageTypeSend.ToString().Contains(f))
+                return true;
+        }
+        return false;
     }
 }
