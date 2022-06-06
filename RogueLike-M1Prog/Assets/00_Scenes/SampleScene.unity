@@ -2852,7 +2852,7 @@ MonoBehaviour:
   SpawnerRef: {fileID: 256784407}
   EnemyManagerRef: {fileID: 876796535}
   RunSeed: 0
-  Difficulty: 10
+  Difficulty: 5
 --- !u!1 &1979209182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3459,13 +3459,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
         type: 3}
-      propertyPath: RoomToSpawnRange.x
+      propertyPath: NumberMaxRoom
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
         type: 3}
+      propertyPath: NumberMaxRoom.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
+        type: 3}
+      propertyPath: NumberMaxRoom.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
+        type: 3}
+      propertyPath: RoomToSpawnRange.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
+        type: 3}
       propertyPath: RoomToSpawnRange.y
-      value: 25
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8840898515883619909, guid: c135880184ffd394898ae608881d8d86,
         type: 3}

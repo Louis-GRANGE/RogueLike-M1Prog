@@ -15,19 +15,16 @@ public class MapGenerator : MonoBehaviour
     private List<Room> RoomByNbDoors;
 
     [MinMaxSlider(0, 100)]
-    public Vector2Int RoomToSpawnRange = new Vector2Int(10, 20);
-    public int NumberMaxRoom;
+    public Vector2Int NumberMaxRoom;
+    
 
     public int StartingRoomWithNbDoor = 1;
-    private int MaxXSize = 50;
-    private int MaxYSize = 50;
+    private int RoomToSpawn;
     public int MaxErrorTry = 100;
 
     private void Start()
     {
         LevelManager.instance.RefMapGenerator = this;
-        MaxXSize = RoomToSpawnRange.y;
-        MaxYSize = RoomToSpawnRange.y;
 
         InitMap();
     }
@@ -37,8 +34,9 @@ public class MapGenerator : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         // Check if there is amount of map enter slider
-        if (Rooms.Count < RoomToSpawnRange.x)
+        if (Rooms.Count < RoomToSpawn)
         {
+            Debug.Log("RESET");
             foreach (Room MyRoom in Rooms)
             {
                 Destroy(MyRoom.gameObject);
@@ -72,7 +70,7 @@ public class MapGenerator : MonoBehaviour
 
     public void InitMap()
     {
-        NumberMaxRoom = Random.Range(RoomToSpawnRange.x, RoomToSpawnRange.y);
+        RoomToSpawn = Random.Range(NumberMaxRoom.x, NumberMaxRoom.y) + GameManager.instance.Difficulty;
         Rooms = new List<Room>();
 
         RoomByNbDoors = getRoomByNbDoor(StartingRoomWithNbDoor);
@@ -81,7 +79,7 @@ public class MapGenerator : MonoBehaviour
 
         int errorStop = 0;
         int previousMapCount = 0;
-        while (Rooms.Count < NumberMaxRoom && errorStop < MaxErrorTry)
+        while (Rooms.Count < RoomToSpawn && errorStop < MaxErrorTry)
         {
             if (Rooms.Count == previousMapCount)
             {
@@ -133,9 +131,9 @@ public class MapGenerator : MonoBehaviour
     void SpawnRoom(float PosX, float PosY, Room room, Door DoorConnect, Room Neighboor)
     {
         DoorDir oppositeDoor;
-        Room roomInst = null;
-        if (Rooms.Count < NumberMaxRoom && Mathf.Abs(PosX) < MaxXSize && Mathf.Abs(PosY) < MaxYSize)
+        if (Rooms.Count < RoomToSpawn)
         {
+            Room roomInst = null;
             if (DoorConnect)
             {
                 if (!DoorConnect.HaveNextToRoom)
@@ -171,13 +169,19 @@ public class MapGenerator : MonoBehaviour
 
     void SpawnRoomsOnDoorOfRoom(Room MyRoom)
     {
+        List<Door> FreeDoor = new List<Door>();
         foreach (Door Place in MyRoom.DoorPlacement)
         {
             if (!Place.HaveNextToRoom)
             {
-                Room newRoom = getRoomWithDoorDir(Place.GetOppositeDir());
-                SpawnRoom(Place.transform.position.x, Place.transform.position.z, newRoom, Place, MyRoom);
+                FreeDoor.Add(Place);
             }
+        }
+        if (FreeDoor.Count > 0)
+        {
+            Door RandomDoor = FreeDoor[Random.Range(0, FreeDoor.Count)];
+            Room newRoom = getRoomWithDoorDir(RandomDoor.GetOppositeDir());
+            SpawnRoom(RandomDoor.transform.position.x, RandomDoor.transform.position.z, newRoom, RandomDoor, MyRoom);
         }
     }
 
