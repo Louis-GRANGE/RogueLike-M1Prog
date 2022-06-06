@@ -74,7 +74,6 @@ public class HealthEnemy : AHealth
             return true;
 
         Destroy(_healthBar.transform.parent.parent.gameObject);
-        Debug.Log("Spawn Ragdoll");
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);
@@ -94,7 +93,6 @@ public class HealthEnemy : AHealth
             return true;
 
         Destroy(_healthBar.transform.parent.parent.gameObject);
-        Debug.Log("Spawn Ragdoll");
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
         ragdoll.transform.position -= new Vector3(0, 1, 0);

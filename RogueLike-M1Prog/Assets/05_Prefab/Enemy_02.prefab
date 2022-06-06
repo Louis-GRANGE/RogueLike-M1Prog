@@ -889,6 +889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 20
+  CanBeDamageBy: -1
+  damageTextPool: {fileID: 0}
   PrefabRagdoll: {fileID: 8751025678543039790, guid: 7df172b40fb02f844ae90cd25cc96bf4,
     type: 3}
 --- !u!114 &6558441399301708667
@@ -1806,8 +1808,10 @@ MonoBehaviour:
   VFX_Explosion: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c,
     type: 3}
   ExplodeDamage: 10
+  TimeBeforeExplode: 0
+  ExplosionForce: 500000
+  ExplodeSize: 0
   Character: {fileID: 5658152286577264700}
-  Collider: {fileID: 5392821334361641071}
 --- !u!1 &6472942724911256996
 GameObject:
   m_ObjectHideFlags: 0

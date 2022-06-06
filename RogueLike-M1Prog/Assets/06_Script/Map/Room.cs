@@ -13,6 +13,7 @@ public class Room : AMinimap
 
     public float SizeRoom;
     private List<BoxCollider> RoomArea;
+    private List<AHealth> itemsInRoom;
     public GameObject PrefabWallToReplace;
 
     public bool IsCompleted;
@@ -21,6 +22,12 @@ public class Room : AMinimap
     private void Awake()
     {
         RoomArea = GetComponents<BoxCollider>().ToList();
+        itemsInRoom = GetComponentsInChildren<AHealth>().ToList();
+
+        foreach (AHealth item in itemsInRoom)
+        {
+            item.gameObject.SetActive(false);
+        }
         if (SizeRoom == 0)
         {
             IsCompleted = true;
@@ -165,10 +172,6 @@ public class Room : AMinimap
             OnPlayerEnter?.Invoke();
             if (!IsActiveMinimap)
             {
-                foreach (Door door in DoorPlacement)
-                {
-                    door.OpenDoor(false);
-                }
                 ActiveMinimap(true);
             }
             if (!_haveSpawnEnnemies && LevelManager.instance.MapGenerationEnd && !IsCompleted)
@@ -181,10 +184,14 @@ public class Room : AMinimap
                     {
                         door.CanOpenDoor = false;
                     }
+                    foreach (AHealth item in itemsInRoom)
+                    {
+                        item.gameObject.SetActive(true);
+                    }
                 }
                 else
                 {
-                    IsCompleted = true;
+                    IsCompleted = true; //Setting room if is little to completed
                 }
             }
 

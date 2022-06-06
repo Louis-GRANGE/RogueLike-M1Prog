@@ -32,18 +32,37 @@ public abstract class AExplode : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if (ToDealDamage == null)
+            return;
         AHealth aHealth;
-        if (other.TryGetComponent<AHealth>(out aHealth))
+        if (other.TryGetComponent<AHealth>(out aHealth) && !ToDealDamage.Contains(aHealth))
         {
-            ToDealDamage.Add(aHealth);
+            if (ToDealDamage != null)
+                ToDealDamage.Add(aHealth);
         }
     }
+
+    protected virtual void OnTriggerStay(Collider other)
+    {
+        if (ToDealDamage == null)
+            return;
+        AHealth aHealth;
+        if (other.TryGetComponent<AHealth>(out aHealth) && !ToDealDamage.Contains(aHealth))
+        {
+            if (ToDealDamage != null)
+                ToDealDamage.Add(aHealth);
+        }
+    }
+
     protected virtual void OnTriggerExit(Collider other)
     {
+        if (ToDealDamage == null)
+            return;
         AHealth aHealth;
-        if (other.TryGetComponent<AHealth>(out aHealth))
+        if (other.TryGetComponent<AHealth>(out aHealth) && !ToDealDamage.Contains(aHealth))
         {
-            ToDealDamage.Remove(aHealth);
+            if (ToDealDamage != null)
+                ToDealDamage.Remove(aHealth);
         }
     }
 

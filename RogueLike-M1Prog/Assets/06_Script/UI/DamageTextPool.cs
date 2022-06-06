@@ -27,6 +27,8 @@ public class DamageTextPool : MonoBehaviour
 
     public void RequestDamageText(Vector3 worldPos, int damage)
     {
+        if (transform.childCount <= 0)
+            return;
         Transform child = transform.GetChild(0);
         child.SetParent(alterPool);
         child.GetComponent<DamageEffect>().Activation(worldPos, damage.ToString(), Color.red);

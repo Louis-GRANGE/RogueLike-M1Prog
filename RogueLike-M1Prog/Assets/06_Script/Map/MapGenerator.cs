@@ -23,8 +23,6 @@ public class MapGenerator : MonoBehaviour
     private int MaxYSize = 50;
     public int MaxErrorTry = 100;
 
-    public Vector2 PartRoomSize;
-
     private void Start()
     {
         LevelManager.instance.RefMapGenerator = this;
@@ -107,15 +105,15 @@ public class MapGenerator : MonoBehaviour
 
     Room getRandomRoomWithNoAllDoorConnected()
     {
-        List<Room> Rooms = new List<Room>();
-        foreach (Room MyRoom in this.Rooms)
+        List<Room> RoomsWithFreeDoor = new List<Room>();
+        foreach (Room MyRoom in Rooms)
         {
             if (MyRoom.HaveDoorNotConnect())
             {
-                Rooms.Add(MyRoom);
+                RoomsWithFreeDoor.Add(MyRoom);
             }
         }
-        return Rooms[Random.Range(0, Rooms.Count)];
+        return RoomsWithFreeDoor[Random.Range(0, RoomsWithFreeDoor.Count)];
     }
 
     List<Room> getRoomByNbDoor(int NbDoor)
