@@ -178,6 +178,8 @@ public class Room : AMinimap
             {
                 if (SizeRoom != 0)
                 {
+                    //LevelManager.instance.RefMapGenerator.SetRoomsVisibility(this, false);
+                    //LevelManager.instance.RefMapGenerator.GetComponent<Unity.AI.Navigation.NavMeshSurface>().BuildNavMesh();
                     ActiveAllEnnemies();
                     _haveSpawnEnnemies = true;
                     foreach (Door door in DoorPlacement)
@@ -209,6 +211,7 @@ public class Room : AMinimap
                 item.CanOpenDoor = true;
             }
             LevelManager.instance.Callback_OnRoomFinish?.Invoke(this);
+            //LevelManager.instance.RefMapGenerator.SetRoomsVisibility(null, true);
         }
     }
 }

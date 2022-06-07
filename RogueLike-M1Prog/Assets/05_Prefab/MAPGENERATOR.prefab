@@ -53,14 +53,14 @@ MonoBehaviour:
   - {fileID: 1143297867210949519, guid: 0a4a0cbd13410fa4eaaa97588adb6528, type: 3}
   - {fileID: 1143297867210949519, guid: eedae4f9385c6be4093dd9dc2838efd3, type: 3}
   - {fileID: 1143297867210949519, guid: 618c7f4e112a9224c8b26b1187065057, type: 3}
+  - {fileID: 1143297867210949519, guid: 4a6027a5e0f483144930e9032fd19925, type: 3}
+  - {fileID: 1143297867210949519, guid: d385c2ceed97f214cb454b30886eea55, type: 3}
   PrefabPortal: {fileID: 5398595356254959160, guid: 148968f81d57482429f07e2efa04c784,
     type: 3}
   Rooms: []
-  RoomToSpawnRange: {x: 2, y: 20}
-  NumberMaxRoom: 0
+  NumberMaxRoom: {x: 10, y: 20}
   StartingRoomWithNbDoor: 4
   MaxErrorTry: 100
-  PartRoomSize: {x: 5, y: 5}
 --- !u!114 &8840898515883619906
 MonoBehaviour:
   m_ObjectHideFlags: 0

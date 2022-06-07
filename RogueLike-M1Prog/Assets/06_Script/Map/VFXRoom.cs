@@ -17,10 +17,12 @@ public class VFXRoom : MonoBehaviour
         RoomRef.OnPlayerEnter += RemoveFogRoom;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        if(RoomRef)
+        if (RoomRef)
+        {
             RoomRef.OnPlayerEnter -= RemoveFogRoom;
+        }
     }
 
     public void RemoveFogRoom()

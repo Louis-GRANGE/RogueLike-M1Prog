@@ -38,8 +38,11 @@ public class HealthCrate : AHealth
 
         if (gameObject.activeInHierarchy)
         {
-            Instantiate(prefabBrakedCrate, transform.position, transform.rotation);
-            Instantiate(itemCanBeSpawn[_indexRandomSpawn], transform.position, transform.rotation);
+            Transform tmp;
+            tmp = Instantiate(prefabBrakedCrate, transform.position, transform.rotation).transform;
+            tmp.parent = transform.parent;
+            tmp = Instantiate(itemCanBeSpawn[_indexRandomSpawn], transform.position, transform.rotation).transform;
+            tmp.parent = transform.parent;
         }
         Destroy(gameObject, 0.1f);
         return true;
@@ -52,8 +55,11 @@ public class HealthCrate : AHealth
 
         if (gameObject.activeInHierarchy)
         {
-            Instantiate(prefabBrakedCrate, transform.position, transform.rotation);
-            Instantiate(itemCanBeSpawn[_indexRandomSpawn], transform.position, transform.rotation);
+            Transform tmp;
+            tmp = Instantiate(prefabBrakedCrate, transform.position, transform.rotation).transform;
+            tmp.parent = transform.parent;
+            tmp = Instantiate(itemCanBeSpawn[_indexRandomSpawn], transform.position, transform.rotation).transform;
+            tmp.parent = transform.parent;
         }
         Destroy(gameObject, 0.1f);
         return true;

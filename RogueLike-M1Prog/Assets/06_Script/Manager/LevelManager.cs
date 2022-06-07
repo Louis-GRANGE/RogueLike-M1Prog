@@ -19,8 +19,6 @@ public class LevelManager : Singleton<LevelManager>
     public delegate void OnEndLevel(Room room);
     public OnEndLevel Callback_OnEndLevel;
 
-    public List<Room> Rooms;
-
     public MapGenerator RefMapGenerator;
     public Portal RefPortal;
 
@@ -40,7 +38,7 @@ public class LevelManager : Singleton<LevelManager>
     public void RoomFinish(Room roomFinish)
     {
         bool IsEnd = true;
-        foreach (Room room in Rooms)
+        foreach (Room room in RefMapGenerator.Rooms)
         {
             if (!room.IsCompleted)
             {
@@ -60,16 +58,16 @@ public class LevelManager : Singleton<LevelManager>
     public void MapEndGeneration()
     {
         MapGenerationEnd = true;
-        GameManager.instance.PlayerRef.transform.position = Rooms[0].transform.position + Vector3.up;
+        GameManager.instance.PlayerRef.transform.position = RefMapGenerator.Rooms[0].transform.position + Vector3.up;
     }
 
     public void LoadNewMap()
     {
-        foreach (Room MyRoom in Rooms)
+        foreach (Room MyRoom in RefMapGenerator.Rooms)
         {
             Destroy(MyRoom.gameObject);
         }
-        Rooms.Clear();
+        RefMapGenerator.Rooms.Clear();
         RefMapGenerator.InitMap();
     }
 }

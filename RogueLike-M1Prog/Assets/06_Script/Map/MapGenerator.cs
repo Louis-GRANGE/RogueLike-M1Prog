@@ -1,4 +1,4 @@
-using GD.MinMaxSlider;
+//using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -14,7 +14,7 @@ public class MapGenerator : MonoBehaviour
 
     private List<Room> RoomByNbDoors;
 
-    [MinMaxSlider(0, 100)]
+    //[MinMaxSlider(0, 100)]
     public Vector2Int NumberMaxRoom;
     
 
@@ -52,9 +52,7 @@ public class MapGenerator : MonoBehaviour
             {
                 room.SpawnAllOfRoomEnnemies();
             }
-            LevelManager.instance.Rooms = new List<Room>(Rooms);
             Rooms[0].IsCompleted = true; // Send to LevelManager the end of first map
-            Rooms.Clear();
 
             GetComponent<NavMeshSurface>().BuildNavMesh();
             //Destroy(this, 0.1f);
@@ -65,7 +63,9 @@ public class MapGenerator : MonoBehaviour
     public void SpawnPortal(Room roomFinish)
     {
         Debug.Log("SPAWN PORTAL");
-        Instantiate(PrefabPortal, roomFinish.transform.position + Vector3.up, Quaternion.identity);
+        Transform tmp;
+        tmp = Instantiate(PrefabPortal, roomFinish.transform.position + Vector3.up, Quaternion.identity).transform;
+        tmp.parent = transform.parent;
     }
 
     public void InitMap()
@@ -196,6 +196,18 @@ public class MapGenerator : MonoBehaviour
             }
         }
         return Rooms[Random.Range(0, Rooms.Count)];
+    }
+
+    //To remove (check performance)
+    public void SetRoomsVisibility(Room exceptRoom, bool newVisibility)
+    {
+        foreach (Room room in Rooms)
+        {
+            if (room != exceptRoom)
+            {
+                room.gameObject.SetActive(newVisibility);
+            }
+        }
     }
 }
 
