@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerShoot : AWeapon
 {
@@ -12,10 +13,16 @@ public class PlayerShoot : AWeapon
     [Header("Interaction")]
     Collider _lastInteracted;
 
+    bool IsFiring;
+    bool IsInteract;
+
     /*private void Awake()
     {
         //_animator = transform.GetChild(0).GetComponent<Animator>();
     }*/
+
+    public void Fire(InputAction.CallbackContext context) { IsFiring = context.performed; }
+    public void Interact(InputAction.CallbackContext context) { IsInteract = context.action.WasPressedThisFrame(); }
 
     protected override void Start()
     {
@@ -28,12 +35,10 @@ public class PlayerShoot : AWeapon
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (IsFiring)
         {
-            Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit hit;
-            if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+            RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
+            if (hit.collider != null)
             {
                 // IF you can target a targetable object
                 if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag))
@@ -50,10 +55,8 @@ public class PlayerShoot : AWeapon
 
     public void Interact()
     {
-        Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit hit;
-        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+        RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
+        if (hit.collider != null)
         {
             if(hit.collider != _lastInteracted)
             {
@@ -65,7 +68,7 @@ public class PlayerShoot : AWeapon
             }
                 
 
-            if (hit.collider.GetComponent<WeaponItem>() && Vector3.Distance(transform.position, hit.point) < 3f && Input.GetKeyDown(KeyCode.E))
+            if (hit.collider.GetComponent<WeaponItem>() && Vector3.Distance(transform.position, hit.point) < 3f && IsInteract)
             {
                 WeaponItem weaponItem = hit.collider.GetComponent<WeaponItem>();
 

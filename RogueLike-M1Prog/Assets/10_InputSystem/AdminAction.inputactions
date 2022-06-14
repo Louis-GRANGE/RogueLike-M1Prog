@@ -1,0 +1,34 @@
+{
+    "name": "AdminAction",
+    "maps": [
+        {
+            "name": "Admin",
+            "id": "90c570b4-ac21-4101-889e-603efed121c9",
+            "actions": [
+                {
+                    "name": "RemoveAI",
+                    "type": "Value",
+                    "id": "501aa0c8-4c8e-44d0-9d8b-d9d9f2ee14ed",
+                    "expectedControlType": "Digital",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ae4652f7-738a-439e-a3df-fc2880c90f74",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RemoveAI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

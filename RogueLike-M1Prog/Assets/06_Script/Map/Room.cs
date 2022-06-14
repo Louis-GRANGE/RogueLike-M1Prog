@@ -18,9 +18,14 @@ public class Room : AMinimap
 
     public bool IsCompleted;
     private bool _haveSpawnEnnemies;
+    private AdminAction inputActions;
 
     private void Awake()
     {
+        inputActions = new AdminAction();
+
+        inputActions.Admin.Enable();
+
         RoomArea = GetComponents<BoxCollider>().ToList();
         itemsInRoom = GetComponentsInChildren<AHealth>().ToList();
 
@@ -36,11 +41,13 @@ public class Room : AMinimap
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (inputActions.Admin.RemoveAI.IsPressed())
         {
             if(Enemies.Count > 0)
             {
-                Destroy(Enemies[Random.Range(0, Enemies.Count)].gameObject);
+                int indexRdm = Random.Range(0, Enemies.Count);
+                if (Enemies[indexRdm].gameObject.activeInHierarchy)
+                    Destroy(Enemies[indexRdm].gameObject);
             }
             else
             {

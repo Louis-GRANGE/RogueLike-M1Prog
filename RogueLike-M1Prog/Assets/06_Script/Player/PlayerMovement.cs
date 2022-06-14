@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     Player _player;
-    DamageTextPool _damageTextPool;
+
+    //Movement
+    [HideInInspector] public Vector2 moveInput;
+    [HideInInspector] public Vector2 lookInput;
+    [HideInInspector] public RaycastHit hitUnderMouse;
 
     [Header("External References")]
     Camera _mainCamera;
@@ -16,9 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Metrics")]
     public float speed;
-    Vector2 _movement;
 
     public Vector3 offsetShoot;
+
 
     private void Awake()
     {
@@ -29,14 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _player = Player.Instance;
-        _damageTextPool = DamageTextPool.Instance;
         _mainCamera = Camera.main;
     }
 
-    private void Update()
-    {
-        UpdateMovementVector();
-    }
+    public void OnMove(InputAction.CallbackContext context) { moveInput = context.ReadValue<Vector2>(); }
+    public void OnLook(InputAction.CallbackContext context) { lookInput = context.ReadValue<Vector2>(); }
+
 
     private void FixedUpdate()
     {
@@ -46,15 +49,14 @@ public class PlayerMovement : MonoBehaviour
 
     void LookDirection()
     {
-        Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(lookInput);
 
-        RaycastHit hit;
-        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hit, 1000))
+        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000))
         {
-            if (hit.transform.CompareTag(Constants.TagEnemy))
-                pointDirection = hit.collider.transform.position;
+            if (hitUnderMouse.transform.CompareTag(Constants.TagEnemy))
+                pointDirection = hitUnderMouse.collider.transform.position;
             else
-                pointDirection = hit.point + offsetShoot;
+                pointDirection = hitUnderMouse.point + offsetShoot;
         }
 
 
@@ -66,16 +68,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        _rigidbody.velocity = Quaternion.Euler(0, -45, 0) * new Vector3(_movement.x, 0, _movement.y) * speed;
+        _rigidbody.velocity = Quaternion.Euler(0, -45, 0) * new Vector3(moveInput.x, 0, moveInput.y) * speed;
 
-        Vector3 direction = Quaternion.Euler(0, -45, 0) * new Vector3(Input.GetAxisRaw("Horizontal") * 2, 0, Input.GetAxisRaw("Vertical") * 2);
+        Vector3 direction = Quaternion.Euler(0, -45, 0) * new Vector3(moveInput.x * 2, 0, moveInput.y * 2);
 
         direction = transform.InverseTransformDirection(direction);
-
         _animator.SetFloat("MoveX", direction.x);
         _animator.SetFloat("MoveY", direction.z);
     }
-
-    void UpdateMovementVector() => _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
 }
