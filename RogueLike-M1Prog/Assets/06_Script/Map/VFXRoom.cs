@@ -28,7 +28,7 @@ public class VFXRoom : MonoBehaviour
     public void RemoveFogRoom()
     {
         _particleSystemMain.loop = false;
-        _particleSystemMain.simulationSpeed = 10;
+        _particleSystemMain.simulationSpeed = 20;
         Destroy(gameObject, 1.0f);
     }
 }

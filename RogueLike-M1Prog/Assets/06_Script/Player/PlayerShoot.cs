@@ -16,6 +16,11 @@ public class PlayerShoot : AWeapon
     bool IsFiring;
     bool IsInteract;
 
+    [HideInInspector]
+    public Vector3 TargetShootPos;
+    [HideInInspector]
+    public bool HaveTarget;
+
     /*private void Awake()
     {
         //_animator = transform.GetChild(0).GetComponent<Animator>();

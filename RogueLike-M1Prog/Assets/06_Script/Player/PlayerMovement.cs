@@ -51,12 +51,20 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(lookInput);
 
-        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000))
+        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000, -5, QueryTriggerInteraction.Ignore))
         {
-            if (hitUnderMouse.transform.CompareTag(Constants.TagEnemy))
+            if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hitUnderMouse.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hitUnderMouse.collider.gameObject.tag))
+            {
+                _player.playerShoot.TargetShootPos = hitUnderMouse.transform.position;
+                _player.playerShoot.HaveTarget = true;
                 pointDirection = hitUnderMouse.collider.transform.position;
+            }
             else
+            {
+                _player.playerShoot.TargetShootPos = hitUnderMouse.point;
+                _player.playerShoot.HaveTarget = false;
                 pointDirection = hitUnderMouse.point + offsetShoot;
+            }
         }
 
 
