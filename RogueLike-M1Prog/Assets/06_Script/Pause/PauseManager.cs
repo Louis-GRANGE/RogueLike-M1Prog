@@ -13,11 +13,9 @@ public class PauseManager : MonoBehaviour
         PausePanel.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TogglePause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Pause(Time.timeScale != 0);
+        Pause(Time.timeScale != 0);
     }
 
     public void Pause(bool pause)

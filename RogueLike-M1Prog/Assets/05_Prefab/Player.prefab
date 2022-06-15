@@ -374,6 +374,8 @@ MonoBehaviour:
   fireRateLatency: 100
   canShoot: 1
   damages: 0
+  TargetShootPos: {x: 0, y: 0, z: 0}
+  HaveTarget: 0
 --- !u!114 &6946871201334129182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,8 +582,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 06ab5b31-8117-4788-b8c8-48d328b3f158
-    m_ActionName: HUD/OpenMinimap[/Keyboard/tab]
+    m_ActionId: ed4221bd-854b-4d4c-98c6-174a7960132b
+    m_ActionName: Player/New action[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: TogglePause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e9eeec66-99a4-4a68-a618-5cc16fd43e29
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
