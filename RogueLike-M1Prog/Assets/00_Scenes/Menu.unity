@@ -474,6 +474,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378823940}
   m_CullTransparentMesh: 1
+--- !u!1001 &447489859
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 390913305501121484, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236665205727957442, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460698466179217489, guid: a08c1a3a7d202584d89fc83eee9d08db,
+        type: 3}
+      propertyPath: RunSeed
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a08c1a3a7d202584d89fc83eee9d08db, type: 3}
 --- !u!1001 &739744510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1554,14 +1628,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -1958,6 +2032,7 @@ MonoBehaviour:
   main: {fileID: 239548405}
   newGame: {fileID: 217165732}
   settings: {fileID: 1717359634}
+  inputFieldSeed: {fileID: 1343567180}
 --- !u!4 &1776995935
 Transform:
   m_ObjectHideFlags: 0

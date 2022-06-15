@@ -6,12 +6,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     public GameObject PlayerRef;
-    public MapGenerator MapGeneratorRef;
     public Spawner SpawnerRef;
     public EnemyManager EnemyManagerRef;
     public int RunSeed;
 
     public int Difficulty = 1;
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        SetRunSeed(RunSeed);
+    }
 
     private void Update()
     {

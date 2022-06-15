@@ -20,4 +20,9 @@ public class Player : AMainData
         playerShoot = GetComponent<PlayerShoot>();
         HealthManager = GetComponent<PlayerHealth>();
     }
+
+    private void Start()
+    {
+        GameManager.instance.PlayerRef = gameObject;
+    }
 }

@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.SpawnerRef = this;
         SOEnemies = SOSpawner.getFlatList();
     }
 

@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     public GameObject main;
     public GameObject newGame;
     public GameObject settings;
+    public TMP_InputField inputFieldSeed;
 
     bool isLaunching = false;
 
@@ -25,12 +26,16 @@ public class MenuManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
     }
 
     private void Start()
     {
         Time.timeScale = 1;
         SelectMenu("Main");
+
+        //Show Run Seed
+        inputFieldSeed.text = GameManager.instance.RunSeed.ToString();
     }
 
     public void SelectMenu(string menuName)
@@ -65,9 +70,9 @@ public class MenuManager : MonoBehaviour
         if (!isLaunching)
         {
             isLaunching = true;
-
+            
             string seedString = "";
-            string numbers = "0123456789";
+            string numbers = "-0123456789";
             foreach (char mchar in seedText.text)
                 if (numbers.Contains(mchar))
                     seedString += mchar;
@@ -76,6 +81,7 @@ public class MenuManager : MonoBehaviour
 
             if (int.TryParse(seedString, out seed))
             {
+                GameManager.instance.SetRunSeed(seed);
                 SceneManager.LoadSceneAsync(1);
             }
             else

@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject PausePanel;
+    public TMPro.TMP_InputField inputFieldSeed;
 
     // Start is called before the first frame update
     void Awake()
     {
-        PausePanel.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        inputFieldSeed.text = GameManager.instance.RunSeed.ToString();
     }
 
     public void TogglePause()
@@ -25,8 +30,12 @@ public class PauseManager : MonoBehaviour
         else
             Time.timeScale = 1;
 
-        PausePanel.SetActive(pause);
+        gameObject.SetActive(pause);
     }
 
-    public void BackToMenu() => SceneManager.LoadSceneAsync(0);
+    public void BackToMenu()
+    {
+        Debug.Log("BACK TO MENU");
+        SceneManager.LoadSceneAsync(0);
+    }
 }
