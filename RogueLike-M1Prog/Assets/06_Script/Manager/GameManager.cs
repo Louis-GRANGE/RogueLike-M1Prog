@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject PlayerPref;
+    [HideInInspector]
     public GameObject PlayerRef;
+    [HideInInspector]
     public Spawner SpawnerRef;
+    [HideInInspector]
     public EnemyManager EnemyManagerRef;
+
     public int RunSeed;
 
     public int Difficulty = 1;
@@ -33,6 +38,8 @@ public class GameManager : Singleton<GameManager>
         PlayerRef.transform.position = Vector3.up * 10000;
         Difficulty++;
         SceneManager.LoadSceneAsync(Constants.GameLevel);
+
+        SetRunSeed(RunSeed);
         //LevelManager.instance.LoadNewMap();
     }
 
@@ -40,14 +47,20 @@ public class GameManager : Singleton<GameManager>
     {
         if (seed != 0)
         {
-            Random.InitState(seed);
+            Random.InitState(seed + Difficulty);
             RunSeed = seed;
         }
         else
         {
             RunSeed = (int)System.DateTime.Now.Ticks;
-            Random.InitState(RunSeed);
+            Random.InitState(RunSeed + Difficulty);
         }
         Debug.Log("[GameManager] Seed: " + RunSeed);
+    }
+
+
+    public void StartGame()
+    {
+        Instantiate(PlayerPref);
     }
 }

@@ -8,6 +8,7 @@ public class Player : AMainData
 
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public PlayerShoot playerShoot;
+    [HideInInspector] public PlayerInputs playerInputs;
 
     private void Awake()
     {
@@ -15,6 +16,8 @@ public class Player : AMainData
             Instance = this;
         else
             Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
 
         playerMovement = GetComponent<PlayerMovement>();
         playerShoot = GetComponent<PlayerShoot>();

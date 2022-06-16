@@ -48,7 +48,7 @@ public class HealthEnemy : AHealth
 
             _memorizeLatency = 0;
 
-            damageTextPool.RequestDamageText(transform.position, damage);
+            DamageTextPool.instance.RequestDamageText(transform.position, damage);
             return true;
         }
         return false;

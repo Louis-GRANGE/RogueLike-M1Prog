@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    Vector3 _offset;
+    public Vector3 _offset = new Vector3(-5, -8, 5);
     Player _player;
 
     private void Start()
     {
         _player = Player.Instance;
 
-        _offset = _player.transform.position - transform.position;
+        //_offset = _player.transform.position - transform.position;
     }
 
     private void FixedUpdate()

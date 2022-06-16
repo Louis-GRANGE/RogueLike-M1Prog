@@ -31,7 +31,7 @@ public class PlayerShoot : AWeapon
 
     protected override void Start()
     {
-        _playerCanvas = PlayerCanvas.Instance;
+        _playerCanvas = PlayerCanvas.instance;
 
         _mainCamera = Camera.main;
         base.Start();
@@ -95,7 +95,8 @@ public class PlayerShoot : AWeapon
     public override void EquipWeapon(WeaponData _newWeapon, int munitions)
     {
         base.EquipWeapon(_newWeapon, munitions);
-        _playerCanvas._weaponUI.UpdateWeapon(_newWeapon, _munitions);
+        if (PlayerCanvas.instance)
+            PlayerCanvas.instance._weaponUI.UpdateWeapon(_newWeapon, _munitions);
     }
 
     public override void Shoot(Vector3 shootDirection, float additionnalSpray = 0)
@@ -106,7 +107,7 @@ public class PlayerShoot : AWeapon
             if (canShoot)
             {
                 _munitions -= 1;
-                _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+                PlayerCanvas.instance._weaponUI.UpdateAmmo(_munitions);
             }
         }
     }

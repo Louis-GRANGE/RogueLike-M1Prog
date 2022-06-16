@@ -11,7 +11,7 @@ public class HealthBomb : AHealth
     {
         if(base.TakeDamage(damage, Sender, damageTypeSend))
         {
-            damageTextPool.RequestDamageText(transform.position, damage);
+            DamageTextPool.instance.RequestDamageText(transform.position, damage);
             return true;
         }
         return false;

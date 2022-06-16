@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Minimap : MonoBehaviour
 {
@@ -13,9 +12,14 @@ public class Minimap : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         InitSize = _camera.orthographicSize;
+
+        Player.Instance.playerInputs.inputs.Player.Map.performed += ToggleMinimap;
     }
-    public void ToggleMinimap()
+    public void ToggleMinimap(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        if (!_camera)
+            return;
+
         _isOpen = !_isOpen;
         if (_isOpen)
         {

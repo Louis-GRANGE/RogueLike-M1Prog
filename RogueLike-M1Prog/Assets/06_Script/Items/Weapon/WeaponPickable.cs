@@ -22,7 +22,7 @@ public class WeaponPickable : APickable
                     if (mainData.WeaponManager._weaponData == item.weaponData)
                     {
                         mainData.WeaponManager.AddAmmo(item.munitions);
-                        mainData.HealthManager.damageTextPool.RequestMunitionText(transform.position, item.munitions);
+                        DamageTextPool.instance.RequestMunitionText(transform.position, item.munitions);
                         item.Desactivate();
                     }
                 }

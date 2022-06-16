@@ -21,7 +21,7 @@ public class AmmoPickable : APickable
                 if (mainData.WeaponManager)
                 {
                     mainData.WeaponManager.AddAmmo(item.ammoData.ammo);
-                    mainData.HealthManager.damageTextPool.RequestMunitionText(transform.position, item.ammoData.ammo);
+                    DamageTextPool.instance.RequestMunitionText(transform.position, item.ammoData.ammo);
                     item.Desactivate();
                 }
             }

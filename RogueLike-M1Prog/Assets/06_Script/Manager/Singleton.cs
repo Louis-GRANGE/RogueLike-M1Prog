@@ -11,8 +11,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
         {
             if(_instance == null)
             {
-                Debug.LogError("NEED INSTANCE");
-                //_instance = FindObjectOfType<T>();
+                //Debug.LogError("NEED INSTANCE");
+                _instance = FindObjectOfType<T>();
                 //if(_instance == null)
                 //{
                 //    GameObject newGo = new GameObject();

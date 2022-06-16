@@ -21,7 +21,7 @@ public class HealPickable : APickable
                 if (mainData.HealthManager && mainData.HealthManager.health < mainData.HealthManager.maxHealth)
                 {
                     mainData.HealthManager.ModifyHealth(item.healthData.health);
-                    mainData.HealthManager.damageTextPool.RequestHealText(transform.position, item.healthData.health);
+                    DamageTextPool.instance.RequestHealText(transform.position, item.healthData.health);
                     item.Desactivate();
                 }
             }

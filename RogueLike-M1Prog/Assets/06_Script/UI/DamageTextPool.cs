@@ -2,19 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTextPool : MonoBehaviour
+public class DamageTextPool : Singleton<DamageTextPool>
 {
-    [HideInInspector] public static DamageTextPool Instance;
-
     public Transform alterPool;
-
-    private void Awake()
-    {
-        if (!Instance)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
 
     private void Start()
     {

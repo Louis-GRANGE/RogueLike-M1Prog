@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCanvas : MonoBehaviour
+public class PlayerCanvas : Singleton<PlayerCanvas>
 {
-    [HideInInspector] public static PlayerCanvas Instance;
-
     [HideInInspector] public WeaponUI _weaponUI;
     [HideInInspector] public PlayerHealthUI _playerHealthUI;
 
     Animator _hitEffect;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (!Instance)
+        base.Awake();
+        /*if (!Instance)
             Instance = this;
         else
-            Destroy(gameObject);
+            Destroy(gameObject);*/
 
         _weaponUI = GetComponentInChildren<WeaponUI>();
         _playerHealthUI = GetComponentInChildren<PlayerHealthUI>();

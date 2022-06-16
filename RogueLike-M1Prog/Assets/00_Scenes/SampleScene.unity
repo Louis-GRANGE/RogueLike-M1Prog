@@ -1184,6 +1184,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1393676193613207399, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221218483965800050, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221218483965800050, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221218483965800050, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221218483965800050, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4221218483965800050, guid: 39531b8ea60100b4d84c0ee06241c2b8,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2656,6 +2681,16 @@ PrefabInstance:
         type: 3}
       propertyPath: NumberMaxRoom
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
+        type: 3}
+      propertyPath: NumberMaxRoom.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
+        type: 3}
+      propertyPath: NumberMaxRoom.y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8840898515883619908, guid: c135880184ffd394898ae608881d8d86,
         type: 3}

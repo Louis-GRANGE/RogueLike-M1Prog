@@ -13,7 +13,7 @@ public class WeaponUI : MonoBehaviour
     TextMeshProUGUI _fireRateText;
     Animator _animator;
 
-    private void Awake()
+    private void Start()
     {
         _iconWeapon = transform.GetChild(1).GetComponent<Image>();
         _ammoText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();

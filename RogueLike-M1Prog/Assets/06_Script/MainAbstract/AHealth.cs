@@ -13,15 +13,10 @@ public abstract class AHealth : MonoBehaviour
 
     public DamageType CanBeDamageBy;
     protected bool IsDeath;
-    
-    // For PopUI
-    [HideInInspector]
-    public DamageTextPool damageTextPool;
 
     protected virtual void Start()
     {
         health = maxHealth;
-        damageTextPool = DamageTextPool.Instance;
     }
 
     public void SetHealth(int value)

@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class AWeapon : MonoBehaviour
 {
     protected AMainData ownerMainData;
-    PlayerCanvas _playerCanvas;
 
     [Header("External Components")]
     public Transform weaponHandler;
@@ -49,7 +48,6 @@ public abstract class AWeapon : MonoBehaviour
 
     protected virtual void Start()
     {
-        _playerCanvas = PlayerCanvas.Instance;
         if (FirstEquippedWeapons.Count > 0)
             EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], _munitions);
     }
@@ -155,6 +153,6 @@ public abstract class AWeapon : MonoBehaviour
     public void AddAmmo(int ammo)
     {
         _munitions += ammo;
-        _playerCanvas._weaponUI.UpdateAmmo(_munitions);
+        PlayerCanvas.instance._weaponUI.UpdateAmmo(_munitions);
     }
 }

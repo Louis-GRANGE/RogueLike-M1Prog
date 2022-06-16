@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_mainCamera)
+            _mainCamera = Camera.main;
         LookDirection();
         Movement();
     }

@@ -82,10 +82,12 @@ public class MenuManager : MonoBehaviour
             if (int.TryParse(seedString, out seed))
             {
                 GameManager.instance.SetRunSeed(seed);
-                SceneManager.LoadSceneAsync(1);
+                SceneManager.LoadSceneAsync(Constants.GameLevel);
             }
             else
-                SceneManager.LoadSceneAsync(1);
+                SceneManager.LoadSceneAsync(Constants.GameLevel);
+
+            GameManager.instance.StartGame();
         }
     }
 
