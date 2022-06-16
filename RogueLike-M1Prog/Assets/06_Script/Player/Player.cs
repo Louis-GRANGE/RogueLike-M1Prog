@@ -9,6 +9,7 @@ public class Player : AMainData
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public PlayerShoot playerShoot;
     [HideInInspector] public PlayerInputs playerInputs;
+    [HideInInspector] public PlayerStats playerStats;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class Player : AMainData
         playerMovement = GetComponent<PlayerMovement>();
         playerShoot = GetComponent<PlayerShoot>();
         HealthManager = GetComponent<PlayerHealth>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Start()

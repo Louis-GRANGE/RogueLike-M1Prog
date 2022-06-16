@@ -63,4 +63,9 @@ public class GameManager : Singleton<GameManager>
     {
         Instantiate(PlayerPref);
     }
+
+    public void OnPlayerDied()
+    {
+        MenuManager.instance.looseMenu.ShowMenu();
+    }
 }

@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 1393676193613207396}
   - component: {fileID: 1393676193613207392}
   - component: {fileID: 8941489914755695196}
+  - component: {fileID: 1418056470650216140}
   - component: {fileID: 4221218483965800050}
   m_Layer: 12
   m_Name: Player
@@ -336,6 +337,7 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   playerShoot: {fileID: 0}
   playerInputs: {fileID: 0}
+  playerStats: {fileID: 0}
 --- !u!114 &1393676193613207397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,7 +395,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 1000
   CanBeDamageBy: -1
-  damageTextPool: {fileID: 0}
 --- !u!136 &1393676193613207396
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -436,6 +437,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214e419b73178c94aa247dee18ff26fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1418056470650216140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393676193613207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3aa74935ed98b7499ad137a83eae7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberKills: 0
+  DamagesDeals: 0
+  DamageTaked: 0
 --- !u!114 &4221218483965800050
 MonoBehaviour:
   m_ObjectHideFlags: 0

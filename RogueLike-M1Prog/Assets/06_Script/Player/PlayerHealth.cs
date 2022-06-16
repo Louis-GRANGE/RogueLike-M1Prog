@@ -16,10 +16,24 @@ public class PlayerHealth : AHealth
     {
         if (base.TakeDamage(damage, Sender, damageTypeSend))
         {
+            Player.Instance.playerStats.DamageTaked += damage;
             PlayerCanvas.instance._playerHealthUI.UpdateHealth();
             PlayerCanvas.instance.HitEffect();
             return true;
         }
         return false;
     }
+
+
+    public override bool OnDeath()
+    {
+        if (base.OnDeath())
+        {
+            GameManager.instance.OnPlayerDied();
+            return true;
+        }
+        return false;
+    }
+
+
 }

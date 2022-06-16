@@ -43,6 +43,9 @@ public class HealthEnemy : AHealth
     {
         if (base.TakeDamage(damage, Sender, damageTypeSend))
         {
+            if (Sender.CompareTag(Constants.TagPlayer))
+                Player.Instance.playerStats.DamagesDeals += damage;    
+
             _healthBar.fillAmount = (float)health / (float)maxHealth;
             _healthBarMemoryAnim.SetTrigger("Hit");
 
@@ -72,6 +75,9 @@ public class HealthEnemy : AHealth
     {
         if (base.OnDeath(Sender))
             return true;
+
+        if (Sender.CompareTag(Constants.TagPlayer))
+            Player.Instance.playerStats.NumberKills++;
 
         Destroy(_healthBar.transform.parent.parent.gameObject);
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
