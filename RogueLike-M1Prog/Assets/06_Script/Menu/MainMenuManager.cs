@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 public enum MenuState { Main, Settings, NewGame };
@@ -18,6 +19,18 @@ public class MainMenuManager : MonoBehaviour
     public GameObject settings;
     public TMP_InputField inputFieldSeed;
 
+    [Header("Sound curve evolution")]
+    public AnimationCurve SoundEvolution;
+
+    [Header("Music")]
+    public Slider MusicSlider;
+    public TextMeshProUGUI MusicText;
+    public AudioMixer MusicMixer;
+    [Header("Sound")]
+    public Slider SoundSlider;
+    public TextMeshProUGUI SoundText;
+    public AudioMixer SoundMixer;
+
     [Header("Saved Game")]
     public GameObject ContinueButton;
     public GameObject SavedGame;
@@ -32,6 +45,12 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI KillsText;
     public TextMeshProUGUI DamagesDealtText;
     public TextMeshProUGUI DamagesTakenText;
+
+    [Header("Input type")]
+    public TextMeshProUGUI InputTypeText;
+    public Image InputTypeLogo;
+    public Sprite Joystick, Keyboard;
+    bool isKeyboard = true;
 
     bool isLaunching = false;
 
@@ -52,6 +71,8 @@ public class MainMenuManager : MonoBehaviour
         inputFieldSeed.text = GameManager.instance.RunSeed.ToString();
 
         ShowSavedGame();
+        LoadVolumes();
+        LoadInput();
     }
 
     private void Update()
@@ -73,16 +94,19 @@ public class MainMenuManager : MonoBehaviour
                     newGame.SetActive(false);
                     settings.SetActive(false);
                     main.SetActive(true);
+                    SavedGame.SetActive(true);
                     break;
                 case "Settings":
                     newGame.SetActive(false);
                     main.SetActive(false);
                     settings.SetActive(true);
+                    SavedGame.SetActive(false);
                     break;
                 case "NewGame":
                     main.SetActive(false);
                     settings.SetActive(false);
                     newGame.SetActive(true);
+                    SavedGame.SetActive(false);
                     break;
                 default:
                     break;
@@ -153,4 +177,63 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void Quit() => Application.Quit();
+
+    public void LoadVolumes()
+    {
+        MusicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        MusicText.text = Mathf.RoundToInt(MusicSlider.value * 100f) + "%";
+        MusicMixer.SetFloat("Volume", -80f * (1f - SoundEvolution.Evaluate(MusicSlider.value)));
+
+        SoundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
+        SoundText.text = Mathf.RoundToInt(SoundSlider.value * 100f) + "%";
+        SoundMixer.SetFloat("Volume", -80f * (1f - SoundEvolution.Evaluate(SoundSlider.value)));
+    }
+
+    public void MusicChangeVolume()
+    {
+        MusicText.text = Mathf.RoundToInt(MusicSlider.value * 100f) + "%";
+        MusicMixer.SetFloat("Volume", -80f * (1f - SoundEvolution.Evaluate(MusicSlider.value)));
+        PlayerPrefs.SetFloat("MusicVolume", MusicSlider.value);
+    }
+
+    public void SoundChangeVolume()
+    {
+        SoundText.text = Mathf.RoundToInt(SoundSlider.value * 100f) + "%";
+        SoundMixer.SetFloat("Volume", -80f * (1f - SoundEvolution.Evaluate(SoundSlider.value)));
+        PlayerPrefs.SetFloat("SoundVolume", SoundSlider.value);
+    }
+
+    public void LoadInput()
+    {
+        isKeyboard = PlayerPrefs.GetInt("isKeyboard") == 1;
+
+        if (!isKeyboard)
+        {
+            InputTypeLogo.sprite = Joystick;
+            InputTypeText.text = "Joystick";
+        }
+        else
+        {
+            InputTypeLogo.sprite = Keyboard;
+            InputTypeText.text = "Keyboard";
+        }
+    }
+
+    public void ChangeInput()
+    {
+        if (isKeyboard)
+        {
+            InputTypeLogo.sprite = Joystick;
+            InputTypeText.text = "Joystick";
+            PlayerPrefs.SetInt("isKeyboard", 0);
+        }
+        else
+        {
+            InputTypeLogo.sprite = Keyboard;
+            InputTypeText.text = "Keyboard";
+            PlayerPrefs.SetInt("isKeyboard", 1);
+        }
+
+        isKeyboard = !isKeyboard;
+    }
 }
