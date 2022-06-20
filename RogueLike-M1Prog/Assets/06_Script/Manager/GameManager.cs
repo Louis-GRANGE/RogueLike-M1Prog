@@ -17,11 +17,16 @@ public class GameManager : Singleton<GameManager>
 
     public int Difficulty = 1;
 
+    [HideInInspector]
+    public SaveScriptableObject GameSave;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         SetRunSeed(RunSeed);
+
+        GameSave.LoadSave();
     }
 
     private void Update()
@@ -62,10 +67,24 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         Instantiate(PlayerPref);
+        
+        Player player = Player.Instance;
+
     }
 
     public void OnPlayerDied()
     {
         MenuManager.instance.looseMenu.ShowMenu();
+    }
+
+    public void Save(bool dead = false)
+    {
+        if (dead)
+            GameSave.SetValues();
+        else
+        {
+            Player player = Player.Instance;
+            GameSave.SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
+        }
     }
 }

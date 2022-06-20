@@ -25,7 +25,7 @@ public class HealthEnemy : AHealth
         ownerMainData.HealthManager = this;
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
         _memorizedHealth = health;

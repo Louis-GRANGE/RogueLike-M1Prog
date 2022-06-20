@@ -53,6 +53,8 @@ public class LevelManager : Singleton<LevelManager>
             RefMapGenerator.SpawnPortal(roomFinish);
             Callback_OnEndLevel?.Invoke(roomFinish);
         }
+
+        GameManager.instance.Save();
     }
 
     public void MapEndGeneration()

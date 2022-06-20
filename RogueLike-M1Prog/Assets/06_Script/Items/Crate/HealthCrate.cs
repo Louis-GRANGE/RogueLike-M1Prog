@@ -10,7 +10,7 @@ public class HealthCrate : AHealth
     public AItem[] itemCanBeSpawn;
     private int _indexRandomSpawn;
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
         _indexRandomSpawn = Random.Range(0, itemCanBeSpawn.Length);

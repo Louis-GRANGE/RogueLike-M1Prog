@@ -18,6 +18,21 @@ public class MainMenuManager : MonoBehaviour
     public GameObject settings;
     public TMP_InputField inputFieldSeed;
 
+    [Header("Saved Game")]
+    public GameObject ContinueButton;
+    public GameObject SavedGame;
+    [Space]
+    public TextMeshProUGUI DifficultyText;
+    public TextMeshProUGUI SeedText;
+    [Space]
+    public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI WeaponText;
+    public TextMeshProUGUI AmmoText;
+    [Space]
+    public TextMeshProUGUI KillsText;
+    public TextMeshProUGUI DamagesDealtText;
+    public TextMeshProUGUI DamagesTakenText;
+
     bool isLaunching = false;
 
     private void Awake()
@@ -26,7 +41,6 @@ public class MainMenuManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
     }
 
     private void Start()
@@ -36,6 +50,17 @@ public class MainMenuManager : MonoBehaviour
 
         //Show Run Seed
         inputFieldSeed.text = GameManager.instance.RunSeed.ToString();
+
+        ShowSavedGame();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            GameManager.instance.Save(true);
+            ShowSavedGame();
+        }
     }
 
     public void SelectMenu(string menuName)
@@ -65,6 +90,15 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    public void ContinueGame()
+    {
+        GameManager.instance.SetRunSeed(GameManager.instance.GameSave.Seed);
+        GameManager.instance.Difficulty = GameManager.instance.GameSave.Difficulty;
+        SceneManager.LoadSceneAsync(Constants.GameLevel);
+
+        GameManager.instance.StartGame();
+    }
+
     public void LaunchGame(TextMeshProUGUI seedText)
     {
         if (!isLaunching)
@@ -88,6 +122,33 @@ public class MainMenuManager : MonoBehaviour
                 SceneManager.LoadSceneAsync(Constants.GameLevel);
 
             GameManager.instance.StartGame();
+        }
+    }
+
+    public void ShowSavedGame()
+    {
+        SaveScriptableObject savedGame = GameManager.instance.GameSave;
+        if (savedGame.CanContinue)
+        {
+            DifficultyText.text = "Difficulty : <color=white>" + savedGame.Difficulty + "</color>";
+            SeedText.text = "Seed : <color=white>" + savedGame.Seed + "</color>";
+
+            HealthText.text = "Health : <color=green>" + savedGame.Health + "</color>";
+            if(savedGame.EquipedWeapon)
+                WeaponText.text = "Weapon : <color=green>" + savedGame.EquipedWeapon.name + "</color>";
+            AmmoText.text = "Ammo : <color=green>" + savedGame.Munitions + "</color>";
+
+            KillsText.text = "Kills : <color=green>" + savedGame.NumberKills + "</color>";
+            DamagesDealtText.text = "Damages dealt : <color=green>" + savedGame.DamagesDealt + "</color>";
+            DamagesTakenText.text = "Damages taken : <color=red>" + savedGame.DamagesTaken + "</color>";
+
+            SavedGame.SetActive(true);
+            ContinueButton.SetActive(true);
+        }
+        else
+        {
+            SavedGame.SetActive(false);
+            ContinueButton.SetActive(false);
         }
     }
 

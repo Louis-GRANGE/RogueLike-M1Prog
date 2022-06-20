@@ -34,7 +34,10 @@ public class PlayerShoot : AWeapon
         _playerCanvas = PlayerCanvas.instance;
 
         _mainCamera = Camera.main;
-        base.Start();
+        if(GameManager.instance.GameSave.EquipedWeapon)
+            EquipWeapon(GameManager.instance.GameSave.EquipedWeapon, GameManager.instance.GameSave.Munitions);
+        else
+            base.Start();
         //EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);
     }
 

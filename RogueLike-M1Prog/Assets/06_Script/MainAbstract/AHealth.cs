@@ -14,7 +14,7 @@ public abstract class AHealth : MonoBehaviour
     public DamageType CanBeDamageBy;
     protected bool IsDeath;
 
-    protected virtual void Start()
+    public  virtual void Start()
     {
         health = maxHealth;
     }

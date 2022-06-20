@@ -18,6 +18,7 @@ public class LooseMenu : MonoBehaviour
     public void BackToMenu()
     {
         Debug.Log("BACK TO MENU");
+        GameManager.instance.Save(true);
         SceneManager.LoadSceneAsync(Constants.MainMenu);
     }
 
