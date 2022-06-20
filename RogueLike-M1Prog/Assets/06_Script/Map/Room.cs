@@ -217,7 +217,8 @@ public class Room : AMinimap
             {
                 item.CanOpenDoor = true;
             }
-            LevelManager.instance.Callback_OnRoomFinish?.Invoke(this);
+            if (LevelManager.instance)
+                LevelManager.instance.Callback_OnRoomFinish?.Invoke(this);
             //LevelManager.instance.RefMapGenerator.SetRoomsVisibility(null, true);
         }
     }

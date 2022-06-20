@@ -16,7 +16,10 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 _direction = (_player.transform.position - transform.position) - _offset;
-        transform.position += _direction / 10;
+        if (_player)
+        {
+            Vector3 _direction = (_player.transform.position - transform.position) - _offset;
+            transform.position += _direction / 10;
+        }
     }
 }

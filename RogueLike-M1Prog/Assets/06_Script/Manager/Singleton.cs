@@ -25,6 +25,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
     protected virtual void Awake()
     {
+        if (_instance)
+            Destroy(gameObject);
         _instance = this as T;
     }
 }

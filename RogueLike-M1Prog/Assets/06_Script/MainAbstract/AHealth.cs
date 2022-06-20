@@ -73,7 +73,7 @@ public abstract class AHealth : MonoBehaviour
 
     private bool CheckIsDead()
     {
-        if (IsDeath)
+        if (IsDeath || health > 0)
         {
             return true;
         }

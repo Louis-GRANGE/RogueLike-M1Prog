@@ -22,6 +22,7 @@ public class TargetPlayer : AState
 
     void LookAtPlayer()
     {
-        _mainData.transform.LookAt(Player.Instance.transform.position);
+        if (Player.Instance)
+            _mainData.transform.LookAt(Player.Instance.transform.position);
     }
 }

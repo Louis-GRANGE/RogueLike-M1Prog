@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 1000
+  maxHealth: 200
   CanBeDamageBy: -1
 --- !u!136 &1393676193613207396
 CapsuleCollider:

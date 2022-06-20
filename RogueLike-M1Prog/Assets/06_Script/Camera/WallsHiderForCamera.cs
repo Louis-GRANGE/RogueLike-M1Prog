@@ -19,6 +19,9 @@ public class WallsHiderForCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_player)
+            return;
+
         RaycastHit[] hits;
         hits = Physics.RaycastAll(transform.position, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2);
 

@@ -16,7 +16,8 @@ public class ChasePlayer : AState
 
     public override void ExecuteState()
     {
-        Chase(playerTransform);
+        if (playerTransform)
+            Chase(playerTransform);
     }
 
     public override void EndState()
