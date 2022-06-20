@@ -45,11 +45,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_mainCamera)
             _mainCamera = Camera.main;
-        LookDirection();
+
+        switch (_player.playerInputs.GetCurrentDeviceType())
+        {
+            case EDeviceType.None:
+                break;
+            case EDeviceType.KeyboardAndMouse:
+                MouseLookDirection();
+                break;
+            case EDeviceType.Gamepad:
+                break;
+            default:
+                break;
+        }
+
+
+        //MouseLookDirection();
         Movement();
     }
 
-    void LookDirection()
+    void MouseLookDirection()
     {
         Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(lookInput);
 
@@ -74,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam;
 
         transform.LookAt(direction);
-    }
+    }   
 
     void Movement()
     {

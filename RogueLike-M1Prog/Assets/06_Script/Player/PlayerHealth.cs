@@ -27,7 +27,7 @@ public class PlayerHealth : AHealth
 
     public override bool OnDeath()
     {
-        if (base.OnDeath())
+        if (base.OnDeath() && GameManager.instance)
         {
             GameManager.instance.OnPlayerDied();
             return true;

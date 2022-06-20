@@ -66,6 +66,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnPlayerDied()
     {
-        MenuManager.instance.looseMenu.ShowMenu();
+        if(MenuManager.instance)
+            MenuManager.instance.looseMenu.ShowMenu();
     }
 }
