@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e688c9caabb694ab08cf0681c28b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPref: {fileID: 1393676193613207399, guid: 39531b8ea60100b4d84c0ee06241c2b8,
+    type: 3}
   PlayerRef: {fileID: 0}
-  MapGeneratorRef: {fileID: 0}
   SpawnerRef: {fileID: 0}
   EnemyManagerRef: {fileID: 0}
   RunSeed: 0
