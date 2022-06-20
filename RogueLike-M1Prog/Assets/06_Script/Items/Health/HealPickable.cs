@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class HealPickable : APickable
 {
-    HealItem item;
-
-    private void Start()
-    {
-        item = transform.parent.GetComponent<HealItem>();
-    }
-
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constants.TagPlayer))
@@ -20,8 +13,8 @@ public class HealPickable : APickable
             {
                 if (mainData.HealthManager && mainData.HealthManager.health < mainData.HealthManager.maxHealth)
                 {
-                    mainData.HealthManager.ModifyHealth(item.healthData.health);
-                    DamageTextPool.instance.RequestHealText(transform.position, item.healthData.health);
+                    mainData.HealthManager.ModifyHealth(((HealItem)item).healthData.health);
+                    DamageTextPool.instance.RequestHealText(transform.position, ((HealItem)item).healthData.health);
                     item.Desactivate();
                 }
             }

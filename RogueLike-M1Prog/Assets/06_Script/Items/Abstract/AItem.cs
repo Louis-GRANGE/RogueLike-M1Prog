@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class AItem : MonoBehaviour
 {
     [Header("External")]
+    protected Player _player;
     public FollowingUI prefFollowingUI;
     //public Sprite _icon;
 
@@ -21,11 +22,16 @@ public abstract class AItem : MonoBehaviour
 
     public virtual void ActualizeShown()
     {
-
+        if (_player == null)
+            _player = Player.Instance;
+        if (!_followingUI && prefFollowingUI)
+            _followingUI = Instantiate(prefFollowingUI, FollowingUIPanel.Instance.transform);//.GetComponent<FollowingUI>();
+        _followingUI.transform.GetChild(0).gameObject.SetActive(true);
     }
     public virtual void HideShown()
     {
-
+        if (_followingUI)
+            _followingUI.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public virtual void Desactivate()

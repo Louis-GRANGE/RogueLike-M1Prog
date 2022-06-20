@@ -4,29 +4,41 @@ using UnityEngine;
 
 public class WeaponPickable : APickable
 {
-    WeaponItem item;
-
-    private void Start()
-    {
-        item = transform.parent.GetComponent<WeaponItem>();
-    }
+    bool CanInteract;
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constants.TagPlayer))
         {
+            item.ActualizeShown();
+            CanInteract = true;
             AMainData mainData;
             if (other.TryGetComponent(out mainData))
             {
                 if (mainData.WeaponManager && mainData.WeaponManager._weaponData)
                 {
-                    if (mainData.WeaponManager._weaponData == item.weaponData)
+                    if (mainData.WeaponManager._weaponData == ((WeaponItem)item).weaponData)
                     {
-                        mainData.WeaponManager.AddAmmo(item.munitions);
-                        DamageTextPool.instance.RequestMunitionText(transform.position, item.munitions);
+                        mainData.WeaponManager.AddAmmo(((WeaponItem)item).munitions);
+                        DamageTextPool.instance.RequestMunitionText(transform.position, ((WeaponItem)item).munitions);
                         item.Desactivate();
                     }
                 }
             }
         }
+    }
+
+    protected override void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(Constants.TagPlayer) && item)
+        {
+            CanInteract = false;
+            item.HideShown();
+        }
+    }
+
+    private void Update()
+    {
+        if (CanInteract)
+            Player.Instance.playerShoot.InteractTrigger(item);
     }
 }

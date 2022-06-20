@@ -6,27 +6,20 @@ using TMPro;
 
 public class WeaponItem : AItem
 {
-    [Header("External References")]
-    Player _player;
-
     [Header("Data")]
     public WeaponData weaponData;
     public int munitions;
 
     public override void ActualizeShown()
     {
-        if (_player == null)
-        {
-            _player = Player.Instance;
-
-            _followingUI = Instantiate(prefFollowingUI, FollowingUIPanel.Instance.transform);//.GetComponent<FollowingUI>();
-            _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
-
-            _equipText = _followingUI.transform.GetChild(0).GetChild(5).gameObject;
-            /*_icon =*/ _followingUI.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = weaponData.icon;// _icon;
-            
-            //_iconWeapon.sprite = weaponData.icon;
-        }
+        base.ActualizeShown();
+        
+        _followingUI.followedRenderer = GetComponentInChildren<Renderer>();
+        
+        _equipText = _followingUI.transform.GetChild(0).GetChild(5).gameObject;
+        /*_icon =*/ _followingUI.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = weaponData.icon;// _icon;
+        
+        //_iconWeapon.sprite = weaponData.icon;
 
         string damages = "";
         if (weaponData.damages > _player.playerShoot.damages)
@@ -58,7 +51,7 @@ public class WeaponItem : AItem
 
         _followingUI.transform.GetChild(0).GetChild(3).GetComponent<TextMeshProUGUI>().text = ammo;
 
-        _followingUI.transform.GetChild(0).gameObject.SetActive(true);
+        //_followingUI.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void Update()
@@ -73,5 +66,5 @@ public class WeaponItem : AItem
         }
     }
 
-    public override void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);
+    //public override void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);
 }
