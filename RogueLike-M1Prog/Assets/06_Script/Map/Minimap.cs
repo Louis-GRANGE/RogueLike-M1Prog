@@ -15,6 +15,12 @@ public class Minimap : MonoBehaviour
 
         Player.Instance.playerInputs.inputs.Player.Map.performed += ToggleMinimap;
     }
+
+    private void OnDestroy()
+    {
+        Player.Instance.playerInputs.inputs.Player.Map.performed -= ToggleMinimap;
+    }
+
     public void ToggleMinimap(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         if (!_camera)

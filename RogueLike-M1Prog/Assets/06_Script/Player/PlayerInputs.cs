@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public enum EDeviceType
 {
-    None,
     KeyboardAndMouse,
     Gamepad
 }
@@ -22,8 +21,6 @@ public class PlayerInputs : MonoBehaviour
         inputs = new PlayerActionss();
 
         inputs.Enable();
-
-        Debug.Log(InputManager.instance.lastDevice.displayName);
     }
 
     private void Start()
@@ -45,6 +42,12 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Interact.canceled += Player.Instance.playerShoot.Interact;
 
         playerInput.onControlsChanged += OnControlsChanged;
+    }
+
+
+    private void Update()
+    {
+        CurrentDeviceType = GetCurrentDeviceType();
     }
 
     private void OnDestroy()
@@ -81,13 +84,6 @@ public class PlayerInputs : MonoBehaviour
         inputs.Disable();
     }
 
-    private void Update()
-    {
-        CurrentDeviceType = GetCurrentDeviceType();
-        Debug.Log("STARTEING: " + CurrentDeviceType);
-    }
-
-
     private void OnControlsChanged(UnityEngine.InputSystem.PlayerInput obj)
     {
         Debug.Log($"Control Scheme changed : {playerInput.currentControlScheme}");
@@ -97,6 +93,7 @@ public class PlayerInputs : MonoBehaviour
 
     public EDeviceType GetCurrentDeviceType()
     {
+        Debug.Log(playerInput.currentControlScheme);
         switch (playerInput.currentControlScheme)
         {
             case "KeyboardAndMouse":
@@ -104,7 +101,7 @@ public class PlayerInputs : MonoBehaviour
             case "Gamepad":
                 return EDeviceType.Gamepad;
             default:
-                return EDeviceType.None;
+                return EDeviceType.Gamepad;
         }
     }
 }

@@ -11,7 +11,8 @@ public class PlayerShoot : AWeapon
     Camera _mainCamera;
 
     [Header("Interaction")]
-    Collider _lastInteracted;
+    AItem _lastInteractedTrigger;
+    AItem _lastInteracted;
 
     bool IsFiring;
     bool IsInteract;
@@ -27,7 +28,7 @@ public class PlayerShoot : AWeapon
     }*/
 
     public void Fire(InputAction.CallbackContext context) { IsFiring = context.performed; }
-    public void Interact(InputAction.CallbackContext context) { IsInteract = context.action.WasPressedThisFrame(); }
+    public void Interact(InputAction.CallbackContext context) { Debug.Log("Interact"); IsInteract = context.action.WasPressedThisFrame(); }
 
     protected override void Start()
     {
@@ -40,9 +41,9 @@ public class PlayerShoot : AWeapon
 
     private void Update()
     {
+        RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
         if (IsFiring)
         {
-            RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
             if (hit.collider != null)
             {
                 // IF you can target a targetable object
@@ -55,40 +56,61 @@ public class PlayerShoot : AWeapon
             Shoot(new Vector3(_canon.forward.x, 0, _canon.forward.z));
         }
 
-        Interact();
-    }
-
-    public void Interact()
-    {
-        RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
         if (hit.collider != null)
         {
-            if(hit.collider != _lastInteracted)
+            AItem item;
+            if (hit.collider.TryGetComponent<AItem>(out item))
             {
-                if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
-                    _lastInteracted.GetComponent<WeaponItem>().HideShown();
-                _lastInteracted = hit.collider;
-                if (hit.collider.GetComponent<WeaponItem>())
-                    _lastInteracted.GetComponent<WeaponItem>().ActualizeShown();
+                InteractMouse(item);
             }
-                
-
-            if (hit.collider.GetComponent<WeaponItem>() && Vector3.Distance(transform.position, hit.point) < 3f && IsInteract)
+            else if (_lastInteracted)
             {
-                WeaponItem weaponItem = hit.collider.GetComponent<WeaponItem>();
-
-                Destroy(_weapon);
-                EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
-                weaponItem.Desactivate();
-            }
-        }
-        else
-        {
-            if(_lastInteracted && _lastInteracted.GetComponent<WeaponItem>())
-            {
-                _lastInteracted.GetComponent<WeaponItem>().HideShown();
+                _lastInteracted.HideShown();
                 _lastInteracted = null;
             }
+        }
+        else if(_lastInteracted)
+            _lastInteracted.HideShown();
+    }
+
+    public void InteractMouse(AItem NewItem)
+    {
+        if(NewItem != _lastInteracted)
+        {
+            if(_lastInteracted && _lastInteracted)
+                _lastInteracted.HideShown();
+            _lastInteracted = NewItem;
+            if (NewItem)
+                _lastInteracted.ActualizeShown();
+        }
+        
+        if (NewItem && Vector3.Distance(transform.position, NewItem.transform.position) < 3f && IsInteract)
+        {
+            WeaponItem weaponItem = (WeaponItem)NewItem;
+        
+            Destroy(_weapon);
+            EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
+            weaponItem.Desactivate();
+        }
+    }
+    public void InteractTrigger(AItem NewItem)
+    {
+        if (NewItem != _lastInteractedTrigger)
+        {
+            if (_lastInteractedTrigger && _lastInteractedTrigger)
+                _lastInteractedTrigger.HideShown();
+            _lastInteractedTrigger = NewItem;
+            if (NewItem)
+                _lastInteractedTrigger.ActualizeShown();
+        }
+
+        if (NewItem && IsInteract)
+        {
+            WeaponItem weaponItem = (WeaponItem)NewItem;
+
+            Destroy(_weapon);
+            EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
+            weaponItem.Desactivate();
         }
     }
 

@@ -46,21 +46,20 @@ public class PlayerMovement : MonoBehaviour
         if (!_mainCamera)
             _mainCamera = Camera.main;
 
-        switch (_player.playerInputs.GetCurrentDeviceType())
+        switch (_player.playerInputs.CurrentDeviceType)
         {
-            case EDeviceType.None:
-                break;
             case EDeviceType.KeyboardAndMouse:
+            {
                 MouseLookDirection();
                 break;
+            }
             case EDeviceType.Gamepad:
+            {
+                transform.LookAt(new Vector3(transform.position.x + lookInput.x, transform.position.y, transform.position.z + lookInput.y));
+                Debug.Log("GAMEPAD");
                 break;
-            default:
-                break;
+            }
         }
-
-
-        //MouseLookDirection();
         Movement();
     }
 

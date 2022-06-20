@@ -6,12 +6,29 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public TMPro.TMP_InputField inputFieldSeed;
+
+    private void Awake()
+    {
+        Player.Instance.playerInputs.inputs.Player.Pause.performed += TogglePause;
+    }
+
     private void Start()
     {
         MenuManager.instance.pauseMenu = this;
         inputFieldSeed.text = GameManager.instance.RunSeed.ToString();
-        Player.Instance.playerInputs.inputs.Player.Pause.performed += TogglePause;
+
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        Player.Instance.playerInputs.inputs.Player.Pause.performed -= TogglePause;
+    }
+
+
+    private void Update()
+    {
+
     }
 
     public void TogglePause(UnityEngine.InputSystem.InputAction.CallbackContext context)
