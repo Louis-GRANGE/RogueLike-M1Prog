@@ -11,6 +11,7 @@ public class HealthBomb : AHealth
     {
         if(base.TakeDamage(damage, Sender, damageTypeSend))
         {
+            explodeBomb.DamageSender = Sender;
             DamageTextPool.instance.RequestDamageText(transform.position, damage);
             return true;
         }
@@ -27,6 +28,7 @@ public class HealthBomb : AHealth
         if (base.OnDeath(Sender))
             return true;
 
+        //explodeBomb.DamageSender = Sender;
         explodeBomb.Explode();
         //Destroy(gameObject);
         return true;
@@ -37,7 +39,7 @@ public class HealthBomb : AHealth
         if (base.OnDeath())
             return true;
 
-
+        //explodeBomb.DamageSender = gameObject;
         explodeBomb.Explode();
         //Destroy(gameObject);
         return true;

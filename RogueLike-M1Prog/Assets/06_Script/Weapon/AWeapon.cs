@@ -148,6 +148,8 @@ public abstract class AWeapon : MonoBehaviour
         {
             _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
         }
+
+        _weapon.PlaySound();
     }
 
     public void AddAmmo(int ammo)

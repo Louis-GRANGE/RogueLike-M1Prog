@@ -116,8 +116,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueGame()
     {
-        GameManager.instance.SetRunSeed(GameManager.instance.GameSave.Seed);
         GameManager.instance.Difficulty = GameManager.instance.GameSave.Difficulty;
+        GameManager.instance.SetRunSeed(GameManager.instance.GameSave.Seed);
+        
         SceneManager.LoadSceneAsync(Constants.GameLevel);
 
         GameManager.instance.StartGame();

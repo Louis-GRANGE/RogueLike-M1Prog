@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
             case EDeviceType.Gamepad:
             {
                 transform.LookAt(new Vector3(transform.position.x + lookInput.x, transform.position.y, transform.position.z + lookInput.y));
-                Debug.Log("GAMEPAD");
                 break;
             }
         }

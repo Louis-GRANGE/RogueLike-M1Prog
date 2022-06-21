@@ -9,7 +9,6 @@ public class ShootPlayer : AState
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        Debug.Log("[INIT] ShootPlayer");
     }
 
     public override void ExecuteState()

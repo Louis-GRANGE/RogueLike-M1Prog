@@ -16,6 +16,7 @@ public abstract class AExplode : MonoBehaviour
 
     [SerializeField]
     private float ExplodeSize;
+    public GameObject DamageSender;
 
     protected virtual void Start()
     {
@@ -78,7 +79,10 @@ public abstract class AExplode : MonoBehaviour
             {
                 float dist = Vector3.Distance(health.transform.position, transform.position);
                 int DamageToDeal = Mathf.RoundToInt(ExplodeDamage / dist);
-                health.TakeDamage(DamageToDeal, transform.parent.gameObject, DamageType.Explosion);
+                if(DamageSender)
+                    health.TakeDamage(DamageToDeal, /*transform.parent.gameObject*/DamageSender, DamageType.Explosion);
+                else
+                    health.TakeDamage(DamageToDeal, transform.parent.gameObject, DamageType.Explosion);
 
                 Rigidbody rigidbody;
                 if (health.gameObject.TryGetComponent<Rigidbody>(out rigidbody))

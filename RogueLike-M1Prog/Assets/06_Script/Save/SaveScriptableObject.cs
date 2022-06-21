@@ -28,7 +28,7 @@ public class SaveScriptableObject : ScriptableObject
         Difficulty = difficulty;
         Seed = seed;
 
-        numberKills = NumberKills;
+        NumberKills = numberKills;
         DamagesDealt = damageDealt;
         DamagesTaken = damageTaken;
 
