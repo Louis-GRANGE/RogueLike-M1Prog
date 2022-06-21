@@ -888,7 +888,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 20
   CanBeDamageBy: -1
-  damageTextPool: {fileID: 0}
   PrefabRagdoll: {fileID: 7874270335045454414, guid: e175a16f44586a74381cc382e03e826f,
     type: 3}
 --- !u!114 &5238730452015367541
@@ -989,6 +988,9 @@ MonoBehaviour:
   fireRateLatency: 100
   canShoot: 1
   damages: 0
+  VisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &3078419916665500813
 GameObject:
   m_ObjectHideFlags: 0
