@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 pointDirection = _mainCamera.ScreenToWorldPoint(lookInput);
 
-        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000, -5, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000, ~(1 << Constants.LayerIgnoreMouseHit), QueryTriggerInteraction.Ignore))
         {
             if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hitUnderMouse.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hitUnderMouse.collider.gameObject.tag))
             {

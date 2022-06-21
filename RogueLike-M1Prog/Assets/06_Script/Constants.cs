@@ -17,6 +17,8 @@ public static class Constants
 {
     public const string TagEnemy = "Enemy";
     public const string TagPlayer = "Player";
+    public static LayerMask LayerIgnoreMouseHit = LayerMask.NameToLayer("IgnoreMouseHit");
+
     public const int MainMenu = 0;
     public const int GameLevel = 1;
 

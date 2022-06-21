@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WallsHiderForCamera : MonoBehaviour
@@ -7,8 +8,10 @@ public class WallsHiderForCamera : MonoBehaviour
     Vector3 _offset;
     Player _player;
     Transform Feets;
+    public float AlphaHide = 0.5f;
 
     private List<Renderer> Hides;
+
 
     private void Start()
     {
@@ -22,28 +25,53 @@ public class WallsHiderForCamera : MonoBehaviour
         if (!_player)
             return;
 
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2);
+        List<Renderer> CurrentToHides;
+        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(Player.Instance.playerMovement.lookInput);
+        //hits = Physics.RaycastAll(transform.position, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2).ToList();
+        //hits.AddRange(Physics.RaycastAll(pointDirection, Camera.main.transform.forward, 1000, -5, QueryTriggerInteraction.Ignore).ToList());
+        CurrentToHides = AddingIfNotAdded(Physics.SphereCastAll(transform.position, 1.3f, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2).ToList(), Physics.RaycastAll(pointDirection, Camera.main.transform.forward, 1000, -5, QueryTriggerInteraction.Ignore).ToList());
 
-        for (int i = Hides.Count - 1; i > 0; i--)
+        for (int i = Hides.Count - 1; i >= 0; i--) // SHOW
         {
             if (Hides[i])
             {
-                Hides[i].enabled = true;
+                Hides[i].material.color = Hides[i].material.color + new Color(0, 0, 0, AlphaHide);
                 Hides.RemoveAt(i);
             }
         }
 
-        for (int i = 0; i < hits.Length; i++)
+        for (int i = 0; i < CurrentToHides.Count; i++) // HIDE
         {
-            RaycastHit hit = hits[i];
-            Renderer rend = hit.transform.GetComponent<Renderer>();
-
-            if (rend)
+            if (CurrentToHides[i])
             {
-                Hides.Add(rend);
-                rend.enabled = false;
+                Hides.Add(CurrentToHides[i]);
+                CurrentToHides[i].material.color = CurrentToHides[i].material.color - new Color(0, 0, 0, AlphaHide);
             }
         }
+    }
+
+
+    List<Renderer> AddingIfNotAdded(List<RaycastHit> first, List<RaycastHit> second)
+    {
+        List<Renderer> tmp = new List<Renderer>();
+
+        foreach (RaycastHit hit in first)
+        {
+            Renderer rend = hit.transform.GetComponent<Renderer>();
+            if (rend && !tmp.Contains(rend))
+            {
+                tmp.Add(rend);
+            }
+        }
+
+        foreach (RaycastHit hit in second)
+        {
+            Renderer rend = hit.transform.GetComponent<Renderer>();
+            if (rend && !tmp.Contains(rend))
+            {
+                tmp.Add(rend);
+            }
+        }
+        return tmp;
     }
 }
