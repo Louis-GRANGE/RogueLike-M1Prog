@@ -153,6 +153,8 @@ public class Room : AMinimap
         {
             enemy.gameObject.SetActive(true);
         }
+
+        GameManager.instance.EnemyManagerRef.StartCombat(Enemies.Count > 0);
     }
 
     public void SpawnAllOfRoomEnnemies()
@@ -220,6 +222,8 @@ public class Room : AMinimap
             if (LevelManager.instance)
                 LevelManager.instance.Callback_OnRoomFinish?.Invoke(this);
             //LevelManager.instance.RefMapGenerator.SetRoomsVisibility(null, true);
+
+            GameManager.instance.EnemyManagerRef.StartCombat(false);
         }
     }
 }

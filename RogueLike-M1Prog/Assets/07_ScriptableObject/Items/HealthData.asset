@@ -15,4 +15,4 @@ MonoBehaviour:
   healItem: {fileID: 2130037610413563367, guid: 8fd7defddfe46a044b7b57b27412ddf1,
     type: 3}
   icon: {fileID: 21300000, guid: 83c1e26189096674584829e26d8b4c2f, type: 3}
-  health: 1000
+  health: 50
