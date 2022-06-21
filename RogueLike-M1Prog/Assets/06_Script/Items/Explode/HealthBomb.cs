@@ -30,6 +30,7 @@ public class HealthBomb : AHealth
 
         //explodeBomb.DamageSender = Sender;
         explodeBomb.Explode();
+        SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Explosion);
         //Destroy(gameObject);
         return true;
     }
@@ -41,6 +42,7 @@ public class HealthBomb : AHealth
 
         //explodeBomb.DamageSender = gameObject;
         explodeBomb.Explode();
+        SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Explosion);
         //Destroy(gameObject);
         return true;
     }

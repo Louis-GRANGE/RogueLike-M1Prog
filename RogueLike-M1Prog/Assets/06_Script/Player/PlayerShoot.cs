@@ -129,6 +129,9 @@ public class PlayerShoot : AWeapon
         base.EquipWeapon(_newWeapon, munitions);
         if (PlayerCanvas.instance)
             PlayerCanvas.instance._weaponUI.UpdateWeapon(_newWeapon, _munitions);
+        
+        if(SoundManager.Instance)
+            SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Item);
     }
 
     public override void Shoot(Vector3 shootDirection, float additionnalSpray = 0)

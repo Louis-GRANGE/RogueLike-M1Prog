@@ -15,6 +15,7 @@ public class HealPickable : APickable
                 {
                     mainData.HealthManager.ModifyHealth(((HealItem)item).healthData.health);
                     DamageTextPool.instance.RequestHealText(transform.position, ((HealItem)item).healthData.health);
+                    SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Item);
                     item.Desactivate();
                 }
             }

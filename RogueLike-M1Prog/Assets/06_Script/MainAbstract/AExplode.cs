@@ -71,6 +71,7 @@ public abstract class AExplode : MonoBehaviour
     {
         yield return new WaitForSeconds(TimeBeforeExplode);
         ParticleSystem VFX = Instantiate(VFX_Explosion, transform.position, Quaternion.identity);
+        SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Item);
         VFX.transform.localScale = Vector3.one * ExplodeSize;
         _cameraEffect.Explosion();
         foreach (AHealth health in ToDealDamage)
@@ -89,6 +90,7 @@ public abstract class AExplode : MonoBehaviour
                 {
                     rigidbody.AddExplosionForce(ExplosionForce / dist, transform.position, ExplodeSize);
                 }
+
             }
         }
         Destroy(transform.parent.gameObject);

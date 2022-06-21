@@ -15,6 +15,7 @@ public class AmmoPickable : APickable
                 {
                     mainData.WeaponManager.AddAmmo(((AmmoItem)item).ammoData.ammo);
                     DamageTextPool.instance.RequestMunitionText(transform.position, ((AmmoItem)item).ammoData.ammo);
+                    SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Item);
                     item.Desactivate();
                 }
             }

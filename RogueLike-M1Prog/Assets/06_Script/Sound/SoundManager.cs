@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SoundType { Explosion, Item };
+
 public class SoundManager : MonoBehaviour
 {
     [HideInInspector] public static SoundManager Instance;
@@ -12,12 +14,30 @@ public class SoundManager : MonoBehaviour
     public bool SemiAutoPlaying = false;
     float SemiAutotime = 0;
 
+    [Header("Sound effects")]
+    public AudioClip Explosion;
+    public AudioClip Item;
+
+    bool ready = false;
+
     private void Awake()
     {
         if (!Instance)
             Instance = this;
         else
             Destroy(gameObject);
+
+        GameObject model = transform.GetChild(0).gameObject;
+
+        for (int i = 0; i < 19; i++)
+        {
+            Instantiate(model, transform);
+        }
+    }
+
+    private void Start()
+    {
+        ready = true;
     }
 
     public void Update()
@@ -59,5 +79,28 @@ public class SoundManager : MonoBehaviour
         }
         else
             return false;
+    }
+
+    public void RequestSoundEffect(Vector3 soundPosition, SoundType soundType)
+    {
+        if (ready && transform.childCount > 0)
+        {
+            GameObject choosen = transform.GetChild(0).gameObject;
+
+            choosen.transform.SetParent(null);
+            choosen.transform.position = soundPosition;
+
+            switch (soundType)
+            {
+                case SoundType.Explosion:
+                    choosen.GetComponent<ReturnToPool>().MakeSound(Explosion);
+                    break;
+                case SoundType.Item:
+                    choosen.GetComponent<ReturnToPool>().MakeSound(Item);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
