@@ -38,8 +38,8 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Fire.performed += Player.Instance.playerShoot.Fire;
         inputs.Player.Fire.canceled += Player.Instance.playerShoot.Fire;
 
-        inputs.Player.Interact.performed += Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled += Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.started += Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.canceled += Player.Instance.playerShoot.UnInteract;
 
         playerInput.onControlsChanged += OnControlsChanged;
     }
@@ -62,8 +62,8 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Fire.performed -= Player.Instance.playerShoot.Fire;
         inputs.Player.Fire.canceled -= Player.Instance.playerShoot.Fire;
 
-        inputs.Player.Interact.performed -= Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.started -= Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.UnInteract;
         inputs.Disable();
     }
 
@@ -79,8 +79,8 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Fire.performed -= Player.Instance.playerShoot.Fire;
         inputs.Player.Fire.canceled -= Player.Instance.playerShoot.Fire;
 
-        inputs.Player.Interact.performed -= Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.started -= Player.Instance.playerShoot.Interact;
+        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.UnInteract;
         inputs.Disable();
     }
 

@@ -28,7 +28,8 @@ public class PlayerShoot : AWeapon
     }*/
 
     public void Fire(InputAction.CallbackContext context) { IsFiring = context.performed; }
-    public void Interact(InputAction.CallbackContext context) { Debug.Log("Interact"); IsInteract = context.action.WasPressedThisFrame(); }
+    public void Interact(InputAction.CallbackContext context) { Debug.Log("Interact"); IsInteract = true; }
+    public void UnInteract(InputAction.CallbackContext context) { IsInteract = false; }
 
     protected override void Start()
     {
@@ -89,11 +90,14 @@ public class PlayerShoot : AWeapon
         
         if (NewItem && Vector3.Distance(transform.position, NewItem.transform.position) < 3f && IsInteract)
         {
-            WeaponItem weaponItem = (WeaponItem)NewItem;
-        
-            Destroy(_weapon);
-            EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
-            weaponItem.Desactivate();
+            IsInteract = false;
+            if (NewItem.GetType() == typeof(WeaponItem))
+            {
+                WeaponItem weaponItem = (WeaponItem)NewItem;
+                Destroy(_weapon);
+                EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
+                weaponItem.Desactivate();
+            }
         }
     }
     public void InteractTrigger(AItem NewItem)
@@ -109,11 +113,14 @@ public class PlayerShoot : AWeapon
 
         if (NewItem && IsInteract)
         {
-            WeaponItem weaponItem = (WeaponItem)NewItem;
-
-            Destroy(_weapon);
-            EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
-            weaponItem.Desactivate();
+            IsInteract = false;
+            if (NewItem.GetType() == typeof(WeaponItem))
+            {
+                WeaponItem weaponItem = (WeaponItem)NewItem;
+                Destroy(_weapon);
+                EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
+                weaponItem.Desactivate();
+            }
         }
     }
 
