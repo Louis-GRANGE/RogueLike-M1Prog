@@ -13,16 +13,18 @@ public abstract class AExplode : MonoBehaviour
     public int ExplodeDamage;
     public float TimeBeforeExplode = 0;
     public float ExplosionForce = 500000;
+    public SphereCollider TriggerAreaDamage;
 
-    [SerializeField]
+    //[SerializeField]
     private float ExplodeSize;
+    [HideInInspector]
     public GameObject DamageSender;
 
     protected virtual void Start()
     {
         _cameraEffect = CameraEffect.Instance;
         ToDealDamage = new List<AHealth>();
-        ExplodeSize = GetComponent<SphereCollider>().radius - 0.5f;
+        ExplodeSize = TriggerAreaDamage.radius - 0.5f;
     }
 
     public virtual void Explode()

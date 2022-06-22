@@ -63,7 +63,9 @@ MonoBehaviour:
   ExplodeDamage: 100
   TimeBeforeExplode: 0.2
   ExplosionForce: 500000
+  TriggerAreaDamage: {fileID: 6167420917912096067}
   ExplodeSize: 1.5
+  DamageSender: {fileID: 0}
 --- !u!1 &6167420917958428905
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +147,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 8
   CanBeDamageBy: 3
-  damageTextPool: {fileID: 0}
   explodeBomb: {fileID: 6167420917912096066}
 --- !u!1001 &6167420919311685240
 PrefabInstance:

@@ -55,15 +55,15 @@ public class GameManager : Singleton<GameManager>
     {
         if (seed != 0)
         {
-            Random.InitState(seed + Difficulty);
             RunSeed = seed;
+            Random.InitState(RunSeed + Difficulty);
         }
         else
         {
             RunSeed = (int)System.DateTime.Now.Ticks;
             Random.InitState(RunSeed + Difficulty);
         }
-        Debug.Log("[GameManager] Seed: " + RunSeed);
+        Debug.Log("[GameManager] Seed: " + RunSeed + " Difficulty: " + Difficulty + " = " + (RunSeed + Difficulty));
     }
 
 

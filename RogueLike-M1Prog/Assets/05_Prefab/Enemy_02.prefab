@@ -890,7 +890,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 20
   CanBeDamageBy: -1
-  damageTextPool: {fileID: 0}
   PrefabRagdoll: {fileID: 8751025678543039790, guid: 7df172b40fb02f844ae90cd25cc96bf4,
     type: 3}
 --- !u!114 &6558441399301708667
@@ -981,6 +980,9 @@ MonoBehaviour:
   fireRateLatency: 100
   canShoot: 1
   damages: 0
+  VisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &3078419916665500813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1812,8 @@ MonoBehaviour:
   ExplodeDamage: 10
   TimeBeforeExplode: 0
   ExplosionForce: 500000
-  ExplodeSize: 0
+  TriggerAreaDamage: {fileID: 5680147489906345874}
+  DamageSender: {fileID: 0}
   Character: {fileID: 5658152286577264700}
 --- !u!1 &6472942724911256996
 GameObject:

@@ -57,19 +57,25 @@ public class WallsHiderForCamera : MonoBehaviour
 
         foreach (RaycastHit hit in first)
         {
-            Renderer rend = hit.transform.GetComponent<Renderer>();
-            if (rend && !tmp.Contains(rend))
+            if (hit.transform.gameObject.layer == Constants.LayerIgnoreMouseHit)
             {
-                tmp.Add(rend);
+                Renderer rend = hit.transform.GetComponent<Renderer>();
+                if (rend && !tmp.Contains(rend))
+                {
+                    tmp.Add(rend);
+                }
             }
         }
 
         foreach (RaycastHit hit in second)
         {
-            Renderer rend = hit.transform.GetComponent<Renderer>();
-            if (rend && !tmp.Contains(rend))
+            if (hit.transform.gameObject.layer == Constants.LayerIgnoreMouseHit)
             {
-                tmp.Add(rend);
+                Renderer rend = hit.transform.GetComponent<Renderer>();
+                if (rend && !tmp.Contains(rend))
+                {
+                    tmp.Add(rend);
+                }
             }
         }
         return tmp;
