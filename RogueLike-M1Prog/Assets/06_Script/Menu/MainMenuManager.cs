@@ -31,6 +31,10 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI SoundText;
     public AudioMixer SoundMixer;
 
+    [Header("Music")]
+    public Slider DifficultySlider;
+    public TextMeshProUGUI DifficultySetText;
+
     [Header("Saved Game")]
     public GameObject ContinueButton;
     public GameObject SavedGame;
@@ -94,7 +98,8 @@ public class MainMenuManager : MonoBehaviour
                     newGame.SetActive(false);
                     settings.SetActive(false);
                     main.SetActive(true);
-                    SavedGame.SetActive(true);
+                    if(GameManager.instance.GameSave.CanContinue)
+                        SavedGame.SetActive(true);
                     break;
                 case "Settings":
                     newGame.SetActive(false);
@@ -236,5 +241,11 @@ public class MainMenuManager : MonoBehaviour
         }
 
         isKeyboard = !isKeyboard;
+    }
+
+    public void ChangeDifficulty()
+    {
+        DifficultySetText.text = DifficultySlider.value.ToString();
+        GameManager.instance.Difficulty = (int)DifficultySlider.value;
     }
 }

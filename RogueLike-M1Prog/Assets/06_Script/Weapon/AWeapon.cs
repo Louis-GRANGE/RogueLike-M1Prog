@@ -37,6 +37,9 @@ public abstract class AWeapon : MonoBehaviour
     [Header("Damages")]
     public int damages;
 
+    [Header("Vision Layer")]
+    public LayerMask VisionMask;
+
 
     private void Awake()
     {

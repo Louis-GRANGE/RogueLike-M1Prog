@@ -13,18 +13,21 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public EnemyManager EnemyManagerRef;
 
-    public int RunSeed;
+    public int RunSeed = 0;
 
     public int Difficulty = 1;
 
     [HideInInspector]
     public SaveScriptableObject GameSave;
 
+    private void Awake()
+    {
+        SetRunSeed(RunSeed);
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-
-        SetRunSeed(RunSeed);
 
         GameSave.LoadSave();
     }

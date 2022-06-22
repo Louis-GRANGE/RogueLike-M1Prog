@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public abstract class AState : ScriptableObject
 {
     protected AMainData _mainData;
+
     public virtual void StartState(AMainData mainData)
     {
         _mainData = mainData;
