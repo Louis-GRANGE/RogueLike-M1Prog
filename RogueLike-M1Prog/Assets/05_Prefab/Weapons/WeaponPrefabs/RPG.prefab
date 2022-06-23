@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce6c147a23ad654db9b762b26319da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canon: {fileID: 0}
-  Sound: {fileID: 0}
+  canon: {fileID: 5487769537915910124}
+  Sound: {fileID: 2453499705523356219, guid: 63767cacde993fa479f5c680f94060b6, type: 3}
   isAuto: 0
 --- !u!1001 &5989653657295329445
 PrefabInstance:
@@ -156,6 +156,12 @@ PrefabInstance:
 --- !u!4 &3857075502255955612 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7392821513992717881, guid: 18ec483565e538245815a9e48a931323,
+    type: 3}
+  m_PrefabInstance: {fileID: 5989653657295329445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5487769537915910124 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2249547008683208521, guid: 18ec483565e538245815a9e48a931323,
     type: 3}
   m_PrefabInstance: {fileID: 5989653657295329445}
   m_PrefabAsset: {fileID: 0}

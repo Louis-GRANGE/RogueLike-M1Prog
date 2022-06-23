@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-{"CanContinue":true,"EquipedWeapon":{"instanceID":27266},"Health":168,"Munitions":563,"Difficulty":5,"Seed":-843772162,"NumberKills":34,"DamagesDealt":56,"DamagesTaken":32}
-=======
 {"CanContinue":false,"EquipedWeapon":{"instanceID":0},"Health":0,"Munitions":0,"Difficulty":0,"Seed":0,"NumberKills":0,"DamagesDealt":0,"DamagesTaken":0}
->>>>>>> Stashed changes

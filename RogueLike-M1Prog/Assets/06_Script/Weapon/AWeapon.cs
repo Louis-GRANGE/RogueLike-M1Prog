@@ -133,23 +133,30 @@ public abstract class AWeapon : MonoBehaviour
         shootDirection = shootDirection + transform.right * Random.Range(-sprayX / 10, sprayX / 10) + transform.up * Random.Range(-sprayY / 10, sprayY / 10);
         Vector3 TargetPoint = shootDirection + transform.position;
 
-        RaycastHit hit;
-        if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
+        if (_weaponData.AmmoPrefab)
         {
-            if (!hit.transform.CompareTag(ownerMainData.transform.tag))
-            {
-                AHealth Health;
-                if (hit.collider.TryGetComponent(out Health))
-                    Health.TakeDamage(damages, ownerMainData.gameObject, _weaponData.DealDamageType);
-                _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
-                _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
-
-                _cannonFire.Play();
-            }
+            Instantiate(_weaponData.AmmoPrefab, _canon.transform.position, _canon.transform.rotation);
         }
         else
         {
-            _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
+            RaycastHit hit;
+            if (Physics.Raycast(_canon.transform.position, shootDirection, out hit, 1000))
+            {
+                if (!hit.transform.CompareTag(ownerMainData.transform.tag))
+                {
+                    AHealth Health;
+                    if (hit.collider.TryGetComponent(out Health))
+                        Health.TakeDamage(damages, ownerMainData.gameObject, _weaponData.DealDamageType);
+                    _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
+                    _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
+
+                    _cannonFire.Play();
+                }
+            }
+            else
+            {
+                _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, _cannonFire.transform.position + shootDirection * 100);
+            }
         }
 
         _weapon.PlaySound();

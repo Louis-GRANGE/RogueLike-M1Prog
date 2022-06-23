@@ -20,8 +20,9 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public SaveScriptableObject GameSave;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SetRunSeed(RunSeed);
     }
 

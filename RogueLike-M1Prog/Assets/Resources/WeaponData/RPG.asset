@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 253542056378102157, guid: 193d4036954eb244c8844dde5e74c51e,
     type: 3}
+  AmmoPrefab: {fileID: 3953515528656144768, guid: 6ee45dc7f985d934e823948b1a6193c2,
+    type: 3}
   weaponItem: {fileID: 204286489324876618, guid: ac1f4984788f2e84cac9969dca224b55,
     type: 3}
   icon: {fileID: 21300000, guid: 444e7c8851d44b94c942152fc8ff964f, type: 3}
