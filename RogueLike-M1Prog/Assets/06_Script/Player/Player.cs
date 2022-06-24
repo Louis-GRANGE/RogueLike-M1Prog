@@ -7,7 +7,7 @@ public class Player : AMainData
     [HideInInspector] public static Player Instance;
 
     [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public PlayerShoot playerShoot;
+    [HideInInspector] public PlayerWeaponManager playerWeaponManager;
     [HideInInspector] public PlayerInputs playerInputs;
     [HideInInspector] public PlayerStats playerStats;
 
@@ -21,7 +21,7 @@ public class Player : AMainData
         DontDestroyOnLoad(gameObject);
 
         playerMovement = GetComponent<PlayerMovement>();
-        playerShoot = GetComponent<PlayerShoot>();
+        playerWeaponManager = GetComponent<PlayerWeaponManager>();
         HealthManager = GetComponent<PlayerHealth>();
         playerStats = GetComponent<PlayerStats>();
     }

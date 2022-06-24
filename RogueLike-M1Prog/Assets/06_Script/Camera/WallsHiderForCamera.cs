@@ -8,15 +8,19 @@ public class WallsHiderForCamera : MonoBehaviour
     Vector3 _offset;
     Player _player;
     Transform Feets;
-    public float AlphaHide = 0.5f;
+    //public float AlphaHide = 0.7f;
 
     private List<Renderer> Hides;
+    private List<Material> ObjectsMaterial;
+
+    public Material TransparentMaterial;
 
 
     private void Start()
     {
         _player = Player.Instance;
         Hides = new List<Renderer>();
+        ObjectsMaterial = new List<Material>();
         Feets = Player.Instance.transform.GetChild(0);
     }
 
@@ -35,8 +39,10 @@ public class WallsHiderForCamera : MonoBehaviour
         {
             if (Hides[i])
             {
-                Hides[i].material.color = Hides[i].material.color + new Color(0, 0, 0, AlphaHide);
+                //Hides[i].material.color = Hides[i].material.color + new Color(0, 0, 0, AlphaHide);
+                Hides[i].material = ObjectsMaterial[i];
                 Hides.RemoveAt(i);
+                ObjectsMaterial.RemoveAt(i);
             }
         }
 
@@ -45,7 +51,10 @@ public class WallsHiderForCamera : MonoBehaviour
             if (CurrentToHides[i])
             {
                 Hides.Add(CurrentToHides[i]);
-                CurrentToHides[i].material.color = CurrentToHides[i].material.color - new Color(0, 0, 0, AlphaHide);
+                ObjectsMaterial.Add(CurrentToHides[i].material);
+                CurrentToHides[i].material = TransparentMaterial;
+
+                //CurrentToHides[i].material.color = CurrentToHides[i].material.color - new Color(0, 0, 0, AlphaHide);
             }
         }
     }

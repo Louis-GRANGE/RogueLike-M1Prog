@@ -50,6 +50,6 @@ public class ShootPlayer : AState
 
     void ShootOnPlayer()
     {
-        _mainData.WeaponManager.Shoot(new Vector3(_mainData.WeaponManager._canon.forward.x, 0, _mainData.WeaponManager._canon.forward.z), 1f);
+        _mainData.WeaponManager.Shoot(new Vector3(_mainData.WeaponManager.weapon._canon.forward.x, 0, _mainData.WeaponManager.weapon._canon.forward.z), 1f);
     }
 }

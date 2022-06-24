@@ -39,6 +39,6 @@ public class WeaponPickable : APickable
     private void Update()
     {
         if (CanInteract)
-            Player.Instance.playerShoot.InteractTrigger(item);
+            Player.Instance.playerWeaponManager.InteractTrigger(item);
     }
 }

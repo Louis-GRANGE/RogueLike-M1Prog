@@ -4855,11 +4855,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 253542056378102157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce6c147a23ad654db9b762b26319da7, type: 3}
+  m_Script: {fileID: 11500000, guid: 725345b8614c0d64793c2bf493238f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canon: {fileID: 3501621208238652917}
+  _canon: {fileID: 3501621208238652917}
   Sound: {fileID: 2493808588008364524}
+  isAuto: 0
+  fireRateLatency: 0
+  canShoot: 1
+  hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}
 --- !u!1 &826958914577487689
 GameObject:
   m_ObjectHideFlags: 0

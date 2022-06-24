@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14355b9059fe76d4e9979e18a2af5906, type: 3}
   m_Name: Semi-automatic
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 253542056378102157, guid: b79bac53b124da84c93f4420e9f30619,
+  weaponPrefab: {fileID: 4309549295111282061, guid: b79bac53b124da84c93f4420e9f30619,
     type: 3}
+  AmmoPrefab: {fileID: 0}
   weaponItem: {fileID: 204286489324876618, guid: ac1f4984788f2e84cac9969dca224b55,
     type: 3}
   icon: {fileID: 21300000, guid: 444e7c8851d44b94c942152fc8ff964f, type: 3}

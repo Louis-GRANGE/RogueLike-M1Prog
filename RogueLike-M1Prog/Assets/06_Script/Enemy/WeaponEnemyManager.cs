@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponEnemy : AWeapon
+public class WeaponEnemyManager : AWeaponManager
 {
 
 }

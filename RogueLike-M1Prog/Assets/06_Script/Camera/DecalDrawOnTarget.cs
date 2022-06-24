@@ -6,10 +6,10 @@ using UnityEngine.Rendering.Universal;
 public class DecalDrawOnTarget : MonoBehaviour
 {
     public DecalProjector URPDecalProjector;
-    PlayerShoot _playerShoot;
+    PlayerWeaponManager _playerShoot;
     private void Start()
     {
-        _playerShoot = Player.Instance.playerShoot;
+        _playerShoot = Player.Instance.playerWeaponManager;
     }
 
     private void Update()

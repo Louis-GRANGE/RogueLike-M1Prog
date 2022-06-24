@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     [Header("Models")]
-    public GameObject weaponPrefab;
+    public AWeapon weaponPrefab;
     public GameObject AmmoPrefab;
     public GameObject weaponItem;
     public Sprite icon;

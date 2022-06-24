@@ -22,9 +22,9 @@ public class WeaponItem : AItem
         //_iconWeapon.sprite = weaponData.icon;
 
         string damages = "";
-        if (weaponData.damages > _player.playerShoot.damages)
+        if (weaponData.damages > _player.playerWeaponManager.damages)
             damages += "<sprite=2> <color=green>" + weaponData.damages + "</color>";
-        else if (weaponData.damages == _player.playerShoot.damages)
+        else if (weaponData.damages == _player.playerWeaponManager.damages)
             damages += "<sprite=2> <color=yellow>" + weaponData.damages + "</color>";
         else
             damages += "<sprite=2> <color=red>" + weaponData.damages + "</color>";
@@ -32,9 +32,9 @@ public class WeaponItem : AItem
         _followingUI.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = damages;
 
         string fireRate = "";
-        if (weaponData.fireLatency < _player.playerShoot.fireRateLatency)
+        if (weaponData.fireLatency < _player.playerWeaponManager.weapon.fireRateLatency)
             fireRate += "<sprite=1> <color=green>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
-        else if (weaponData.fireLatency == _player.playerShoot.fireRateLatency)
+        else if (weaponData.fireLatency == _player.playerWeaponManager.weapon.fireRateLatency)
             fireRate += "<sprite=1> <color=yellow>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
         else
             fireRate += "<sprite=1> <color=red>" + 1 / weaponData.fireLatency + "</color> <color=yellow>/ sec</color>";
@@ -42,9 +42,9 @@ public class WeaponItem : AItem
         _followingUI.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = fireRate;
 
         string ammo = "";
-        if (munitions > _player.playerShoot._munitions)
+        if (munitions > _player.playerWeaponManager._munitions)
             ammo += "<sprite=0> <color=green>" + munitions + "</color>";
-        else if (munitions == _player.playerShoot._munitions)
+        else if (munitions == _player.playerWeaponManager._munitions)
             ammo += "<sprite=0> <color=yellow>" + munitions + "</color>";
         else
             ammo += "<sprite=0> <color=red>" + munitions + "</color>";

@@ -35,11 +35,11 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Look.performed += Player.Instance.playerMovement.OnLook;
         inputs.Player.Look.canceled += Player.Instance.playerMovement.OnLook;
 
-        inputs.Player.Fire.performed += Player.Instance.playerShoot.Fire;
-        inputs.Player.Fire.canceled += Player.Instance.playerShoot.Fire;
+        inputs.Player.Fire.performed += Player.Instance.playerWeaponManager.Fire;
+        inputs.Player.Fire.canceled += Player.Instance.playerWeaponManager.Fire;
 
-        inputs.Player.Interact.started += Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled += Player.Instance.playerShoot.UnInteract;
+        inputs.Player.Interact.started += Player.Instance.playerWeaponManager.Interact;
+        inputs.Player.Interact.canceled += Player.Instance.playerWeaponManager.UnInteract;
 
         playerInput.onControlsChanged += OnControlsChanged;
     }
@@ -59,11 +59,11 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Look.performed -= Player.Instance.playerMovement.OnLook;
         inputs.Player.Look.canceled -= Player.Instance.playerMovement.OnLook;
 
-        inputs.Player.Fire.performed -= Player.Instance.playerShoot.Fire;
-        inputs.Player.Fire.canceled -= Player.Instance.playerShoot.Fire;
+        inputs.Player.Fire.performed -= Player.Instance.playerWeaponManager.Fire;
+        inputs.Player.Fire.canceled -= Player.Instance.playerWeaponManager.Fire;
 
-        inputs.Player.Interact.started -= Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.UnInteract;
+        inputs.Player.Interact.started -= Player.Instance.playerWeaponManager.Interact;
+        inputs.Player.Interact.canceled -= Player.Instance.playerWeaponManager.UnInteract;
         inputs.Disable();
     }
 
@@ -76,11 +76,11 @@ public class PlayerInputs : MonoBehaviour
         inputs.Player.Look.performed -= Player.Instance.playerMovement.OnLook;
         inputs.Player.Look.canceled -= Player.Instance.playerMovement.OnLook;
 
-        inputs.Player.Fire.performed -= Player.Instance.playerShoot.Fire;
-        inputs.Player.Fire.canceled -= Player.Instance.playerShoot.Fire;
+        inputs.Player.Fire.performed -= Player.Instance.playerWeaponManager.Fire;
+        inputs.Player.Fire.canceled -= Player.Instance.playerWeaponManager.Fire;
 
-        inputs.Player.Interact.started -= Player.Instance.playerShoot.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerShoot.UnInteract;
+        inputs.Player.Interact.started -= Player.Instance.playerWeaponManager.Interact;
+        inputs.Player.Interact.canceled -= Player.Instance.playerWeaponManager.UnInteract;
         inputs.Disable();
     }
 

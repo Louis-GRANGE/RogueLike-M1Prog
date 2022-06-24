@@ -397,6 +397,11 @@ PrefabInstance:
       propertyPath: DoorDirection
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5594896883551406399, guid: 57e211199bf3ac049a98fc898e3f7beb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8793893550876310031, guid: 57e211199bf3ac049a98fc898e3f7beb,
         type: 3}
       propertyPath: m_Name

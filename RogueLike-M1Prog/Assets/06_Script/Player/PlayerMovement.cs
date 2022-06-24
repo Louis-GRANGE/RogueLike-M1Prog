@@ -70,20 +70,20 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hitUnderMouse.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hitUnderMouse.collider.gameObject.tag))
             {
-                _player.playerShoot.TargetShootPos = hitUnderMouse.transform.position;
-                _player.playerShoot.HaveTarget = true;
+                _player.playerWeaponManager.TargetShootPos = hitUnderMouse.transform.position;
+                _player.playerWeaponManager.HaveTarget = true;
                 pointDirection = hitUnderMouse.collider.transform.position;
             }
             else
             {
-                _player.playerShoot.TargetShootPos = hitUnderMouse.point;
-                _player.playerShoot.HaveTarget = false;
+                _player.playerWeaponManager.TargetShootPos = hitUnderMouse.point;
+                _player.playerWeaponManager.HaveTarget = false;
                 pointDirection = hitUnderMouse.point + offsetShoot;
             }
         }
 
 
-        Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_player.playerShoot._canon.transform.position.y - pointDirection.y);
+        Vector3 toCam = new Vector3(-_mainCamera.transform.forward.x, 0, -_mainCamera.transform.forward.z) * (_player.playerWeaponManager.weapon._canon.transform.position.y - pointDirection.y);
         Vector3 direction = new Vector3(pointDirection.x, transform.position.y, pointDirection.z) + toCam;
 
         transform.LookAt(direction);

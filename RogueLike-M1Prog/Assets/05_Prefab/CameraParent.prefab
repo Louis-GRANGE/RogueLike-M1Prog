@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaHide: 0.7
+  TransparentMaterial: {fileID: 2100000, guid: e3283cca913d25a4a8d6ae634c7341aa, type: 2}
 --- !u!114 &7709761202290391563
 MonoBehaviour:
   m_ObjectHideFlags: 0

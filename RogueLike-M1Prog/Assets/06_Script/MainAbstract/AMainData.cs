@@ -7,6 +7,6 @@ public abstract class AMainData : MonoBehaviour
 {
     public AStateManager stateManager;
     public AHealth HealthManager;
-    public AWeapon WeaponManager;
+    public AWeaponManager WeaponManager;
     public AMovementManager MovementManager;
 }
