@@ -88,7 +88,7 @@ public class GameManager : Singleton<GameManager>
         else
         {
             Player player = Player.Instance;
-            GameSave.SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
+            GameSave.SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager.weapon._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
         }
     }
 }

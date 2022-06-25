@@ -42,9 +42,9 @@ public class WeaponItem : AItem
         _followingUI.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = fireRate;
 
         string ammo = "";
-        if (munitions > _player.playerWeaponManager._munitions)
+        if (munitions > _player.playerWeaponManager.weapon._munitions)
             ammo += "<sprite=0> <color=green>" + munitions + "</color>";
-        else if (munitions == _player.playerWeaponManager._munitions)
+        else if (munitions == _player.playerWeaponManager.weapon._munitions)
             ammo += "<sprite=0> <color=yellow>" + munitions + "</color>";
         else
             ammo += "<sprite=0> <color=red>" + munitions + "</color>";

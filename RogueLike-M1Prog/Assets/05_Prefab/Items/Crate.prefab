@@ -46,7 +46,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.1140919, y: 0.9372489, z: 1.0342283}
-  m_Center: {x: 0, y: 0.46492806, z: -0.00000047683716}
+  m_Center: {x: 0, y: -0.04, z: -0.00000047683716}
 --- !u!114 &1287460308700661941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +62,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   CanBeDamageBy: 2
-  damageTextPool: {fileID: 0}
   prefabBrakedCrate: {fileID: 2090268939, guid: de73db800c635664cad5397f685c8f12,
     type: 3}
   itemCanBeSpawn:
@@ -101,7 +100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4478677164199236, guid: 96ec3966e2e9e004086cf5209750e0b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4478677164199236, guid: 96ec3966e2e9e004086cf5209750e0b2, type: 3}
       propertyPath: m_LocalPosition.z

@@ -11,8 +11,8 @@ public abstract class AWeapon : MonoBehaviour
     
     protected ParticleSystem _cannonFire;
     protected int _damages;
-    protected int _munitions;
-    protected WeaponData _weaponData;
+    public int _munitions;
+    public WeaponData weaponData;
     protected AWeaponManager _owner;
 
     [Header("FireRate")]
@@ -40,7 +40,7 @@ public abstract class AWeapon : MonoBehaviour
 
         _fireRateTime = fireRateLatency;
 
-        _weaponData = weaponData;
+        this.weaponData = weaponData;
     }
 
     public virtual bool Shoot(Vector3 shootDirection, float additionnalSpray = 0)
@@ -50,10 +50,15 @@ public abstract class AWeapon : MonoBehaviour
         if (_fireRateTime < fireRateLatency)
         {
             canShoot = false;
-            _fireRateTime += Time.deltaTime;
             return false;
         }
         _fireRateTime = 0;
         return true;
+    }
+
+    protected virtual void Update()
+    {
+        if (_fireRateTime < fireRateLatency)
+            _fireRateTime += Time.deltaTime;
     }
 }

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefFollowingUI: {fileID: 8788638365719360318, guid: f6e36f07e317aca4db18d2ad410c1839,
     type: 3}
-  weaponData: {fileID: 11400000, guid: e76854febc2f49a4a96b39b0342e9ba1, type: 2}
+  weaponData: {fileID: 11400000, guid: 32c48d8077f370e41a3fdf824f817057, type: 2}
   munitions: 0
 --- !u!135 &2848238055248664925
 SphereCollider:

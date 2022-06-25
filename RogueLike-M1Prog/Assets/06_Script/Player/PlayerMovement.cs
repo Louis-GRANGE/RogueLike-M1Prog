@@ -69,17 +69,9 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(pointDirection, _mainCamera.transform.forward, out hitUnderMouse, 1000, ~(1 << Constants.LayerIgnoreMouseHit), QueryTriggerInteraction.Ignore))
         {
             if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hitUnderMouse.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hitUnderMouse.collider.gameObject.tag))
-            {
-                _player.playerWeaponManager.TargetShootPos = hitUnderMouse.transform.position;
-                _player.playerWeaponManager.HaveTarget = true;
                 pointDirection = hitUnderMouse.collider.transform.position;
-            }
             else
-            {
-                _player.playerWeaponManager.TargetShootPos = hitUnderMouse.point;
-                _player.playerWeaponManager.HaveTarget = false;
                 pointDirection = hitUnderMouse.point + offsetShoot;
-            }
         }
 
 

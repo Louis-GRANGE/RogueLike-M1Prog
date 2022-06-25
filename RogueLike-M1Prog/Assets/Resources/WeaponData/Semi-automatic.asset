@@ -22,5 +22,6 @@ MonoBehaviour:
   fireLatency: 0.2
   spray: {x: 0.5, y: 0.5}
   DealDamageType: 1
+  AmmoMultiplier: 1
   munitionEffect: {fileID: 2170792420238155298, guid: d80b2ca01010c3b45b12253dbb2d18a1,
     type: 3}

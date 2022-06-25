@@ -26,7 +26,7 @@ public class PlayerCanvas : Singleton<PlayerCanvas>
     private void Start()
     {
         _playerHealthUI.UpdateHealth();
-        _weaponUI.UpdateWeapon(Player.Instance.WeaponManager._weaponData, Player.Instance.WeaponManager._munitions);
+        _weaponUI.UpdateWeapon(Player.Instance.WeaponManager._weaponData, Player.Instance.WeaponManager.weapon._munitions);
     }
 
     public void HitEffect() => _hitEffect.SetTrigger("Hit");

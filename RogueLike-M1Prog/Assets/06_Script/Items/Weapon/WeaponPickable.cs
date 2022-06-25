@@ -19,7 +19,6 @@ public class WeaponPickable : APickable
                     if (mainData.WeaponManager._weaponData == ((WeaponItem)item).weaponData)
                     {
                         mainData.WeaponManager.AddAmmo(((WeaponItem)item).munitions);
-                        DamageTextPool.instance.RequestMunitionText(transform.position, ((WeaponItem)item).munitions);
                         item.Desactivate();
                     }
                 }

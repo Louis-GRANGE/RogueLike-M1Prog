@@ -64,7 +64,6 @@ public abstract class AExplode : MonoBehaviour
         AHealth aHealth;
         if (other.TryGetComponent<AHealth>(out aHealth) && ToDealDamage.Contains(aHealth))
         {
-            Debug.Log("EXIT TRIGGER");
             if (ToDealDamage != null)
                 ToDealDamage.Remove(aHealth);
         }

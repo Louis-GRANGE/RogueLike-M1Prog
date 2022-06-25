@@ -20,7 +20,9 @@ public class PlayerWeaponManager : AWeaponManager
     [HideInInspector]
     public Vector3 TargetShootPos;
     [HideInInspector]
-    public bool HaveTarget;
+    public Transform HaveTarget;
+    //[HideInInspector]
+    //public bool HaveTarget;
 
     /*private void Awake()
     {
@@ -28,7 +30,7 @@ public class PlayerWeaponManager : AWeaponManager
     }*/
 
     public void Fire(InputAction.CallbackContext context) { IsFiring = context.performed; }
-    public void Interact(InputAction.CallbackContext context) { Debug.Log("Interact"); IsInteract = true; }
+    public void Interact(InputAction.CallbackContext context) { IsInteract = true; }
     public void UnInteract(InputAction.CallbackContext context) { IsInteract = false; }
 
     protected override void Start()
@@ -46,12 +48,23 @@ public class PlayerWeaponManager : AWeaponManager
     private void Update()
     {
         RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
+        if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag) || hit.transform.gameObject.GetComponent<AHealth>() && hit.transform.gameObject.GetComponent<AHealth>().CanBeDamage(weapon.weaponData.DealDamageType))
+        {
+            HaveTarget = hit.transform;
+            TargetShootPos = hit.transform.position;
+        }
+        else
+        {
+            HaveTarget = null;
+            TargetShootPos = hit.point;
+        }
+
         if (IsFiring)
         {
             if (hit.collider != null)
             {
                 // IF you can target a targetable object
-                if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag))
+                if (HaveTarget)
                 {
                     Shoot((hit.transform.position - weapon._canon.position).normalized);
                     return;
@@ -93,8 +106,11 @@ public class PlayerWeaponManager : AWeaponManager
             IsInteract = false;
             if (NewItem.GetType() == typeof(WeaponItem))
             {
+
+                Debug.Log("Destroy a weapon: " + weapon.name);
                 WeaponItem weaponItem = (WeaponItem)NewItem;
-                Destroy(weapon);
+                Destroy(weapon.gameObject);
+                Debug.Log("munition: " + weaponItem.munitions);
                 EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
                 weaponItem.Desactivate();
             }
@@ -117,7 +133,8 @@ public class PlayerWeaponManager : AWeaponManager
             if (NewItem.GetType() == typeof(WeaponItem))
             {
                 WeaponItem weaponItem = (WeaponItem)NewItem;
-                Destroy(weapon);
+                Destroy(weapon.gameObject);
+                Debug.Log("munition: " + weaponItem.munitions);
                 EquipWeapon(weaponItem.weaponData, weaponItem.munitions);
                 weaponItem.Desactivate();
             }
@@ -128,7 +145,7 @@ public class PlayerWeaponManager : AWeaponManager
     {
         base.EquipWeapon(_newWeapon, munitions);
         if (PlayerCanvas.instance)
-            PlayerCanvas.instance._weaponUI.UpdateWeapon(_newWeapon, _munitions);
+            PlayerCanvas.instance._weaponUI.UpdateWeapon(_newWeapon, weapon._munitions);
         
         if(SoundManager.Instance)
             SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Item);
@@ -136,13 +153,13 @@ public class PlayerWeaponManager : AWeaponManager
 
     public override void Shoot(Vector3 shootDirection, float additionnalSpray = 0)
     {
-        if(_munitions > 0)
+        if(weapon._munitions > 0)
         {
             base.Shoot(shootDirection, additionnalSpray);
             if (weapon.canShoot)
             {
-                _munitions -= 1;
-                PlayerCanvas.instance._weaponUI.UpdateAmmo(_munitions);
+                weapon._munitions -= 1;
+                PlayerCanvas.instance._weaponUI.UpdateAmmo(weapon._munitions);
             }
         }
     }

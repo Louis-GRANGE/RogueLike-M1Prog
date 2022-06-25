@@ -17,6 +17,7 @@ public class WeaponData : ScriptableObject
     [Tooltip("Weapon Spray 0 = NoSpray")]
     public Vector2 spray;
     public DamageType DealDamageType;
+    public float AmmoMultiplier = 1;
 
     [Space, Header("Effects")]
     public GameObject munitionEffect;

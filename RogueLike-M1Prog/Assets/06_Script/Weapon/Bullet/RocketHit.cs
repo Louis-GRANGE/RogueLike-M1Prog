@@ -7,15 +7,11 @@ public class RocketHit : MonoBehaviour
     [Header("External")]
     public AExplode Explosion;
     private Collider TriggerToExplode;
-    
-    private void Awake()
-    {
-        transform.parent.GetComponent<Rigidbody>().AddForce(transform.forward * 50, ForceMode.Impulse);
-        TriggerToExplode = GetComponent<Collider>();
-    }
 
     private void Start()
     {
+        transform.parent.GetComponent<Rigidbody>().AddForce(transform.forward * 50, ForceMode.Impulse);
+        TriggerToExplode = GetComponent<Collider>();
         Destroy(transform.parent.gameObject, 5);
     }
 
@@ -25,5 +21,13 @@ public class RocketHit : MonoBehaviour
             Physics.IgnoreCollision(other, TriggerToExplode);
         else
             Explosion.Explode();
+    }
+
+    private void Update()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, 2, ~(1 << Constants.LayerItem), QueryTriggerInteraction.Ignore))
+        {
+            Explosion.Explode();
+        }
     }
 }

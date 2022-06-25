@@ -18,7 +18,6 @@ public abstract class AWeaponManager : MonoBehaviour
     [HideInInspector]
     public WeaponData _weaponData;
     [Space]
-    public int _munitions = 50;
 
     [Header("Damages")]
     public int damages;
@@ -38,7 +37,7 @@ public abstract class AWeaponManager : MonoBehaviour
     protected virtual void Start()
     {
         if (FirstEquippedWeapons.Count > 0)
-            EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], _munitions);
+            EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], 50);
     }
 
     public virtual void InitData()
@@ -47,7 +46,7 @@ public abstract class AWeaponManager : MonoBehaviour
     }
 
     public virtual void DropWeapon(WeaponData _droppedWeapon, int munitions)
-    {   
+    {
         Vector3 dropPosition = transform.position + transform.forward;
         GameObject droppedWeapon = Instantiate(_droppedWeapon.weaponItem, dropPosition, transform.rotation);
         droppedWeapon.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
@@ -57,12 +56,11 @@ public abstract class AWeaponManager : MonoBehaviour
     public virtual void EquipWeapon(WeaponData _newWeapon, int munitions)
     {
         if (_weaponData)
-            DropWeapon(_weaponData, _munitions);
+            DropWeapon(_weaponData, weapon._munitions);
         _weaponData = _newWeapon;
 
         weapon = Instantiate(_newWeapon.weaponPrefab, weaponHandler);
         weapon.Equip(this, _newWeapon, munitions);
-        
         _animator.SetTrigger("Equip");
     }
 
@@ -73,9 +71,17 @@ public abstract class AWeaponManager : MonoBehaviour
         weapon.Shoot(shootDirection, additionnalSpray);
     }
 
+    public void AddBoxAmmo(int ammo)
+    {
+        int addAmmo = Mathf.RoundToInt(ammo * _weaponData.AmmoMultiplier);
+        weapon._munitions += addAmmo;
+        DamageTextPool.instance.RequestMunitionText(transform.position, addAmmo);
+        PlayerCanvas.instance._weaponUI.UpdateAmmo(weapon._munitions);
+    }
     public void AddAmmo(int ammo)
     {
-        _munitions += ammo;
-        PlayerCanvas.instance._weaponUI.UpdateAmmo(_munitions);
+        weapon._munitions += ammo;
+        DamageTextPool.instance.RequestMunitionText(transform.position, ammo);
+        PlayerCanvas.instance._weaponUI.UpdateAmmo(weapon._munitions);
     }
 }

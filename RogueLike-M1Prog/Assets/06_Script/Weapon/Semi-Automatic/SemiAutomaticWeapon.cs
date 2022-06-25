@@ -45,8 +45,8 @@ public class SemiAutomaticWeapon : AWeapon
         if (!base.Shoot(shootDirection, additionnalSpray))
             return false;
 
-        float sprayX = additionnalSpray + _weaponData.spray.x;
-        float sprayY = additionnalSpray + _weaponData.spray.y;
+        float sprayX = additionnalSpray + weaponData.spray.x;
+        float sprayY = additionnalSpray + weaponData.spray.y;
         shootDirection = shootDirection + transform.right * Random.Range(-sprayX / 10, sprayX / 10) + transform.up * Random.Range(-sprayY / 10, sprayY / 10);
         Vector3 TargetPoint = shootDirection + transform.position;
 
@@ -57,7 +57,7 @@ public class SemiAutomaticWeapon : AWeapon
             {
                 AHealth Health;
                 if (hit.collider.TryGetComponent(out Health))
-                    Health.TakeDamage(_damages, _owner.ownerMainData.gameObject, _weaponData.DealDamageType);
+                    Health.TakeDamage(_damages, _owner.ownerMainData.gameObject, weaponData.DealDamageType);
                 _laserPool.GetChild(0).GetComponent<LaserEffect>().DrawLine(_cannonFire.transform.position, hit.point);
                 _hitPool.GetChild(0).GetComponent<HitEffect>().DrawParticle(hit.point);
 
