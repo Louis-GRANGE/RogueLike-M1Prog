@@ -61,7 +61,7 @@ MonoBehaviour:
   VFX_Explosion: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c,
     type: 3}
   ExplodeDamage: 100
-  TimeBeforeExplode: 1
+  TimeBeforeExplode: 0.2
   ExplosionForce: 500000
   TriggerAreaDamage: {fileID: 6092030003408017043}
   DamageSender: {fileID: 0}

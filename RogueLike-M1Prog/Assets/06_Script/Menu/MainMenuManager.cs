@@ -98,7 +98,8 @@ public class MainMenuManager : MonoBehaviour
                     newGame.SetActive(false);
                     settings.SetActive(false);
                     main.SetActive(true);
-                    if(GameManager.instance.GameSave.CanContinue)
+                    //if(GameManager.instance.GameSave.CanContinue)
+                    if(SaveManager.instance.GetSave<SOSaveGame>().CanContinue)
                         SavedGame.SetActive(true);
                     break;
                 case "Settings":
@@ -121,9 +122,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueGame()
     {
-        GameManager.instance.Difficulty = GameManager.instance.GameSave.Difficulty;
-        GameManager.instance.SetRunSeed(GameManager.instance.GameSave.Seed);
-        
+        GameManager.instance.Difficulty = SaveManager.instance.GetSave<SOSaveGame>().Difficulty;
+        GameManager.instance.SetRunSeed(SaveManager.instance.GetSave<SOSaveGame>().Seed);
+
+
         SceneManager.LoadSceneAsync(Constants.GameLevel);
 
         GameManager.instance.StartGame();
@@ -134,7 +136,8 @@ public class MainMenuManager : MonoBehaviour
         if (!isLaunching)
         {
             isLaunching = true;
-            
+            SaveManager.instance.GetSave<SOSaveGame>().SetValues();
+
             string seedString = "";
             string numbers = "-0123456789";
             foreach (char mchar in seedText.text)
@@ -157,7 +160,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowSavedGame()
     {
-        SaveScriptableObject savedGame = GameManager.instance.GameSave;
+        SOSaveGame savedGame = SaveManager.instance.GetSave<SOSaveGame>();
         if (savedGame.CanContinue)
         {
             DifficultyText.text = "Difficulty : <color=white>" + savedGame.Difficulty + "</color>";

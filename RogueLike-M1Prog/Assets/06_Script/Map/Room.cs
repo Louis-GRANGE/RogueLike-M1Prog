@@ -209,9 +209,9 @@ public class Room : AMinimap
         }
     }
 
-    public void SendAIDied(Enemy enemyIndex)
+    public void SendAIDied(Enemy enemy)
     {
-        Enemies.Remove(enemyIndex);
+        Enemies.Remove(enemy);
         if (Enemies.Count == 0 && !IsCompleted)
         {
             IsCompleted = true;

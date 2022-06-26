@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e688c9caabb694ab08cf0681c28b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChipsPerf: {fileID: 4896334212523396841, guid: 4f8d19bad8dca284b9a227c0c5f9130e,
+    type: 3}
   PlayerPref: {fileID: 1393676193613207399, guid: 39531b8ea60100b4d84c0ee06241c2b8,
     type: 3}
   PlayerRef: {fileID: 0}
@@ -52,3 +54,4 @@ MonoBehaviour:
   RunSeed: 0
   Difficulty: 5
   GameSave: {fileID: 11400000, guid: 912c5163f2703fd4ebccdcdace1a98ac, type: 2}
+  SaveData: {fileID: 11400000, guid: de162d64a40a3114a80c0bcf1d78a242, type: 2}

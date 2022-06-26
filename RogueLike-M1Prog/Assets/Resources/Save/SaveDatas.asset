@@ -9,15 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7678c45a78de35a4fa24ca0d7bc9ce72, type: 3}
-  m_Name: Save
+  m_Script: {fileID: 11500000, guid: bf92382c1232b104eab881e2b8a385ad, type: 3}
+  m_Name: SaveDatas
   m_EditorClassIdentifier: 
-  CanContinue: 0
-  EquipedWeapon: {fileID: 0}
-  Health: 0
-  Munitions: 0
-  Difficulty: 0
-  Seed: 0
-  NumberKills: 0
-  DamagesDealt: 0
-  DamagesTaken: 0
+  fileName: SaveDatas

@@ -19,10 +19,13 @@ public class HealthEnemy : AHealth
     [Header("OnDeath")]
     public GameObject PrefabRagdoll;
 
+    private Enemy enemy;
+
     private void Awake()
     {
         ownerMainData = GetComponent<AMainData>();
         ownerMainData.HealthManager = this;
+        enemy = GetComponent<Enemy>();
     }
 
     public override void Start()
@@ -79,6 +82,8 @@ public class HealthEnemy : AHealth
         if (Sender.CompareTag(Constants.TagPlayer))
             Player.Instance.playerStats.NumberKills++;
 
+        GameManager.instance.SpawnChips(transform.position, Random.Range(enemy.SOEnemy.SpawningRangeChipsMoney.x, enemy.SOEnemy.SpawningRangeChipsMoney.y));
+
         Destroy(_healthBar.transform.parent.parent.gameObject);
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 
@@ -98,6 +103,7 @@ public class HealthEnemy : AHealth
         if (base.OnDeath())
             return true;
 
+        GameManager.instance.SpawnChips(transform.position, Random.Range(enemy.SOEnemy.SpawningRangeChipsMoney.x, enemy.SOEnemy.SpawningRangeChipsMoney.y));
         Destroy(_healthBar.transform.parent.parent.gameObject);
         GameObject ragdoll = Instantiate(PrefabRagdoll, transform.position, transform.rotation);
 

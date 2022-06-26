@@ -7,17 +7,26 @@ public class PlayerStats : MonoBehaviour
     public int NumberKills;
     public int DamagesDeals;
     public int DamageTaked;
+    SOSaveGame saveGame;
 
     private void Start()
     {
-        if (GameManager.instance.GameSave)
+        saveGame = SaveManager.instance.GetSave<SOSaveGame>();
+
+        if (saveGame)
         {
-            if (GameManager.instance.GameSave.NumberKills != 0)
-                NumberKills = GameManager.instance.GameSave.NumberKills;
-            else if (GameManager.instance.GameSave.DamagesDealt != 0)
-                DamagesDeals = GameManager.instance.GameSave.NumberKills;
-            else if (GameManager.instance.GameSave.DamagesTaken != 0)
-                DamageTaked = GameManager.instance.GameSave.NumberKills;
+            if (saveGame.CanContinue)
+            {
+                NumberKills = saveGame.NumberKills;
+                DamagesDeals = saveGame.DamagesDealt;
+                DamageTaked = saveGame.DamagesTaken;
+            }
+            else
+            {
+                NumberKills = 0;
+                DamagesDeals = 0;
+                DamageTaked = 0;
+            }
         }
     }
 }

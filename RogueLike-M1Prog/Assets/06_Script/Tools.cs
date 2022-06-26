@@ -14,4 +14,9 @@ public static class Tools
         ) + boxCollider.center;
         return boxCollider.transform.TransformPoint(point);
     }
+
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles, float distance)
+    {
+        return Quaternion.Euler(angles) * ((point - pivot) * distance) + pivot;
+    }
 }

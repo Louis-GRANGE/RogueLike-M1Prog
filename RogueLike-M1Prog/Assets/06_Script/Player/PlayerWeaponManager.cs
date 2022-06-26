@@ -38,8 +38,8 @@ public class PlayerWeaponManager : AWeaponManager
         _playerCanvas = PlayerCanvas.instance;
 
         _mainCamera = Camera.main;
-        if(GameManager.instance.GameSave.EquipedWeapon)
-            EquipWeapon(GameManager.instance.GameSave.EquipedWeapon, GameManager.instance.GameSave.Munitions);
+        if(SaveManager.instance.GetSave<SOSaveGame>().CanContinue && SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon)
+            EquipWeapon(SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon, SaveManager.instance.GetSave<SOSaveGame>().Munitions);
         else
             base.Start();
         //EquipWeapon(Resources.Load<WeaponData>("WeaponData/Automatic"), _munitions);

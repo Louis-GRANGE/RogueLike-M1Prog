@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("External")]
+    public GameObject ChipsPerf;
     public GameObject PlayerPref;
+
+
     [HideInInspector]
     public GameObject PlayerRef;
     [HideInInspector]
@@ -17,9 +21,6 @@ public class GameManager : Singleton<GameManager>
 
     public int Difficulty = 1;
 
-    [HideInInspector]
-    public SaveScriptableObject GameSave;
-
     protected override void Awake()
     {
         base.Awake();
@@ -29,8 +30,6 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-
-        GameSave.LoadSave();
     }
 
     private void Update()
@@ -84,11 +83,27 @@ public class GameManager : Singleton<GameManager>
     public void Save(bool dead = false)
     {
         if (dead)
-            GameSave.SetValues();
+            SaveManager.instance.GetSave<SOSaveGame>().SetValues(false, null, 0, 0, 0, 0, 0, 0, 0);
         else
         {
             Player player = Player.Instance;
-            GameSave.SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager.weapon._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
+            SaveManager.instance.GetSave<SOSaveGame>().SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager.weapon._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
+        }
+
+        SaveManager.instance.SaveAll();
+    }
+
+    public void SpawnChips(Vector3 pos, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            Vector3 randomDirection = Random.insideUnitSphere * 2;
+            randomDirection += pos;
+            UnityEngine.AI.NavMeshHit hit;
+            UnityEngine.AI.NavMesh.SamplePosition(randomDirection, out hit, 2, 1);
+            Vector3 finalPosition = hit.position;
+            if (finalPosition.x < Mathf.Infinity)
+                Instantiate(ChipsPerf, finalPosition, Quaternion.identity); 
         }
     }
 }

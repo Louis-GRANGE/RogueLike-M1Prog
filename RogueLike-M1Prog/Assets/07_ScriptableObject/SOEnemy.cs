@@ -8,4 +8,5 @@ public class SOEnemy : ScriptableObject
     public int Health;
     public string EnemyName;
     public Enemy Prefab;
+    public Vector2Int SpawningRangeChipsMoney;
 }

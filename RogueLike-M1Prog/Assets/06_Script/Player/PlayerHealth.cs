@@ -7,8 +7,8 @@ public class PlayerHealth : AHealth
 {
     public override void Start()
     {
-        if (GameManager.instance.GameSave.Health != 0)
-            health = GameManager.instance.GameSave.Health;
+        if (SaveManager.instance.GetSave<SOSaveGame>().CanContinue)
+            health = SaveManager.instance.GetSave<SOSaveGame>().Health;
         else
             base.Start();
     }

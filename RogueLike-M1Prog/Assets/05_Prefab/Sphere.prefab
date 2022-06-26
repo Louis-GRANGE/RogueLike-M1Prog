@@ -871,7 +871,7 @@ MonoBehaviour:
   HealthManager: {fileID: 0}
   WeaponManager: {fileID: 0}
   MovementManager: {fileID: 0}
-  SOEnemy: {fileID: 0}
+  SOEnemy: {fileID: 11400000, guid: a80ce0c95ee851b4594e1b875485a6fa, type: 2}
   RefInRoom: {fileID: 0}
   AIIndex: 0
 --- !u!114 &6206568241270920140
