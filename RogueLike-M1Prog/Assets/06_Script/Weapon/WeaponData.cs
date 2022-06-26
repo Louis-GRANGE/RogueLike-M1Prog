@@ -7,7 +7,7 @@ public class WeaponData : ScriptableObject
 {
     [Header("Models")]
     public AWeapon weaponPrefab;
-    public GameObject AmmoPrefab;
+    public ABullet bulletPrefab;
     public GameObject weaponItem;
     public Sprite icon;
 

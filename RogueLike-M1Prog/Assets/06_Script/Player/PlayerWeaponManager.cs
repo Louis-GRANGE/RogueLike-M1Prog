@@ -48,16 +48,20 @@ public class PlayerWeaponManager : AWeaponManager
     private void Update()
     {
         RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
-        if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag) || hit.transform.gameObject.GetComponent<AHealth>() && hit.transform.gameObject.GetComponent<AHealth>().CanBeDamage(weapon.weaponData.DealDamageType))
+        if (hit.transform)
         {
-            HaveTarget = hit.transform;
-            TargetShootPos = hit.transform.position;
+            if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag) || (hit.transform.gameObject.GetComponent<AHealth>() && hit.transform.gameObject.GetComponent<AHealth>().CanBeDamage(weapon.weaponData.DealDamageType)))
+            {
+                HaveTarget = hit.transform;
+                TargetShootPos = hit.transform.position;
+            }
+            else
+            {
+                HaveTarget = null;
+                TargetShootPos = hit.point;
+            }
         }
-        else
-        {
-            HaveTarget = null;
-            TargetShootPos = hit.point;
-        }
+
 
         if (IsFiring)
         {

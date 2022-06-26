@@ -15,7 +15,6 @@ public class DecalDrawOnTarget : MonoBehaviour
     private void Update()
     {
         URPDecalProjector.transform.position = _player.playerWeaponManager.TargetShootPos + Vector3.up;
-        Debug.Log("HaveTarget: " + _player.playerWeaponManager.HaveTarget);
         if (_player.playerWeaponManager.HaveTarget)
             URPDecalProjector.material.SetColor("_Tint", new Color(1, 0, 0)); // Set Red Shoot on Target
         else

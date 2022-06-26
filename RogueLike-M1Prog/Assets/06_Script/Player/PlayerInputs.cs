@@ -93,7 +93,6 @@ public class PlayerInputs : MonoBehaviour
 
     public EDeviceType GetCurrentDeviceType()
     {
-        Debug.Log(playerInput.currentControlScheme);
         switch (playerInput.currentControlScheme)
         {
             case "KeyboardAndMouse":

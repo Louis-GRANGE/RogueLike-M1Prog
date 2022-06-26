@@ -37,9 +37,11 @@ public abstract class AWeaponManager : MonoBehaviour
     protected virtual void Start()
     {
         if (FirstEquippedWeapons.Count > 0)
-            EquipWeapon(FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)], 50);
+        {
+            WeaponData weapondata = FirstEquippedWeapons[Random.Range(0, FirstEquippedWeapons.Count)];
+            EquipWeapon(weapondata, Mathf.RoundToInt(50 * weapondata.AmmoMultiplier));
+        }
     }
-
     public virtual void InitData()
     {
         

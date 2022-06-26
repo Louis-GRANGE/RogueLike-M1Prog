@@ -828,6 +828,7 @@ GameObject:
   - component: {fileID: 6206568241270920140}
   - component: {fileID: 6558441399301708667}
   - component: {fileID: 1778735779296362719}
+  - component: {fileID: 2142709540303910324}
   - component: {fileID: 5392821334361641071}
   - component: {fileID: 3187588230668100328}
   - component: {fileID: 7469653546028509032}
@@ -927,6 +928,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &2142709540303910324
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069383614974555114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!136 &5392821334361641071
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -970,15 +987,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7d55e31b221fe43954d4f966dd0a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerMainData: {fileID: 0}
   weaponHandler: {fileID: 4965308571563695684}
-  _canon: {fileID: 0}
   _animator: {fileID: 7568609172372761988}
   FirstEquippedWeapons: []
+  weapon: {fileID: 0}
   _weaponData: {fileID: 0}
-  _munitions: 50
-  hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}
-  fireRateLatency: 100
-  canShoot: 1
   damages: 0
   VisionMask:
     serializedVersion: 2
@@ -1807,6 +1821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d2ba4b6274d6542a92aabbac7f60b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ToDealDamage: []
   VFX_Explosion: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c,
     type: 3}
   ExplodeDamage: 10

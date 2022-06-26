@@ -15,18 +15,21 @@ public class RPGWeapon : AWeapon
         if (!base.Shoot(shootDirection, additionnalSpray))
             return false;
 
-        if (weaponData.AmmoPrefab)
+        if (weaponData.bulletPrefab)
         {
             if (playerWeaponManager && playerWeaponManager.HaveTarget)
             {
                 Vector3 targetDirection = playerWeaponManager.TargetShootPos - _canon.transform.position;
                 Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, 360.0f, 0.0f);
 
-                Instantiate(weaponData.AmmoPrefab, _canon.transform.position, Quaternion.LookRotation(newDirection));
+                ABullet bullet = Instantiate(weaponData.bulletPrefab, _canon.transform.position, Quaternion.LookRotation(newDirection));
+                bullet.Sender = _owner.ownerMainData.gameObject;
             }
             else
-                Instantiate(weaponData.AmmoPrefab, _canon.transform.position - Vector3.up * 0.1f, playerWeaponManager.transform.rotation);
-
+            {
+                ABullet bullet = Instantiate(weaponData.bulletPrefab, _canon.transform.position - Vector3.up * 0.1f, playerWeaponManager.transform.rotation);
+                bullet.Sender = _owner.ownerMainData.gameObject;
+            }
             PlaySound();
         }
         return true;

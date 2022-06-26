@@ -30,7 +30,6 @@ public class ShootPlayer : AState
                 Vector3 dir = (Player.Instance.transform.position - _mainData.transform.position).normalized;
                 if (Physics.Raycast(_mainData.transform.position, dir, out hit, 50))
                 {
-                    Debug.Log(hit.collider);
                     if (hit.collider.CompareTag(Constants.TagPlayer))
                         canShoot = true;
                     else

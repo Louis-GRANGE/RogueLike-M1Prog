@@ -6,21 +6,19 @@ using UnityEngine.UI;
 public class HealthBomb : AHealth
 {
     [Header("External")]
-    public ExplodeBomb explodeBomb;
+    public AExplode ExplodePref;
+    private GameObject LastSender;
+
+
     public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
         if(base.TakeDamage(damage, Sender, damageTypeSend))
         {
-            explodeBomb.DamageSender = Sender;
+            LastSender = Sender;
             DamageTextPool.instance.RequestDamageText(transform.position, damage);
             return true;
         }
         return false;
-    }
-
-    private void Update()
-    {
-
     }
 
     public override bool OnDeath(GameObject Sender)
@@ -28,10 +26,13 @@ public class HealthBomb : AHealth
         if (base.OnDeath(Sender))
             return true;
 
-        //explodeBomb.DamageSender = Sender;
-        explodeBomb.Explode();
+        LastSender = Sender;
+        AExplode exp = Instantiate(ExplodePref, transform.position, transform.rotation);
+        exp.transform.SetParent(transform);
+        exp.DamageSender = LastSender;
+        exp.GetComponent<AExplode>().ExplodeAndDestroyOwner(gameObject);
+
         SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Explosion);
-        //Destroy(gameObject);
         return true;
     }
 
@@ -40,10 +41,22 @@ public class HealthBomb : AHealth
         if (base.OnDeath())
             return true;
 
-        //explodeBomb.DamageSender = gameObject;
-        explodeBomb.Explode();
+        if (LastSender)
+        {
+            AExplode exp = Instantiate(ExplodePref, transform.position, transform.rotation);
+            exp.transform.SetParent(transform);
+            exp.DamageSender = LastSender;
+            exp.GetComponent<AExplode>().ExplodeAndDestroyOwner(gameObject);
+        }
+        else
+        {
+            AExplode exp = Instantiate(ExplodePref, transform.position, transform.rotation);
+            exp.transform.SetParent(transform);
+            exp.GetComponent<AExplode>().ExplodeAndDestroyOwner(gameObject);
+        }
+
+
         SoundManager.Instance.RequestSoundEffect(transform.position, SoundType.Explosion);
-        //Destroy(gameObject);
         return true;
     }
 }

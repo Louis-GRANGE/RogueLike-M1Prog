@@ -16,9 +16,11 @@ public abstract class AExplode : MonoBehaviour
     public SphereCollider TriggerAreaDamage;
 
     //[SerializeField]
-    private float ExplodeSize;
+    protected float ExplodeSize;
     [HideInInspector]
     public GameObject DamageSender;
+
+    protected GameObject _owner;
 
     protected virtual void Start()
     {
@@ -29,6 +31,13 @@ public abstract class AExplode : MonoBehaviour
 
     public virtual void Explode()
     {
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(ExplodeAfterTime());
+    }
+
+    public virtual void ExplodeAndDestroyOwner(GameObject owner)
+    {
+        _owner = owner;
         if (gameObject.activeInHierarchy)
             StartCoroutine(ExplodeAfterTime());
     }
@@ -69,7 +78,7 @@ public abstract class AExplode : MonoBehaviour
         }
     }
 
-    protected IEnumerator ExplodeAfterTime()
+    protected virtual IEnumerator ExplodeAfterTime()
     {
         yield return new WaitForSeconds(TimeBeforeExplode);
         ParticleSystem VFX = Instantiate(VFX_Explosion, transform.position, Quaternion.identity);
@@ -95,6 +104,7 @@ public abstract class AExplode : MonoBehaviour
 
             }
         }
-        Destroy(transform.parent.gameObject);
+        Destroy(transform.gameObject);
+        if (_owner) Destroy(_owner);
     }
 }

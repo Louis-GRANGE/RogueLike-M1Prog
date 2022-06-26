@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketHit : MonoBehaviour
+public class RocketHit : ABullet
 {
     [Header("External")]
-    public AExplode Explosion;
+    public AExplode ExplodePref;
     private Collider TriggerToExplode;
 
     private void Start()
     {
-        transform.parent.GetComponent<Rigidbody>().AddForce(transform.forward * 50, ForceMode.Impulse);
+        transform.GetComponent<Rigidbody>().AddForce(transform.forward * 50, ForceMode.Impulse);
         TriggerToExplode = GetComponent<Collider>();
-        Destroy(transform.parent.gameObject, 5);
+        Destroy(transform.gameObject, 5);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,14 +20,12 @@ public class RocketHit : MonoBehaviour
         if (other.isTrigger)
             Physics.IgnoreCollision(other, TriggerToExplode);
         else
-            Explosion.Explode();
-    }
-
-    private void Update()
-    {
-        if (Physics.Raycast(transform.position, transform.forward, 2, ~(1 << Constants.LayerItem), QueryTriggerInteraction.Ignore))
         {
-            Explosion.Explode();
+            AExplode exp = Instantiate(ExplodePref, transform.position, transform.rotation);
+            exp.DamageSender= Sender;
+            exp.GetComponent<AExplode>().Explode();
+
+            Destroy(gameObject);
         }
     }
 }
