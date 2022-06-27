@@ -19,4 +19,15 @@ public static class Tools
     {
         return Quaternion.Euler(angles) * ((point - pivot) * distance) + pivot;
     }
+
+    public static Vector3 BarycentreOfPoints(List<Vector3> points)
+    {
+        Vector3 barycentre = Vector3.zero;
+        foreach (Vector3 point in points)
+        {
+            barycentre += point;
+        }
+        barycentre /= points.Count;
+        return barycentre;
+    }
 }

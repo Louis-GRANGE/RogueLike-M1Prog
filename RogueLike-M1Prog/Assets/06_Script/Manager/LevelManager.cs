@@ -49,12 +49,11 @@ public class LevelManager : Singleton<LevelManager>
 
         if (IsEnd)
         {
-            Debug.Log("IS END");
             RefMapGenerator.SpawnPortal(roomFinish);
             Callback_OnEndLevel?.Invoke(roomFinish);
         }
 
-        GameManager.instance.Save();
+        SaveManager.instance.SaveAll();
     }
 
     public void MapEndGeneration()

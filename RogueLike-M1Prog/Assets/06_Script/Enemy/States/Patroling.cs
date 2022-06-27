@@ -7,10 +7,12 @@ using UnityEngine.AI;
 public class Patroling : AState
 {
     public float walkRadius = 1000;
+    AMovementEnemy _movementEnemy;
 
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
+        _movementEnemy = mainData.GetComponent<AMovementEnemy>();
     }
 
     public override void ExecuteState()
@@ -25,7 +27,7 @@ public class Patroling : AState
 
     void Patrol()
     {
-        if (_mainData.MovementManager.NavMeshAgent.isOnNavMesh)
+        if (_movementEnemy.NavMeshAgent.isOnNavMesh)
         {
             if (PathComplet())
             {
@@ -34,18 +36,18 @@ public class Patroling : AState
                 NavMeshHit hit;
                 NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
                 Vector3 finalPosition = hit.position;
-                _mainData.MovementManager.NavMeshAgent.SetDestination(finalPosition);
+                _movementEnemy.NavMeshAgent.SetDestination(finalPosition);
             }
         }
     }
 
     bool PathComplet()
     {
-        if (Vector3.Distance(_mainData.MovementManager.NavMeshAgent.destination, _mainData.MovementManager.NavMeshAgent.transform.position) <= _mainData.MovementManager.NavMeshAgent.stoppingDistance)
+        if (Vector3.Distance(_movementEnemy.NavMeshAgent.destination, _movementEnemy.NavMeshAgent.transform.position) <= _movementEnemy.NavMeshAgent.stoppingDistance)
         {
             return true;
         }
-        if (!_mainData.MovementManager.NavMeshAgent.hasPath || _mainData.MovementManager.NavMeshAgent.velocity.magnitude <= 0.1f)
+        if (!_movementEnemy.NavMeshAgent.hasPath || _movementEnemy.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
             return true;
         }

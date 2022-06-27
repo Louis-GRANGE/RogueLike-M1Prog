@@ -12,10 +12,17 @@ public class HealthBomb : AHealth
 
     public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        if(base.TakeDamage(damage, Sender, damageTypeSend))
+        if (CanBeDamage(damageTypeSend))
         {
-            LastSender = Sender;
-            DamageTextPool.instance.RequestDamageText(transform.position, damage);
+            health -= damage;
+            if (health <= 0)
+            {
+                if (!OnDeath(Sender))
+                {
+                    LastSender = Sender;
+                    DamageTextPool.instance.RequestDamageText(transform.position, damage);
+                }
+            }
             return true;
         }
         return false;

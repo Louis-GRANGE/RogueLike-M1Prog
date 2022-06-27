@@ -47,7 +47,7 @@ public abstract class AHealth : MonoBehaviour
 
     public virtual bool OnDeath()
     {
-        bool IsDead = CheckIsDead();
+        bool IsDead = CheckIsDead() || !gameObject.activeInHierarchy;
         return IsDead;
     }
     public virtual bool OnDeath(GameObject Sender)
@@ -73,7 +73,7 @@ public abstract class AHealth : MonoBehaviour
 
     private bool CheckIsDead()
     {
-        if (IsDeath || health > 0)
+        if (IsDeath /*|| health > 0*/)
         {
             return true;
         }

@@ -2,19 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementEnemy : AMovementManager
+public class MovementBasicEnemy : AMovementEnemy
 {
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
-    private void Update()
-    {
-        Anim();
-    }
-
-    public void Anim()
+    public override void Anim()
     {
         Vector3 pointDirection = transform.forward;
         Vector3 moveDirection = NavMeshAgent.velocity;

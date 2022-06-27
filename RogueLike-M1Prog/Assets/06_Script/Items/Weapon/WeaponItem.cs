@@ -9,6 +9,12 @@ public class WeaponItem : AItem
     [Header("Data")]
     public WeaponData weaponData;
     public int munitions;
+    Player _player;
+
+    private void Start()
+    {
+        _player = Player.Instance;
+    }
 
     public override void ActualizeShown()
     {
@@ -56,14 +62,14 @@ public class WeaponItem : AItem
 
     private void Update()
     {
-        if (_player)
+        /*if (_player)
         {
             float distance = Vector3.Distance(_player.transform.position, transform.position);
             if (distance <= 3 && !_equipText.activeSelf)
                 _equipText.SetActive(true);
             else if (distance > 3 && _equipText.activeSelf)
                 _equipText.SetActive(false);
-        }
+        }*/
     }
 
     //public override void HideShown() => _followingUI.transform.GetChild(0).gameObject.SetActive(false);

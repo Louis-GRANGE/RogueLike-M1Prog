@@ -6,18 +6,21 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "States/ChasePlayer")]
 public class ChasePlayer : AState
 {
-    Transform playerTransform;
+    Transform _playerTransform;
+    AMovementEnemy _movementEnemy;
 
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        playerTransform = GameManager.instance.PlayerRef.transform;
+        _playerTransform = GameManager.instance.PlayerRef.transform;
+        _movementEnemy = mainData.GetComponent<AMovementEnemy>();
+
     }
 
     public override void ExecuteState()
     {
-        if (playerTransform)
-            Chase(playerTransform);
+        if (_playerTransform)
+            Chase(_playerTransform);
     }
 
     public override void EndState()
@@ -26,9 +29,9 @@ public class ChasePlayer : AState
     }
     void Chase(Transform _transform)
     {
-        if (_mainData.MovementManager.NavMeshAgent.isOnNavMesh)
+        if (_movementEnemy.NavMeshAgent.isOnNavMesh)
         {
-            _mainData.MovementManager.NavMeshAgent.SetDestination(_transform.position);
+            _movementEnemy.NavMeshAgent.SetDestination(_transform.position);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : AMovementManager
 {
     Player _player;
 
@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     Rigidbody _rigidbody;
-    Animator _animator;
 
     [Header("Metrics")]
     public float speed;
@@ -25,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 offsetShoot;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody = GetComponent<Rigidbody>();
-        _animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()
     {
-        _player = Player.Instance;
+        _player = GetComponent<Player>();
         _mainCamera = Camera.main;
     }
 

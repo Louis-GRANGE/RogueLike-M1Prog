@@ -20,6 +20,7 @@ public class SOSaveGame : ASaveSO
 
     public void SetValues(bool isAlive = false, WeaponData equipedWeapon = null, int health = 0, int munitions = 0, int difficulty = 0, int seed = 0, int numberKills = 0, int damageDealt = 0, int damageTaken = 0)
     {
+        Debug.Log("SET VALUES: " + isAlive);
         CanContinue = isAlive;
         EquipedWeapon = equipedWeapon;
         Health = health;

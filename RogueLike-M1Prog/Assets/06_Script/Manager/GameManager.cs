@@ -34,6 +34,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
+        Debug.Log("Can Continue: " + SaveManager.instance.GetSave<SOSaveGame>().CanContinue);
         /*if(Input.GetKeyDown(KeyCode.R))
         {
             //NextLevel();
@@ -80,6 +81,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnPlayerDied()
     {
+        Debug.Log("PLAYER DIED");
         MenuManager.instance.looseMenu.ShowMenu();
     }
 
@@ -89,6 +91,7 @@ public class GameManager : Singleton<GameManager>
             SaveManager.instance.GetSave<SOSaveGame>().SetValues(false, null, 0, 0, 0, 0, 0, 0, 0);
         else
         {
+            Debug.Log("BEFORE SET VALUE TO TRUE");
             Player player = Player.Instance;
             SaveManager.instance.GetSave<SOSaveGame>().SetValues(true, player.WeaponManager._weaponData, player.HealthManager.health, player.WeaponManager.weapon._munitions, Difficulty, RunSeed, player.playerStats.NumberKills, player.playerStats.DamagesDeals, player.playerStats.DamageTaked);
         }

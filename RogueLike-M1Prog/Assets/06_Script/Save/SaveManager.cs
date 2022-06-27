@@ -12,11 +12,6 @@ public class SaveManager : Singleton<SaveManager>
         //LoadAll();
     }
 
-    private void Update()
-    {
-        Debug.Log("Nb Chips: " + GetSave<SOSaveDatas>().ChipsNumber);
-    }
-
     public T GetSave<T>() where T : ASaveSO
     {
         foreach (ASaveSO save in Saves)

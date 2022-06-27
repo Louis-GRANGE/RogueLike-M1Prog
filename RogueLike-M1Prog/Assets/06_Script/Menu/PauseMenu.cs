@@ -48,8 +48,7 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-
-        GameManager.instance.Save();
+        GameManager.instance.Save(false);
         SceneManager.LoadSceneAsync(Constants.MainMenu);
         Destroy(Player.Instance.gameObject);
     }

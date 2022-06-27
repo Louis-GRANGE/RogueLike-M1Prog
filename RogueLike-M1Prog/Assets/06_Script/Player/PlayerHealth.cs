@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerHealth : AHealth
 {
+    PlayerStats playerStats;
     public override void Start()
     {
+        playerStats = GetComponent<PlayerStats>();
         if (SaveManager.instance.GetSave<SOSaveGame>().CanContinue)
             health = SaveManager.instance.GetSave<SOSaveGame>().Health;
         else
@@ -22,13 +24,20 @@ public class PlayerHealth : AHealth
 
     public override bool TakeDamage(int damage, GameObject Sender, DamageType damageTypeSend)
     {
-        if (base.TakeDamage(damage, Sender, damageTypeSend))
+        if (CanBeDamage(damageTypeSend))
         {
-            Player.Instance.playerStats.DamageTaked += damage;
+            health -= damage;
+            playerStats.DamageTaked += damage;
             PlayerCanvas.instance._playerHealthUI.UpdateHealth();
             PlayerCanvas.instance.HitEffect();
-            if(health <= 0)
-                GameManager.instance.Save(true);
+            if (health <= 0)
+            {
+                if (!OnDeath(Sender))
+                {
+                    GameManager.instance.Save(true);
+                    Destroy(gameObject);
+                }
+            }
             return true;
         }
         return false;
@@ -39,6 +48,8 @@ public class PlayerHealth : AHealth
     {
         if (base.OnDeath() && GameManager.instance)
         {
+            if(health <= 0)
+                GameManager.instance.Save(true);
             GameManager.instance.OnPlayerDied();
             return true;
         }

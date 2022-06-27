@@ -47,7 +47,8 @@ public class HealthEnemy : AHealth
         if (base.TakeDamage(damage, Sender, damageTypeSend))
         {
             if (Sender.CompareTag(Constants.TagPlayer))
-                Player.Instance.playerStats.DamagesDeals += damage;    
+                Sender.GetComponent<PlayerStats>().DamagesDeals += damage;
+            //Player.Instance.playerStats.DamagesDeals += damage;    
 
             _healthBar.fillAmount = (float)health / (float)maxHealth;
             _healthBarMemoryAnim.SetTrigger("Hit");
@@ -80,7 +81,8 @@ public class HealthEnemy : AHealth
             return true;
 
         if (Sender.CompareTag(Constants.TagPlayer))
-            Player.Instance.playerStats.NumberKills++;
+            Sender.GetComponent<PlayerStats>().NumberKills++;
+            //Player.Instance.playerStats.NumberKills++;
 
         GameManager.instance.SpawnChips(transform.position, Random.Range(enemy.SOEnemy.SpawningRangeChipsMoney.x, enemy.SOEnemy.SpawningRangeChipsMoney.y));
 

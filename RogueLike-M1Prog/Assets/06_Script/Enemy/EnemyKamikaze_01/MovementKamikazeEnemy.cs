@@ -1,20 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class MovementKamikazeEnemy : AMovementManager
+public class MovementKamikazeEnemy : AMovementEnemy
 {
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
-    private void Update()
-    {
-        Anim();
-    }
-
-    public void Anim()
+    public override void Anim()
     {
         float moveDirection = NavMeshAgent.velocity.magnitude;
         _animator.SetFloat("Running", moveDirection);

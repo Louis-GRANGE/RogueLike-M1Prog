@@ -17,7 +17,9 @@ public class LooseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        GameManager.instance.Save(true);
+
+        SaveManager.instance.GetSave<SOSaveGame>().SetValues();
+        //GameManager.instance.Save(true);
         SceneManager.LoadSceneAsync(Constants.MainMenu);
     }
 

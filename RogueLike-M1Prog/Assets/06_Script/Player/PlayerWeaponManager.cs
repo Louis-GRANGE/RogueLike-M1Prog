@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerWeaponManager : AWeaponManager
 {
     PlayerCanvas _playerCanvas;
+    PlayerMovement _playerMovement;
 
     [Header("External References")]
     Camera _mainCamera;
@@ -36,6 +37,7 @@ public class PlayerWeaponManager : AWeaponManager
     protected override void Start()
     {
         _playerCanvas = PlayerCanvas.instance;
+        _playerMovement = GetComponent<PlayerMovement>();
 
         _mainCamera = Camera.main;
         if(SaveManager.instance.GetSave<SOSaveGame>().CanContinue && SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon)
@@ -47,7 +49,7 @@ public class PlayerWeaponManager : AWeaponManager
 
     private void Update()
     {
-        RaycastHit hit = Player.Instance.playerMovement.hitUnderMouse;
+        RaycastHit hit = _playerMovement.hitUnderMouse;//Player.Instance.playerMovement.hitUnderMouse;
         if (hit.transform)
         {
             if (Constants.TargetLayersOrTag.Contains(LayerMask.LayerToName(hit.collider.gameObject.layer)) || Constants.TargetLayersOrTag.Contains(hit.collider.gameObject.tag) || (hit.transform.gameObject.GetComponent<AHealth>() && hit.transform.gameObject.GetComponent<AHealth>().CanBeDamage(weapon.weaponData.DealDamageType)))
