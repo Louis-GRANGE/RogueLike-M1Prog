@@ -127,6 +127,7 @@ public class MainMenuManager : MonoBehaviour
 
 
         SceneManager.LoadSceneAsync(Constants.GameLevel);
+        GameManager.instance.SetRunSeed(SaveManager.instance.GetSave<SOSaveGame>().Seed);
 
         GameManager.instance.StartGame();
     }
@@ -150,6 +151,7 @@ public class MainMenuManager : MonoBehaviour
             {
                 GameManager.instance.SetRunSeed(seed);
                 SceneManager.LoadSceneAsync(Constants.GameLevel);
+                GameManager.instance.SetRunSeed(seed);
             }
             else
                 SceneManager.LoadSceneAsync(Constants.GameLevel);
