@@ -8,30 +8,30 @@ public class InputManager : Singleton<InputManager>
     [Header("External")]
     public PlayerInputManager playerInputManager;
 
-    public InputDevice lastDevice;
-
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        playerInputManager.onPlayerJoined += PlayerInputManager_onPlayerJoined;
-        InputSystem.onActionChange += InputSystem_onActionChange;
+        playerInputManager.EnableJoining();
+        GameManager.instance.onStartingGame += OnStartingGame;
     }
 
     private void OnDestroy()
     {
-        playerInputManager.onPlayerJoined -= PlayerInputManager_onPlayerJoined;
-        InputSystem.onActionChange -= InputSystem_onActionChange;
+        GameManager.instance.onStartingGame -= OnStartingGame;
     }
 
-    private void InputSystem_onActionChange(object obj, InputActionChange change)
+    public void OnStartingGame()
     {
-        if (change == InputActionChange.ActionPerformed)
-            lastDevice = ((InputAction)obj).activeControl.device;
+        playerInputManager.DisableJoining();
     }
 
-
-    private void PlayerInputManager_onPlayerJoined(PlayerInput obj)
+    public void OnPlayerJoin(PlayerInput context)
     {
-        
+        GameManager.instance.Players.Add(context.gameObject.GetComponent<Player>());
+        context.DeactivateInput();
+        Transform spawnPoint = LobbyManager.instance.getSpawnPointAndRemoveIt();
+        context.transform.position = spawnPoint.position;
+        context.transform.rotation = spawnPoint.rotation;
+        Debug.Log("Player Join Game: " + context.gameObject.name);
     }
 }

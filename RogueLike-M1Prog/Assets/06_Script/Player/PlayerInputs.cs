@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public enum EDeviceType
 {
     KeyboardAndMouse,
-    Gamepad
+    Gamepad,
+    None
 }
 
 public class PlayerInputs : MonoBehaviour
@@ -19,76 +20,19 @@ public class PlayerInputs : MonoBehaviour
     private void Awake()
     {
         inputs = new PlayerActionss();
-
-        inputs.Enable();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
     {
-        Player.Instance.playerInputs = this;
-        playerInput = GetComponent<PlayerInput>();
-        
-        //Setup Callbacks
-        inputs.Player.Move.performed += Player.Instance.playerMovement.OnMove;
-        inputs.Player.Move.canceled += Player.Instance.playerMovement.OnMove;
-
-        inputs.Player.Look.performed += Player.Instance.playerMovement.OnLook;
-        inputs.Player.Look.canceled += Player.Instance.playerMovement.OnLook;
-
-        inputs.Player.Fire.performed += Player.Instance.playerWeaponManager.Fire;
-        inputs.Player.Fire.canceled += Player.Instance.playerWeaponManager.Fire;
-
-        inputs.Player.Interact.started += Player.Instance.playerWeaponManager.Interact;
-        inputs.Player.Interact.canceled += Player.Instance.playerWeaponManager.UnInteract;
-
-        playerInput.onControlsChanged += OnControlsChanged;
-    }
-
-
-    private void Update()
-    {
         CurrentDeviceType = GetCurrentDeviceType();
+
+        GameManager.instance.onStartingGame += OnStartingGame;
     }
 
     private void OnDestroy()
     {
-        playerInput.onControlsChanged -= OnControlsChanged;
-        inputs.Player.Move.performed -= Player.Instance.playerMovement.OnMove;
-        inputs.Player.Move.canceled -= Player.Instance.playerMovement.OnMove;
-
-        inputs.Player.Look.performed -= Player.Instance.playerMovement.OnLook;
-        inputs.Player.Look.canceled -= Player.Instance.playerMovement.OnLook;
-
-        inputs.Player.Fire.performed -= Player.Instance.playerWeaponManager.Fire;
-        inputs.Player.Fire.canceled -= Player.Instance.playerWeaponManager.Fire;
-
-        inputs.Player.Interact.started -= Player.Instance.playerWeaponManager.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerWeaponManager.UnInteract;
-        inputs.Disable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.onControlsChanged -= OnControlsChanged;
-        inputs.Player.Move.performed -= Player.Instance.playerMovement.OnMove;
-        inputs.Player.Move.canceled -= Player.Instance.playerMovement.OnMove;
-
-        inputs.Player.Look.performed -= Player.Instance.playerMovement.OnLook;
-        inputs.Player.Look.canceled -= Player.Instance.playerMovement.OnLook;
-
-        inputs.Player.Fire.performed -= Player.Instance.playerWeaponManager.Fire;
-        inputs.Player.Fire.canceled -= Player.Instance.playerWeaponManager.Fire;
-
-        inputs.Player.Interact.started -= Player.Instance.playerWeaponManager.Interact;
-        inputs.Player.Interact.canceled -= Player.Instance.playerWeaponManager.UnInteract;
-        inputs.Disable();
-    }
-
-    private void OnControlsChanged(UnityEngine.InputSystem.PlayerInput obj)
-    {
-        Debug.Log($"Control Scheme changed : {playerInput.currentControlScheme}");
-        CurrentDeviceType = GetCurrentDeviceType();
-        OnDeviceTypeChanged?.Invoke(CurrentDeviceType);
+        GameManager.instance.onStartingGame -= OnStartingGame;
     }
 
     public EDeviceType GetCurrentDeviceType()
@@ -100,7 +44,13 @@ public class PlayerInputs : MonoBehaviour
             case "Gamepad":
                 return EDeviceType.Gamepad;
             default:
-                return EDeviceType.Gamepad;
+                return EDeviceType.None;
         }
+    }
+
+    public void OnStartingGame()
+    {
+        playerInput.ActivateInput();
+        GetComponent<PlayerMovement>().CanMove = true;
     }
 }

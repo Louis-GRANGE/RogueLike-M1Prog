@@ -13,10 +13,10 @@ public class Player : AMainData
 
     private void Awake()
     {
-        if (!Instance)
+        /*if (!Instance)
             Instance = this;
         else
-            Destroy(gameObject);
+            Destroy(gameObject);*/
 
         DontDestroyOnLoad(gameObject);
 
@@ -24,10 +24,11 @@ public class Player : AMainData
         playerWeaponManager = GetComponent<PlayerWeaponManager>();
         HealthManager = GetComponent<PlayerHealth>();
         playerStats = GetComponent<PlayerStats>();
+        playerInputs = GetComponent<PlayerInputs>();
     }
 
     private void Start()
     {
-        GameManager.instance.PlayerRef = gameObject;
+        //GameManager.instance.PlayerRef = gameObject;
     }
 }

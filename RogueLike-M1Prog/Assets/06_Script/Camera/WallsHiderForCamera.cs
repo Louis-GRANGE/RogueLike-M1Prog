@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class WallsHiderForCamera : MonoBehaviour
 {
-    Vector3 _offset;
-    Player _player;
     Transform Feets;
     //public float AlphaHide = 0.7f;
 
@@ -15,25 +13,24 @@ public class WallsHiderForCamera : MonoBehaviour
 
     public Material TransparentMaterial;
 
+    private PlayerMovement playerMovement;
+
 
     private void Start()
     {
-        _player = Player.Instance;
         Hides = new List<Renderer>();
         ObjectsMaterial = new List<Material>();
-        Feets = Player.Instance.transform.GetChild(0);
+        playerMovement = GetComponent<PlayerMovement>();
+        Feets = gameObject.transform.GetChild(0);
     }
 
     private void FixedUpdate()
     {
-        if (!_player)
-            return;
-
         List<Renderer> CurrentToHides;
-        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(Player.Instance.playerMovement.lookInput);
+        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(playerMovement.lookInput);
         //hits = Physics.RaycastAll(transform.position, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2).ToList();
         //hits.AddRange(Physics.RaycastAll(pointDirection, Camera.main.transform.forward, 1000, -5, QueryTriggerInteraction.Ignore).ToList());
-        CurrentToHides = AddingIfNotAdded(Physics.SphereCastAll(transform.position, 1.3f, Feets.position - transform.position, Vector3.Distance(Feets.position, transform.position) - 2).ToList(), Physics.RaycastAll(pointDirection, Camera.main.transform.forward, 1000, -5, QueryTriggerInteraction.Ignore).ToList());
+        CurrentToHides = AddingIfNotAdded(Physics.SphereCastAll(Camera.main.transform.position, 1.3f, Feets.position - Camera.main.transform.position, Vector3.Distance(Feets.position, Camera.main.transform.position) - 2).ToList(), Physics.RaycastAll(pointDirection, Camera.main.transform.forward, 1000, -5, QueryTriggerInteraction.Ignore).ToList());
 
         for (int i = Hides.Count - 1; i >= 0; i--) // SHOW
         {

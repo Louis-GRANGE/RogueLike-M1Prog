@@ -59,7 +59,13 @@ public class LevelManager : Singleton<LevelManager>
     public void MapEndGeneration()
     {
         MapGenerationEnd = true;
-        GameManager.instance.PlayerRef.transform.position = RefMapGenerator.Rooms[0].transform.position + Vector3.up;
+
+        foreach (Player player in GameManager.instance.Players)
+        {
+            player.transform.position = RefMapGenerator.Rooms[0].transform.position + Vector3.up;
+        }
+
+        //GameManager.instance.PlayerRef.transform.position = RefMapGenerator.Rooms[0].transform.position + Vector3.up;
     }
 
     public void LoadNewMap()

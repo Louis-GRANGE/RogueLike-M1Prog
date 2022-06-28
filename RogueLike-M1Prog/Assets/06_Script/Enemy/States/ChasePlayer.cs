@@ -12,7 +12,16 @@ public class ChasePlayer : AState
     public override void StartState(AMainData mainData)
     {
         base.StartState(mainData);
-        _playerTransform = GameManager.instance.PlayerRef.transform;
+        float mindist = Mathf.Infinity;
+        foreach (Player player in GameManager.instance.Players)
+        {
+            if (Vector3.Distance(player.transform.position, mainData.transform.position) < mindist)
+            {
+                _playerTransform = player.transform;
+            }
+        }
+
+        //_playerTransform = GameManager.instance.PlayerRef.transform;
         _movementEnemy = mainData.GetComponent<AMovementEnemy>();
 
     }

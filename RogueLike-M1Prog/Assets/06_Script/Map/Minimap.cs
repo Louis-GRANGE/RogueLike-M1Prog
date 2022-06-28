@@ -13,12 +13,24 @@ public class Minimap : MonoBehaviour
         _camera = GetComponent<Camera>();
         InitSize = _camera.orthographicSize;
 
-        Player.Instance.playerInputs.inputs.Player.Map.performed += ToggleMinimap;
+
+        foreach (Player player in GameManager.instance.Players)
+        {
+            if (player)
+                player.playerInputs.inputs.Player.Map.performed += ToggleMinimap;
+        }
+
+        //Player.Instance.playerInputs.inputs.Player.Map.performed += ToggleMinimap;
     }
 
     private void OnDestroy()
     {
-        Player.Instance.playerInputs.inputs.Player.Map.performed -= ToggleMinimap;
+        foreach (Player player in GameManager.instance.Players)
+        {
+            if (player)
+                player.playerInputs.inputs.Player.Map.performed -= ToggleMinimap;
+        }
+        //Player.Instance.playerInputs.inputs.Player.Map.performed -= ToggleMinimap;
     }
 
     public void ToggleMinimap(UnityEngine.InputSystem.InputAction.CallbackContext context)

@@ -12,6 +12,15 @@ public class ChipNumberUI : MonoBehaviour
         Number.text = SaveManager.instance.GetSave<SOSaveDatas>().ChipsNumber.ToString();
     }
 
+    private void OnDisable()
+    {
+        SaveManager.instance.GetSave<SOSaveDatas>().ChipsNumberValueChange -= UpdateChipNumber;
+    }
+    private void OnDestroy()
+    {
+        SaveManager.instance.GetSave<SOSaveDatas>().ChipsNumberValueChange -= UpdateChipNumber;
+    }
+
     public void UpdateChipNumber(int newnb)
     {
         Number.text = newnb.ToString();

@@ -60,7 +60,6 @@ public abstract class AWeaponManager : MonoBehaviour
         if (_weaponData)
             DropWeapon(_weaponData, weapon._munitions);
         _weaponData = _newWeapon;
-
         weapon = Instantiate(_newWeapon.weaponPrefab, weaponHandler);
         weapon.Equip(this, _newWeapon, munitions);
         _animator.SetTrigger("Equip");

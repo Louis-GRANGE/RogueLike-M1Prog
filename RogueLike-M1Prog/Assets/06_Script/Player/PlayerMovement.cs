@@ -22,7 +22,8 @@ public class PlayerMovement : AMovementManager
     public float speed;
 
     public Vector3 offsetShoot;
-
+    [HideInInspector]
+    public bool CanMove = false;
 
     protected override void Awake()
     {
@@ -32,7 +33,7 @@ public class PlayerMovement : AMovementManager
 
     private void Start()
     {
-        _player = GetComponent<Player>();
+        _player = ownerMainData.GetComponent<Player>();
         _mainCamera = Camera.main;
     }
 
@@ -42,9 +43,10 @@ public class PlayerMovement : AMovementManager
 
     private void FixedUpdate()
     {
+        if (!CanMove)
+            return;
         if (!_mainCamera)
             _mainCamera = Camera.main;
-
         switch (_player.playerInputs.CurrentDeviceType)
         {
             case EDeviceType.KeyboardAndMouse:
@@ -53,6 +55,11 @@ public class PlayerMovement : AMovementManager
                 break;
             }
             case EDeviceType.Gamepad:
+            {
+                transform.LookAt(new Vector3(transform.position.x + lookInput.x, transform.position.y, transform.position.z + lookInput.y));
+                break;
+            }
+            case EDeviceType.None:
             {
                 transform.LookAt(new Vector3(transform.position.x + lookInput.x, transform.position.y, transform.position.z + lookInput.y));
                 break;

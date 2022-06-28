@@ -294,6 +294,8 @@ GameObject:
   - component: {fileID: 8941489914755695196}
   - component: {fileID: 1418056470650216140}
   - component: {fileID: 4221218483965800050}
+  - component: {fileID: 3584852595372685675}
+  - component: {fileID: 1295177988918043427}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -315,6 +317,7 @@ Transform:
   m_Children:
   - {fileID: 1148661463385951381}
   - {fileID: 3782956267126663264}
+  - {fileID: 8800647560871688409}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -335,7 +338,7 @@ MonoBehaviour:
   WeaponManager: {fileID: 0}
   MovementManager: {fileID: 0}
   playerMovement: {fileID: 0}
-  playerShoot: {fileID: 0}
+  playerWeaponManager: {fileID: 0}
   playerInputs: {fileID: 0}
   playerStats: {fileID: 0}
 --- !u!114 &1393676193613207397
@@ -366,20 +369,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26399e9043d15a94c973acc05f7ebf46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerMainData: {fileID: 0}
   weaponHandler: {fileID: 3317130032803809420}
-  _canon: {fileID: 0}
   _animator: {fileID: 1367976720240311878}
   FirstEquippedWeapons:
   - {fileID: 11400000, guid: 85ae08148db640841932eece05a8a312, type: 2}
   - {fileID: 11400000, guid: e76854febc2f49a4a96b39b0342e9ba1, type: 2}
+  weapon: {fileID: 0}
   _weaponData: {fileID: 0}
-  _munitions: 200
-  hitFX: {fileID: 5559367187650277406, guid: 6846221fdd453734aacdcda30404f5b0, type: 3}
-  fireRateLatency: 100
-  canShoot: 1
   damages: 0
+  VisionMask:
+    serializedVersion: 2
+    m_Bits: 0
   TargetShootPos: {x: 0, y: 0, z: 0}
-  HaveTarget: 0
+  HaveTarget: {fileID: 0}
 --- !u!114 &6946871201334129182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 4221218483965800050}
-  CurrentDeviceType: 1
+  CurrentDeviceType: 2
 --- !u!114 &1418056470650216140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,19 +484,67 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393676193613207397}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2edae1ea-0b6e-41d9-b551-ce1ae8b35712
     m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393676193613207397}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f96c7a93-d8b7-4af1-a3ad-82c405533b35
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick,/Mouse/position]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393676193613207406}
+        m_TargetAssemblyTypeName: PlayerWeaponManager, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: cef7437f-cec4-40dd-a676-366a743bd518
     m_ActionName: Player/Fire[/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393676193613207406}
+        m_TargetAssemblyTypeName: PlayerWeaponManager, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 99a2e25a-0b9e-4a7f-be9e-3127837a8216
     m_ActionName: Player/Interact[/Keyboard/e,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
@@ -504,11 +555,37 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: afbd8a25-d7fa-423c-a5b5-f43c2d73d7a5
     m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start,/XInputControllerWindows1/start]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3584852595372685675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393676193613207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e48facc18039c4393164a3e0c3427a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransparentMaterial: {fileID: 2100000, guid: e3283cca913d25a4a8d6ae634c7341aa, type: 2}
+--- !u!114 &1295177988918043427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393676193613207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1350c78b00c686f40b1eb3aab44826ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  URPDecalProjector: {fileID: 9023189488307762673}
 --- !u!1 &1428893179816916006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1725,61 @@ Transform:
   m_Father: {fileID: 7844860115920688170}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6336607018459222270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800647560871688409}
+  - component: {fileID: 9023189488307762673}
+  m_Layer: 0
+  m_Name: DecalProjectorTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800647560871688409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336607018459222270}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5000001}
+  m_LocalPosition: {x: 5, y: 7.8500004, z: -5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1393676193613207393}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 45}
+--- !u!114 &9023189488307762673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336607018459222270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 0818ea9be22fbd5448840007b22453a1, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 1}
+  m_Size: {x: 1, y: 1, z: 2}
+  m_FadeFactor: 1
 --- !u!1 &6356495684509497390
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,14 +8,17 @@ public class GameManager : Singleton<GameManager>
     [Header("External")]
     public GameObject ChipsPerf;
     public GameObject PlayerPref;
+    public List<Player> Players;
 
-
-    [HideInInspector]
-    public GameObject PlayerRef;
+    //[HideInInspector]
+    //public GameObject PlayerRef;
     [HideInInspector]
     public Spawner SpawnerRef;
     [HideInInspector]
     public EnemyManager EnemyManagerRef;
+
+    public delegate void OnStartingGame();
+    public OnStartingGame onStartingGame;
 
     public int RunSeed = 0;
 
@@ -34,7 +37,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        Debug.Log("Can Continue: " + SaveManager.instance.GetSave<SOSaveGame>().CanContinue);
+        //Debug.Log("Can Continue: " + SaveManager.instance.GetSave<SOSaveGame>().CanContinue);
         /*if(Input.GetKeyDown(KeyCode.R))
         {
             //NextLevel();
@@ -44,7 +47,11 @@ public class GameManager : Singleton<GameManager>
 
     public void NextLevel()
     {
-        PlayerRef.transform.position = Vector3.up * 10000;
+        foreach (Player player in Players)
+        {
+            player.transform.position = Vector3.up * 10000;
+        }
+        //PlayerRef.transform.position = Vector3.up * 10000;
         Difficulty++;
 
         SetRunSeed(RunSeed);
@@ -74,8 +81,9 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         Instantiate(PlayerPref);
-        
-        Player player = Player.Instance;
+        onStartingGame();
+
+        //Player player = Player.Instance;
 
     }
 

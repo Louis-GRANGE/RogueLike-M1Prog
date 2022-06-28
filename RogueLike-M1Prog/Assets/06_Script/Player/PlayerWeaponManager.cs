@@ -31,7 +31,7 @@ public class PlayerWeaponManager : AWeaponManager
     }*/
 
     public void Fire(InputAction.CallbackContext context) { IsFiring = context.performed; }
-    public void Interact(InputAction.CallbackContext context) { IsInteract = true; }
+    public void Interact(InputAction.CallbackContext context) { IsInteract = context.started; } // TORECHECK
     public void UnInteract(InputAction.CallbackContext context) { IsInteract = false; }
 
     protected override void Start()
@@ -40,7 +40,7 @@ public class PlayerWeaponManager : AWeaponManager
         _playerMovement = GetComponent<PlayerMovement>();
 
         _mainCamera = Camera.main;
-        if(SaveManager.instance.GetSave<SOSaveGame>().CanContinue && SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon)
+        if(SaveManager.instance && SaveManager.instance.GetSave<SOSaveGame>() && SaveManager.instance.GetSave<SOSaveGame>().CanContinue && SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon)
             EquipWeapon(SaveManager.instance.GetSave<SOSaveGame>().EquipedWeapon, SaveManager.instance.GetSave<SOSaveGame>().Munitions);
         else
             base.Start();
