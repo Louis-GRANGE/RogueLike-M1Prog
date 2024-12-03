@@ -6,11 +6,9 @@ Rogue-like game with a top-down view.
 
 ---
 
-## 🎵 Music
-- [Jules](https://github.com/Polipot)
+## 🎵 Music - [Jules](https://github.com/Polipot)
 
-## 🎧 Sound Effects (FX)
-- [Louis](https://github.com/Louis-GRANGE/)
+## 🎧 Visual Effects (VFX) - [Louis](https://github.com/Louis-GRANGE/)
 
 ---
 
