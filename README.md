@@ -14,19 +14,19 @@ Rogue-like game with a top-down view.
 
 ## 💻 Programming
 
-- **Map Generator:**        -  [Louis](https://github.com/Louis-GRANGE/)
+- **Map Generator:**         [Louis](https://github.com/Louis-GRANGE/)
   
-- **Save System:**          - [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
+- **Save System:**           [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
 
-- **Menu:**                 -  [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
+- **Menu:**                  [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
 
-- **AI:**                   -  [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
+- **AI:**                    [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
 
-- **Camera:**               -  [Jules](https://github.com/Polipot)
+- **Camera:**                [Jules](https://github.com/Polipot)
 
-- **Weapons & Objects:**    -  [Louis](https://github.com/Louis-GRANGE/)
+- **Weapons & Objects:**     [Louis](https://github.com/Louis-GRANGE/)
 
-- **Player Controller:**    -  [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
+- **Player Controller:**     [Louis](https://github.com/Louis-GRANGE/) & [Jules](https://github.com/Polipot)
 
 ---
 
